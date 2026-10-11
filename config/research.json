@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "random_seed": 20261010,
+  "timestamp_semantics": "bar_open_utc",
+  "data_source": {
+    "provider": "HistData.com; 2023 missing timestamps repaired from EV Trading Labs M15 BID derived from Dukascopy ticks",
+    "instrument": "XAUUSD",
+    "price_side": "BID",
+    "raw_time_zone": "empirical HistData EST-like clock: UTC-05 winter, UTC-04 on European DST calendar",
+    "normalized_time_zone": "UTC",
+    "normalized_file": "data/XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+    "reconstruction_policy": "preserve every HistData bar and insert only absent 2023 timestamps",
+    "repair_source_url": "https://evtradelabs.com/data",
+    "volume_policy": "ignored"
+  },
+  "m15_minutes": 15,
+  "minimum_history_years": 3.0,
+  "costs": {
+    "spread_usd": 0.30,
+    "slippage_usd_per_trade": 0.10,
+    "stress_multiplier": 1.5
+  },
+  "labeling": {
+    "reward_risk": 2.0,
+    "max_holding_m15_bars": 32,
+    "min_risk_atr": 0.8,
+    "max_risk_atr": 3.0,
+    "same_bar_sl_tp": "LOSS"
+  },
+  "setup_a": {
+    "atr_length": 14,
+    "m15_ema_length": 20,
+    "h1_fast_ema_length": 50,
+    "h1_slow_ema_length": 200,
+    "adx_length": 14,
+    "adx_threshold": 20.0,
+    "pullback_lookback": 20,
+    "pullback_min_atr": 0.8,
+    "pullback_max_atr": 2.5,
+    "ema_touch_atr": 0.3,
+    "sl_buffer_atr": 0.25
+  },
+  "setup_b": {
+    "atr_length": 14,
+    "pivot_left": 5,
+    "pivot_right": 5,
+    "pivot_max_age_bars": 60,
+    "sweep_buffer_atr": 0.1,
+    "confirmation_window_bars": 3,
+    "sl_buffer_atr": 0.25
+  },
+  "split": {
+    "train_fraction": 0.6,
+    "validation_fraction": 0.2,
+    "test_fraction": 0.2
+  },
+  "sessions_utc_deferred": true
+}
+

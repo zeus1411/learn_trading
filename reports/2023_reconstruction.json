@@ -1,0 +1,180 @@
+{
+  "compatibility_gates": {
+    "all_histdata_2023_timestamps_present_in_repair_source": true,
+    "all_ohlc_p99_differences_at_most_0_02_usd": true,
+    "at_least_20000_overlap_bars": true,
+    "median_close_difference_at_most_0_01_usd": true
+  },
+  "filled_timestamp_examples": [
+    "2023-01-23T19:00:00+00:00",
+    "2023-01-23T19:15:00+00:00",
+    "2023-01-23T19:30:00+00:00",
+    "2023-01-23T19:45:00+00:00",
+    "2023-01-30T09:00:00+00:00",
+    "2023-01-30T09:15:00+00:00",
+    "2023-01-30T09:30:00+00:00",
+    "2023-01-30T09:45:00+00:00",
+    "2023-01-30T18:00:00+00:00",
+    "2023-01-30T18:15:00+00:00",
+    "2023-01-30T18:30:00+00:00",
+    "2023-01-30T18:45:00+00:00",
+    "2023-02-20T10:00:00+00:00",
+    "2023-02-20T10:15:00+00:00",
+    "2023-02-20T10:30:00+00:00",
+    "2023-02-20T10:45:00+00:00",
+    "2023-02-20T12:00:00+00:00",
+    "2023-02-20T12:15:00+00:00",
+    "2023-02-20T12:30:00+00:00",
+    "2023-02-20T12:45:00+00:00",
+    "2023-02-20T14:00:00+00:00",
+    "2023-02-20T14:15:00+00:00",
+    "2023-02-20T14:30:00+00:00",
+    "2023-02-20T14:45:00+00:00",
+    "2023-02-20T16:00:00+00:00",
+    "2023-02-20T16:15:00+00:00",
+    "2023-02-20T16:30:00+00:00",
+    "2023-02-20T16:45:00+00:00",
+    "2023-02-20T18:00:00+00:00",
+    "2023-02-20T18:15:00+00:00"
+  ],
+  "histdata_2023_rows": 20600,
+  "histdata_only_rows": 0,
+  "input_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC.csv",
+  "input_sha256": "dd7d81e41bf9a16a5eb17041222f1b55eeb1986358e257a563c51495c75d3d16",
+  "inserted_by_month": {
+    "2023-01": 12,
+    "2023-02": 180,
+    "2023-03": 584,
+    "2023-04": 484,
+    "2023-05": 600,
+    "2023-06": 562,
+    "2023-07": 522
+  },
+  "inserted_rows": 2944,
+  "insertion_context": {
+    "UNEXPECTED_INTRASESSION_GAP": 2792,
+    "WEEKEND_CROSSING_LATE_REOPEN": 152
+  },
+  "m1_count_policy": "Preserved for HistData rows; blank for inserted pre-aggregated M15 rows",
+  "output_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+  "output_rows": 159471,
+  "output_sha256": "99654161cc09ab9336e20063666b467250b0181151dab366ed1ead162e68d3f6",
+  "overlap_abs_difference_usd": {
+    "close": {
+      "max_abs_usd": 1.7050000000001546,
+      "mean_abs_usd": 0.0046803398057378015,
+      "median_abs_usd": 0.004999999999881766,
+      "p95_abs_usd": 0.004999999999881766,
+      "p99_abs_usd": 0.005000000000109139
+    },
+    "high": {
+      "max_abs_usd": 0.1150000000000091,
+      "mean_abs_usd": 0.004548203883404659,
+      "median_abs_usd": 0.004999999999881766,
+      "p95_abs_usd": 0.004999999999881766,
+      "p99_abs_usd": 0.005000000000109139
+    },
+    "low": {
+      "max_abs_usd": 2.5150000000001,
+      "mean_abs_usd": 0.004536893203800572,
+      "median_abs_usd": 0.004999999999881766,
+      "p95_abs_usd": 0.004999999999881766,
+      "p99_abs_usd": 0.005000000000109139
+    },
+    "open": {
+      "max_abs_usd": 0.005000000000109139,
+      "mean_abs_usd": 0.004521165048456171,
+      "median_abs_usd": 0.004999999999881766,
+      "p95_abs_usd": 0.004999999999881766,
+      "p99_abs_usd": 0.005000000000109139
+    }
+  },
+  "overlap_outlier_examples": [
+    {
+      "histdata": {
+        "close": 1912.395,
+        "high": 1914.115,
+        "low": 1912.325,
+        "open": 1913.935
+      },
+      "histdata_m1_count": "12",
+      "max_abs_usd": 0.30500000000006366,
+      "repair_source": {
+        "close": 1912.7,
+        "high": 1914.12,
+        "low": 1912.11,
+        "open": 1913.93
+      },
+      "timestamp": "2023-09-13T14:45:00+00:00"
+    },
+    {
+      "histdata": {
+        "close": 1904.425,
+        "high": 1906.975,
+        "low": 1904.385,
+        "open": 1905.675
+      },
+      "histdata_m1_count": "5",
+      "max_abs_usd": 2.5150000000001,
+      "repair_source": {
+        "close": 1903.05,
+        "high": 1906.97,
+        "low": 1901.87,
+        "open": 1905.67
+      },
+      "timestamp": "2023-09-14T13:45:00+00:00"
+    },
+    {
+      "histdata": {
+        "close": 1910.035,
+        "high": 1910.275,
+        "low": 1906.645,
+        "open": 1906.808
+      },
+      "histdata_m1_count": "10",
+      "max_abs_usd": 1.7050000000001546,
+      "repair_source": {
+        "close": 1908.33,
+        "high": 1910.39,
+        "low": 1906.64,
+        "open": 1906.81
+      },
+      "timestamp": "2023-09-14T14:45:00+00:00"
+    },
+    {
+      "histdata": {
+        "close": 1946.318,
+        "high": 1946.918,
+        "low": 1946.128,
+        "open": 1946.818
+      },
+      "histdata_m1_count": "10",
+      "max_abs_usd": 0.32799999999997453,
+      "repair_source": {
+        "close": 1946.06,
+        "high": 1946.92,
+        "low": 1945.8,
+        "open": 1946.82
+      },
+      "timestamp": "2023-09-20T17:45:00+00:00"
+    }
+  ],
+  "overlap_rows": 20600,
+  "policy": "Preserve every HistData bar; insert only absent 2023 timestamps from repair source",
+  "repair_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2023.json.gz",
+  "repair_sha256": "4dc07363f1b178af4f7a5e9b9a5bc8dc58e78906a9ac99730b0086c4a86f5972",
+  "repair_source": {
+    "catalog_url": "https://evtradelabs.com/data",
+    "download_url": "https://evtradelabs.com/api/simulator/data/XAUUSD/M15/2023.json.gz",
+    "instrument": "XAUUSD",
+    "license_note": "Free use with attribution to EV Trading Labs",
+    "price_side_used": "BID (o, h, l, c); ASK fields were not used",
+    "publisher": "EV Trading Labs",
+    "timeframe": "M15",
+    "timestamp_semantics": "bar open",
+    "timezone": "UTC",
+    "upstream": "Dukascopy ticks"
+  },
+  "repair_source_2023_rows": 23544,
+  "status": "PASS"
+}

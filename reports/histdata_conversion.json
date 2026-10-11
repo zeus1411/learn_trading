@@ -1,0 +1,233 @@
+{
+  "conflicting_duplicate_examples": [
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-28T18:08:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-28T18:09:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-28T22:03:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-28T22:04:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T01:42:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T01:43:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:00:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:01:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:09:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:10:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:15:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T10:16:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T20:13:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T20:14:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T21:08:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T21:09:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T21:20:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T21:21:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T22:57:00-04:00"
+    },
+    {
+      "occurrences": 2,
+      "policy": "open first, high max, low min, close last",
+      "timestamp": "2026-06-29T22:58:00-04:00"
+    }
+  ],
+  "conflicting_duplicate_m1_rows_merged": 778,
+  "corrections": [
+    {
+      "action": "APPLY_EMPIRICAL_HISTDATA_EU_DST_CLOCK_AND_CONVERT_TO_UTC",
+      "detail": "UTC-05 in winter; UTC-04 from the last Sunday of March through the day before the last Sunday of October."
+    },
+    {
+      "action": "DROP_EXACT_DUPLICATE_M1_ROWS",
+      "count": 360
+    },
+    {
+      "action": "MERGE_CONFLICTING_DUPLICATE_M1_ROWS",
+      "count": 778,
+      "detail": "For a repeated minute: open first, high max, low min, close last."
+    },
+    {
+      "action": "RESAMPLE_M1_TO_M15",
+      "detail": "Left-labelled, left-closed OHLC; empty buckets not synthesized."
+    },
+    {
+      "action": "DROP_VOLUME",
+      "detail": "Research rules prohibit volume features."
+    }
+  ],
+  "exact_duplicate_examples": [
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:00:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:01:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:02:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:03:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:04:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:05:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:06:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:07:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:08:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:09:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:10:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:11:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:12:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:13:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:14:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:15:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:16:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:17:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:18:00-05:00"
+    },
+    {
+      "occurrences": 2,
+      "timestamp": "2020-10-25T19:19:00-05:00"
+    }
+  ],
+  "exact_duplicate_m1_rows_dropped": 360,
+  "input_m1_rows": 2348269,
+  "m15_rows_with_fewer_than_15_m1_rows": 459,
+  "m1_gap_events_including_market_closures": 2729,
+  "output": "E:\\SelfProject\\data\\XAUUSD_M15_UTC.csv",
+  "output_m15_rows": 156527,
+  "output_sha256": "dd7d81e41bf9a16a5eb17041222f1b55eeb1986358e257a563c51495c75d3d16",
+  "output_timezone": "UTC",
+  "price_side": "BID",
+  "source": "E:\\SelfProject\\rawdata\\merged\\XAUUSD_M1_FULL.csv",
+  "source_end": "2026-10-02T16:58:00-04:00",
+  "source_format": "HistData MetaTrader M1 bars",
+  "source_sha256": "fb74784646897fd9ee24658ee6e6404b044ae7c29c216c43d99a4e3407bd11a1",
+  "source_start": "2020-01-01T18:00:00-05:00",
+  "source_timezone": "empirical HistData EST-like clock: UTC-05 in winter, UTC-04 between the last Sundays of March and October",
+  "status": "PASS",
+  "timestamp_semantics": "bar open",
+  "timezone_correction": "Applied +5 hours in winter and +4 hours in the empirically observed summer interval, then converted to UTC",
+  "timezone_evidence": "Empirical BID-price alignment against Dukascopy-derived M15 data for 2022-2024; the provider's generic fixed-EST documentation and standard America/New_York DST dates do not match this downloaded dataset",
+  "unique_m1_timestamps": 2347131,
+  "utc_end": "2026-10-02T20:58:00+00:00",
+  "utc_start": "2020-01-01T23:00:00+00:00",
+  "volume_policy": "ignored and omitted from normalized output"
+}

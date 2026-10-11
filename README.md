@@ -1,0 +1,75 @@
+# XAUUSD Intraday Edge Research
+
+This repository implements the staged, no-lookahead research workflow described
+in the project brief.  Research stages are deliberately gated: only Stage 0 is
+implemented in this checkpoint.
+
+## Stage 0
+
+Run data validation and the required causal-signal test:
+
+```powershell
+python run.py --stage data --data data\xauusd_m15.csv
+```
+
+CSV timestamps must include a UTC offset (`Z` or `+00:00`).  If the source is
+known to be UTC but stores naive timestamps, use the explicit, logged
+correction:
+
+```powershell
+python run.py --stage data --data data\xauusd_m15.csv --assume-utc
+```
+
+Outputs are written to `reports/data_quality.json`,
+`reports/corrections.jsonl`, and `reports/stage0_run.json`.  The command exits
+non-zero for conflicting duplicates, malformed/bad OHLC ticks, insufficient
+history, or a failed no-lookahead test.  Gaps and weekend observations are
+reported, never silently filled or dropped.
+
+Run deterministic tests from one command:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+For the current HistData source, rebuild normalized M15 UTC data, reconstruct
+missing 2023 timestamps from the frozen repair file, and run Stage 0:
+
+```powershell
+python src\convert_m1_to_m15.py
+python src\reconstruct_2023.py
+python run.py --stage data --data .\data\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv
+```
+
+The reconstruction never overwrites a HistData bar. It inserts only timestamps
+that are absent in 2023, using the BID OHLC fields from the downloaded EV
+Trading Labs annual M15 file (derived from Dukascopy ticks). Inserted rows are
+identified by the `source` column and have blank `m1_count`, because the repair
+source is already aggregated to M15. See
+`reports/2023_reconstruction.json` for hashes, compatibility gates, counts, and
+price-difference diagnostics.
+
+## Frozen Stage 0 assumptions
+
+- Input timestamps identify M15 bar **opens** in UTC.
+- The current raw source is HistData MetaTrader M1 BID data. Although the
+  provider's general specification says fixed EST, this downloaded XAUUSD set
+  was empirically verified against Dukascopy-derived BID M15 prices for
+  2022-2024. It uses UTC-05 in winter and UTC-04 between the last Sundays of
+  March and October (European DST dates), not standard `America/New_York` DST.
+  The rule is explicit and regression-tested rather than inferred at runtime.
+- The base normalized file is `data/XAUUSD_M15_UTC.csv`. The active research
+  file is `data/XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv`, containing 2,944 added
+  2023 bars. Volume is omitted because the research brief prohibits its use.
+- H1/H4 bars are aligned to UTC clock boundaries.
+- HTF values are shifted by a complete HTF bucket before joining to M15.  Thus
+  no observation from the current H1/H4 bucket is available to a signal.
+- ATR and ADX use Wilder smoothing; EMA uses `adjust=False` recurrence seeded
+  by the first observation.
+- Exact duplicate rows are removed and logged. Conflicting duplicate
+  timestamps are fatal. Out-of-order input is sorted and logged.
+- Pivot ties do not form a pivot (the center must be strictly above/below every
+  other bar in its window).
+- The location/session bucketing definitions are deferred to their specified
+  stages and are not used in Stage 0.
+

@@ -1,0 +1,1167 @@
+{
+  "data_quality": {
+    "bad_tick_examples": [],
+    "bad_tick_rows": 0,
+    "conflicting_duplicate_timestamps": 0,
+    "corrections": [],
+    "end_utc": "2026-10-02T20:45:00+00:00",
+    "estimated_missing_bars": 77257,
+    "exact_duplicate_rows": 0,
+    "fatal_errors": [],
+    "gap_examples": [
+      {
+        "after": "2020-01-02T21:45:00+00:00",
+        "before": "2020-01-02T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-03T21:45:00+00:00",
+        "before": "2020-01-05T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-01-06T21:45:00+00:00",
+        "before": "2020-01-06T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-07T21:45:00+00:00",
+        "before": "2020-01-07T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-08T21:45:00+00:00",
+        "before": "2020-01-08T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-09T21:45:00+00:00",
+        "before": "2020-01-09T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-10T21:45:00+00:00",
+        "before": "2020-01-12T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-01-13T21:45:00+00:00",
+        "before": "2020-01-13T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-14T21:45:00+00:00",
+        "before": "2020-01-14T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-15T21:45:00+00:00",
+        "before": "2020-01-15T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-16T21:45:00+00:00",
+        "before": "2020-01-16T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-17T21:45:00+00:00",
+        "before": "2020-01-19T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-01-20T17:45:00+00:00",
+        "before": "2020-01-20T23:00:00+00:00",
+        "category": "UNEXPECTED",
+        "crosses_weekend": false,
+        "delta_minutes": 315.0,
+        "estimated_missing_bars": 20
+      },
+      {
+        "after": "2020-01-21T21:45:00+00:00",
+        "before": "2020-01-21T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-22T21:45:00+00:00",
+        "before": "2020-01-22T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-23T21:45:00+00:00",
+        "before": "2020-01-23T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-24T21:45:00+00:00",
+        "before": "2020-01-26T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-01-27T21:45:00+00:00",
+        "before": "2020-01-27T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-28T21:45:00+00:00",
+        "before": "2020-01-28T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-29T21:45:00+00:00",
+        "before": "2020-01-29T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-30T21:45:00+00:00",
+        "before": "2020-01-30T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-01-31T21:45:00+00:00",
+        "before": "2020-02-02T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-02-03T21:45:00+00:00",
+        "before": "2020-02-03T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-04T21:45:00+00:00",
+        "before": "2020-02-04T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-05T21:45:00+00:00",
+        "before": "2020-02-05T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-06T21:45:00+00:00",
+        "before": "2020-02-06T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-07T21:45:00+00:00",
+        "before": "2020-02-09T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-02-10T21:45:00+00:00",
+        "before": "2020-02-10T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-11T21:45:00+00:00",
+        "before": "2020-02-11T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-12T21:45:00+00:00",
+        "before": "2020-02-12T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-13T21:45:00+00:00",
+        "before": "2020-02-13T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-14T21:45:00+00:00",
+        "before": "2020-02-16T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-02-17T17:45:00+00:00",
+        "before": "2020-02-17T23:00:00+00:00",
+        "category": "UNEXPECTED",
+        "crosses_weekend": false,
+        "delta_minutes": 315.0,
+        "estimated_missing_bars": 20
+      },
+      {
+        "after": "2020-02-18T21:45:00+00:00",
+        "before": "2020-02-18T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-19T21:45:00+00:00",
+        "before": "2020-02-19T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-20T21:45:00+00:00",
+        "before": "2020-02-20T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-21T21:45:00+00:00",
+        "before": "2020-02-23T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-02-24T21:45:00+00:00",
+        "before": "2020-02-24T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-25T21:45:00+00:00",
+        "before": "2020-02-25T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-26T21:45:00+00:00",
+        "before": "2020-02-26T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-27T21:45:00+00:00",
+        "before": "2020-02-27T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-02-28T21:45:00+00:00",
+        "before": "2020-03-01T23:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-03-02T21:45:00+00:00",
+        "before": "2020-03-02T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-03T21:45:00+00:00",
+        "before": "2020-03-03T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-04T21:45:00+00:00",
+        "before": "2020-03-04T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-05T21:45:00+00:00",
+        "before": "2020-03-05T23:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-06T21:45:00+00:00",
+        "before": "2020-03-08T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2895.0,
+        "estimated_missing_bars": 192
+      },
+      {
+        "after": "2020-03-09T20:45:00+00:00",
+        "before": "2020-03-09T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-10T20:45:00+00:00",
+        "before": "2020-03-10T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-11T20:45:00+00:00",
+        "before": "2020-03-11T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-12T20:45:00+00:00",
+        "before": "2020-03-12T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-13T20:45:00+00:00",
+        "before": "2020-03-15T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-03-16T20:45:00+00:00",
+        "before": "2020-03-16T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-17T20:45:00+00:00",
+        "before": "2020-03-17T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-18T20:45:00+00:00",
+        "before": "2020-03-18T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-19T20:45:00+00:00",
+        "before": "2020-03-19T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-20T20:45:00+00:00",
+        "before": "2020-03-22T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-03-23T20:45:00+00:00",
+        "before": "2020-03-23T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-24T20:45:00+00:00",
+        "before": "2020-03-24T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-25T20:45:00+00:00",
+        "before": "2020-03-25T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-26T20:45:00+00:00",
+        "before": "2020-03-26T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-27T20:45:00+00:00",
+        "before": "2020-03-29T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-03-29T22:45:00+00:00",
+        "before": "2020-03-30T00:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-30T20:45:00+00:00",
+        "before": "2020-03-30T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-03-31T20:45:00+00:00",
+        "before": "2020-03-31T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-01T20:45:00+00:00",
+        "before": "2020-04-01T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-02T20:45:00+00:00",
+        "before": "2020-04-02T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-03T20:45:00+00:00",
+        "before": "2020-04-05T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-04-06T20:45:00+00:00",
+        "before": "2020-04-06T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-07T20:45:00+00:00",
+        "before": "2020-04-07T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-08T20:45:00+00:00",
+        "before": "2020-04-08T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-09T20:45:00+00:00",
+        "before": "2020-04-12T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 4395.0,
+        "estimated_missing_bars": 292
+      },
+      {
+        "after": "2020-04-13T20:45:00+00:00",
+        "before": "2020-04-13T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-14T20:45:00+00:00",
+        "before": "2020-04-14T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-15T20:45:00+00:00",
+        "before": "2020-04-15T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-16T20:45:00+00:00",
+        "before": "2020-04-16T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-17T20:45:00+00:00",
+        "before": "2020-04-19T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-04-20T20:45:00+00:00",
+        "before": "2020-04-20T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-21T20:45:00+00:00",
+        "before": "2020-04-21T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-22T20:45:00+00:00",
+        "before": "2020-04-22T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-23T20:45:00+00:00",
+        "before": "2020-04-23T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-24T20:45:00+00:00",
+        "before": "2020-04-26T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-04-27T20:45:00+00:00",
+        "before": "2020-04-27T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-28T20:45:00+00:00",
+        "before": "2020-04-28T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-29T20:45:00+00:00",
+        "before": "2020-04-29T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-04-30T20:45:00+00:00",
+        "before": "2020-04-30T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-01T20:45:00+00:00",
+        "before": "2020-05-03T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-05-04T20:45:00+00:00",
+        "before": "2020-05-04T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-05T20:45:00+00:00",
+        "before": "2020-05-05T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-06T20:45:00+00:00",
+        "before": "2020-05-06T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-07T20:45:00+00:00",
+        "before": "2020-05-07T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-08T20:45:00+00:00",
+        "before": "2020-05-10T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-05-11T20:45:00+00:00",
+        "before": "2020-05-11T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-12T20:45:00+00:00",
+        "before": "2020-05-12T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-13T20:45:00+00:00",
+        "before": "2020-05-13T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-14T20:45:00+00:00",
+        "before": "2020-05-14T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-15T20:45:00+00:00",
+        "before": "2020-05-17T22:00:00+00:00",
+        "category": "WEEKEND_OR_WEEKEND_CROSSING",
+        "crosses_weekend": true,
+        "delta_minutes": 2955.0,
+        "estimated_missing_bars": 196
+      },
+      {
+        "after": "2020-05-18T20:45:00+00:00",
+        "before": "2020-05-18T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-19T20:45:00+00:00",
+        "before": "2020-05-19T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      },
+      {
+        "after": "2020-05-20T20:45:00+00:00",
+        "before": "2020-05-20T22:00:00+00:00",
+        "category": "SCHEDULED_DAILY_METALS_BREAK",
+        "crosses_weekend": false,
+        "delta_minutes": 75.0,
+        "estimated_missing_bars": 4
+      }
+    ],
+    "incomplete_m15_rows": 459,
+    "input_rows": 159471,
+    "m1_count_distribution": {
+      "1": 2,
+      "10": 8,
+      "11": 15,
+      "12": 18,
+      "13": 58,
+      "14": 342,
+      "15": 156068,
+      "2": 1,
+      "4": 1,
+      "5": 3,
+      "6": 2,
+      "7": 2,
+      "8": 4,
+      "9": 3
+    },
+    "m1_count_status": "PARTIAL",
+    "meets_minimum_span": true,
+    "missing_m1_count_rows": 2944,
+    "nonweekend_gap_events": 1395,
+    "out_of_order_rows": 0,
+    "scheduled_market_break_events": 1342,
+    "severely_incomplete_m15_rows": 117,
+    "source": "E:\\SelfProject\\data\\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+    "span_years": 6.751422000451755,
+    "start_utc": "2020-01-01T23:00:00+00:00",
+    "status": "PASS",
+    "timezone_status": "UTC_OFFSETS_PRESENT",
+    "total_gap_events": 1753,
+    "unexpected_gap_events": 53,
+    "unexpected_gaps_by_month": {
+      "2020-01": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2020-02": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2020-05": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2020-08": {
+        "estimated_missing_bars": 4,
+        "events": 1
+      },
+      "2020-09": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2020-11": {
+        "estimated_missing_bars": 96,
+        "events": 2
+      },
+      "2021-01": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2021-02": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2021-05": {
+        "estimated_missing_bars": 80,
+        "events": 1
+      },
+      "2021-07": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2021-09": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2021-11": {
+        "estimated_missing_bars": 21,
+        "events": 1
+      },
+      "2022-01": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2022-02": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2022-05": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2022-06": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2022-07": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2022-09": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2022-11": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2023-01": {
+        "estimated_missing_bars": 20,
+        "events": 1
+      },
+      "2023-02": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2023-05": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2023-06": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2023-07": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2023-09": {
+        "estimated_missing_bars": 17,
+        "events": 2
+      },
+      "2023-11": {
+        "estimated_missing_bars": 18,
+        "events": 1
+      },
+      "2024-01": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-02": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-05": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-06": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-07": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-09": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-10": {
+        "estimated_missing_bars": 3,
+        "events": 1
+      },
+      "2024-11": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2024-12": {
+        "estimated_missing_bars": 213,
+        "events": 2
+      },
+      "2025-01": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-02": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-05": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-06": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-09": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-10": {
+        "estimated_missing_bars": 8,
+        "events": 1
+      },
+      "2025-11": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2025-12": {
+        "estimated_missing_bars": 213,
+        "events": 2
+      },
+      "2026-01": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2026-02": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2026-03": {
+        "estimated_missing_bars": 4,
+        "events": 1
+      },
+      "2026-05": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2026-09": {
+        "estimated_missing_bars": 14,
+        "events": 1
+      },
+      "2026-10": {
+        "estimated_missing_bars": 3,
+        "events": 1
+      }
+    },
+    "unexpected_missing_bars": 1258,
+    "usable_rows": 159471,
+    "warnings": [
+      "53 unexpected gap events (1258 estimated bars) found; no bars were synthesized",
+      "459 M15 bars contain fewer than 15 source M1 bars (117 contain fewer than 14)",
+      "2944 M15 bars come from an already-aggregated source, so m1_count is unavailable",
+      "2304 bars have Saturday/Sunday UTC timestamps; they were retained"
+    ],
+    "weekend_crossing_gap_events": 358,
+    "weekend_rows": 2304
+  },
+  "run_utc": "2026-10-11T05:07:47.911461+00:00",
+  "stage": 0,
+  "status": "PASS",
+  "test_no_lookahead": {
+    "full_signal_count": 15111,
+    "sample_indices": [
+      693,
+      10272,
+      11077,
+      15191,
+      15392,
+      17987,
+      22338,
+      24270,
+      28359,
+      35642,
+      43619,
+      44687,
+      45535,
+      47174,
+      50392,
+      55933,
+      61140,
+      66540,
+      67422,
+      69826,
+      76248,
+      77262,
+      77519,
+      78413,
+      79953,
+      83547,
+      85737,
+      85895,
+      86366,
+      87991,
+      90490,
+      91820,
+      93520,
+      101386,
+      102969,
+      103250,
+      103501,
+      105245,
+      109813,
+      115572,
+      118818,
+      119134,
+      134543,
+      142525,
+      143160,
+      147090,
+      147315,
+      147969,
+      157863,
+      158589
+    ],
+    "sample_timestamps": [
+      "2020-01-13T11:15:00+00:00",
+      "2020-06-09T03:00:00+00:00",
+      "2020-06-19T20:15:00+00:00",
+      "2020-08-21T18:45:00+00:00",
+      "2020-08-26T00:00:00+00:00",
+      "2020-10-05T08:45:00+00:00",
+      "2020-12-10T18:45:00+00:00",
+      "2021-01-12T23:00:00+00:00",
+      "2021-03-16T16:15:00+00:00",
+      "2021-07-07T22:00:00+00:00",
+      "2021-11-05T18:15:00+00:00",
+      "2021-11-23T10:15:00+00:00",
+      "2021-12-06T23:45:00+00:00",
+      "2021-12-31T18:30:00+00:00",
+      "2022-02-20T23:00:00+00:00",
+      "2022-05-17T06:45:00+00:00",
+      "2022-08-04T05:00:00+00:00",
+      "2022-10-26T00:30:00+00:00",
+      "2022-11-08T15:00:00+00:00",
+      "2022-12-15T00:45:00+00:00",
+      "2023-03-27T01:45:00+00:00",
+      "2023-04-12T02:15:00+00:00",
+      "2023-04-14T20:30:00+00:00",
+      "2023-04-28T14:00:00+00:00",
+      "2023-05-23T08:00:00+00:00",
+      "2023-07-17T17:00:00+00:00",
+      "2023-08-18T12:30:00+00:00",
+      "2023-08-22T06:00:00+00:00",
+      "2023-08-29T08:45:00+00:00",
+      "2023-09-22T03:30:00+00:00",
+      "2023-10-31T08:00:00+00:00",
+      "2023-11-20T19:30:00+00:00",
+      "2023-12-15T15:15:00+00:00",
+      "2024-04-18T12:45:00+00:00",
+      "2024-05-13T17:30:00+00:00",
+      "2024-05-16T18:45:00+00:00",
+      "2024-05-21T12:30:00+00:00",
+      "2024-06-17T14:00:00+00:00",
+      "2024-08-26T11:00:00+00:00",
+      "2024-11-21T06:00:00+00:00",
+      "2025-01-13T20:30:00+00:00",
+      "2025-01-17T07:30:00+00:00",
+      "2025-09-11T12:15:00+00:00",
+      "2026-01-14T23:45:00+00:00",
+      "2026-01-26T00:00:00+00:00",
+      "2026-03-25T19:00:00+00:00",
+      "2026-03-30T07:15:00+00:00",
+      "2026-04-09T09:45:00+00:00",
+      "2026-09-08T12:15:00+00:00",
+      "2026-09-18T09:45:00+00:00"
+    ],
+    "samples": 50,
+    "seed": 20261010,
+    "status": "PASS"
+  }
+}

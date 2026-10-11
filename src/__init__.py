@@ -1,0 +1,2 @@
+"""Causal XAUUSD research pipeline."""
+
