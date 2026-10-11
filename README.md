@@ -4,6 +4,22 @@ This repository implements the staged, no-lookahead research workflow described
 in the project brief. Research stages are deliberately gated. Stage 0 and Stage
 1 are implemented; evaluation and later stages remain blocked.
 
+## Local setup
+
+The repository intentionally does not contain the market-data CSV files. Put the
+active normalized BID file at
+`data/XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv`; its SHA-256 must match the value
+frozen in `config/research.json`.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m unittest discover -s tests -v
+```
+
+The current reproducible environment is Python 3.8.10 with Matplotlib 3.7.5.
+All generated reports are research artifacts, not financial advice.
+
 ## Stage 0
 
 Run data validation and the required causal-signal test:
@@ -106,4 +122,14 @@ The source field is preserved from input bar through signals and labeled trades.
 Long entry uses ask (`bid + spread`) plus adverse slippage; long barriers use
 bid. Short entry uses bid minus adverse slippage; short barriers and exits use
 synthetic ask (`bid + spread`).
+
+## Stage 2 gate (pre-registered)
+
+Stage 2 remains blocked until the 40 Stage 1 charts have been reviewed and the
+user explicitly approves Stage 1. The sample-size rule is not reinterpreted
+after results are seen: each setup must have at least 300 labeled trades on the
+validation partition and at least 300 in the concatenated walk-forward
+out-of-sample windows. Stage 3 later requires at least 100 test trades per
+setup. Metrics are also reported per direction, but the GO/NO-GO decision is
+made per setup, exactly as specified in the project brief.
 

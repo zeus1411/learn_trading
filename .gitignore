@@ -1,1 +1,24 @@
-rawdata
+# Local market data. Keep only the directory placeholder in Git.
+/data/*
+!/data/.gitkeep
+/rawdata/
+/download/
+
+# Provider caches and temporary downloads.
+/.dukascopy-cache/
+/.tmp_dukascopy_pkg/
+/.tmp_*
+*.whl
+*.jar
+*.zip
+
+# Python environments and bytecode.
+/.venv/
+/venv/
+__pycache__/
+*.py[cod]
+
+# Test/tool caches.
+/.pytest_cache/
+/.mypy_cache/
+/.ruff_cache/
