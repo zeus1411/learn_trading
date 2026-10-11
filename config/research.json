@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "random_seed": 20261010,
   "timestamp_semantics": "bar_open_utc",
   "data_source": {
@@ -9,8 +9,10 @@
     "raw_time_zone": "empirical HistData EST-like clock: UTC-05 winter, UTC-04 on European DST calendar",
     "normalized_time_zone": "UTC",
     "normalized_file": "data/XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+    "normalized_file_sha256": "99654161cc09ab9336e20063666b467250b0181151dab366ed1ead162e68d3f6",
     "reconstruction_policy": "preserve every HistData bar and insert only absent 2023 timestamps",
     "repair_source_url": "https://evtradelabs.com/data",
+    "timezone_verification_report": "reports/timezone_verification_2020_2026.json",
     "volume_policy": "ignored"
   },
   "m15_minutes": 15,
@@ -18,7 +20,19 @@
   "costs": {
     "spread_usd": 0.30,
     "slippage_usd_per_trade": 0.10,
-    "stress_multiplier": 1.5
+    "stress_multiplier": 1.5,
+    "bid_data_execution": {
+      "long_entry": "ask = bid open + spread; adverse slippage added at entry",
+      "long_barriers_and_exit": "checked and filled on bid",
+      "short_entry": "bid open; adverse slippage subtracted at entry",
+      "short_barriers_and_exit": "checked and filled on synthetic ask = bid + spread"
+    }
+  },
+  "gap_policy": {
+    "signal_block_unexpected_gap_lookback_m15_bars": 100,
+    "trade_crosses_any_gap_or_weekend": "close at last contiguous bar as TIMEOUT",
+    "signal_entry_crosses_gap": "SKIPPED_ENTRY_GAP",
+    "synthesize_missing_bars": false
   },
   "labeling": {
     "reward_risk": 2.0,
@@ -50,9 +64,30 @@
     "sl_buffer_atr": 0.25
   },
   "split": {
+    "method": "chronological_rows_floor_60_20_20",
     "train_fraction": 0.6,
     "validation_fraction": 0.2,
-    "test_fraction": 0.2
+    "test_fraction": 0.2,
+    "total_rows": 159471,
+    "train": {
+      "start_utc": "2020-01-01T23:00:00+00:00",
+      "end_utc": "2024-01-22T10:00:00+00:00",
+      "rows": 95682
+    },
+    "validation": {
+      "start_utc": "2024-01-22T10:15:00+00:00",
+      "end_utc": "2025-05-28T09:15:00+00:00",
+      "rows": 31894
+    },
+    "test": {
+      "start_utc": "2025-05-28T09:30:00+00:00",
+      "end_utc": "2026-10-02T20:45:00+00:00",
+      "rows": 31895,
+      "partition_sha256": "1a96e7873bd39b43f2570d6e8b810a0e2b83422878e19a953cbfb4e6c7f89fec",
+      "hash_definition": "SHA256 of UTF-8 canonical JSON arrays; first array is ordered CSV field names, followed by one array of ordered string field values per test row, each plus LF",
+      "locked": true,
+      "results_read_during_development": false
+    }
   },
   "sessions_utc_deferred": true
 }

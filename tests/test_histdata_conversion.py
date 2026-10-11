@@ -2,7 +2,7 @@ import unittest
 from datetime import timezone
 
 from src.convert_m1_to_m15 import _merge_occurrences, _parse_timestamp
-from src.data_quality import _is_scheduled_metals_break
+from src.gaps import HOLIDAY_BREAK, classify_gap, is_scheduled_metals_break
 
 
 class HistDataConversionTests(unittest.TestCase):
@@ -27,8 +27,13 @@ class HistDataConversionTests(unittest.TestCase):
         winter_after = _parse_timestamp("2020.01.15", "18:00").astimezone(timezone.utc)
         summer_before = _parse_timestamp("2020.07.15", "16:45").astimezone(timezone.utc)
         summer_after = _parse_timestamp("2020.07.15", "18:00").astimezone(timezone.utc)
-        self.assertTrue(_is_scheduled_metals_break(winter_before, winter_after))
-        self.assertTrue(_is_scheduled_metals_break(summer_before, summer_after))
+        self.assertTrue(is_scheduled_metals_break(winter_before, winter_after))
+        self.assertTrue(is_scheduled_metals_break(summer_before, summer_after))
+
+    def test_us_holiday_early_close_is_not_unexpected(self):
+        start = _parse_timestamp("2023.07.04", "14:15").astimezone(timezone.utc)
+        end = _parse_timestamp("2023.07.04", "18:00").astimezone(timezone.utc)
+        self.assertEqual(HOLIDAY_BREAK, classify_gap(start, end))
 
 
 if __name__ == "__main__":

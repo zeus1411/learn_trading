@@ -1,8 +1,8 @@
 # XAUUSD Intraday Edge Research
 
 This repository implements the staged, no-lookahead research workflow described
-in the project brief.  Research stages are deliberately gated: only Stage 0 is
-implemented in this checkpoint.
+in the project brief. Research stages are deliberately gated. Stage 0 and Stage
+1 are implemented; evaluation and later stages remain blocked.
 
 ## Stage 0
 
@@ -72,4 +72,38 @@ price-difference diagnostics.
   other bar in its window).
 - The location/session bucketing definitions are deferred to their specified
   stages and are not used in Stage 0.
+
+## Stage 1
+
+Stage 1 is restricted to the frozen train and validation partitions. The locked
+test partition starts at `2025-05-28T09:30:00+00:00`; no test-period signal or
+trade result is generated.
+
+```powershell
+python run.py --stage signals
+python run.py --stage label
+```
+
+The signals command reruns the 50-timestamp no-lookahead test on the real Setup
+A and B functions, including confirmed pivots, previous-closed H1 features,
+previous-closed H4 mapping, and the causal gap filter. The label command applies
+the BID-side cost model, writes the trade and skip logs, and creates 20
+deterministic chart examples for each setup.
+
+Stage 1 outputs:
+
+- `reports/stage1_signals.json` and `reports/signals_stage1.csv`
+- `reports/stage1_label.json`, `reports/trades_stage1.csv`, and
+  `reports/skipped_signals_stage1.csv`
+- `reports/charts/setup_a` and `reports/charts/setup_b`
+- `reports/STAGE1_SUMMARY.md`
+
+Gap rules are frozen in `config/research.json`: an unexpected gap in the prior
+100 M15 bars suppresses a signal; an open trade reaching any discontinuity
+closes on the last contiguous bar as `TIMEOUT`. No missing bars are synthesized.
+
+The source field is preserved from input bar through signals and labeled trades.
+Long entry uses ask (`bid + spread`) plus adverse slippage; long barriers use
+bid. Short entry uses bid minus adverse slippage; short barriers and exits use
+synthetic ask (`bid + spread`).
 

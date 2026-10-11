@@ -22,6 +22,8 @@ class NoLookaheadTests(unittest.TestCase):
         result = test_no_lookahead(self.bars, self.config, samples=50)
         self.assertEqual("PASS", result["status"])
         self.assertEqual(50, result["samples"])
+        self.assertIn("previous closed H4 bar mapping (verified although not a setup condition)",
+                      result["component_coverage"])
 
     def test_h1_features_use_previous_bucket(self) -> None:
         baseline = shifted_h1_features(self.bars[:120])

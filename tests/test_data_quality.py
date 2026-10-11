@@ -95,6 +95,28 @@ class DataQualityTests(unittest.TestCase):
         finally:
             temp.cleanup()
 
+    def test_source_column_is_preserved(self):
+        temp = tempfile.TemporaryDirectory()
+        path = Path(temp.name) / "bars.csv"
+        row = {
+            "timestamp": "2024-01-01T00:00:00+00:00",
+            "open": 1,
+            "high": 2,
+            "low": 1,
+            "close": 2,
+            "source": "TEST_SOURCE",
+        }
+        try:
+            with path.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=list(row))
+                writer.writeheader()
+                writer.writerow(row)
+            bars, report = validate_m15_csv(path, minimum_years=0)
+            self.assertEqual("TEST_SOURCE", bars[0].source)
+            self.assertFalse(report.fatal_errors)
+        finally:
+            temp.cleanup()
+
 
 if __name__ == "__main__":
     unittest.main()

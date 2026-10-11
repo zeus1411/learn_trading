@@ -54,6 +54,7 @@ def generate_signals_a(
                     min([bar.low] + [item.low for item in previous])
                     - config["sl_buffer_atr"] * current_atr,
                     current_atr,
+                    signal_bar_source=bar.source,
                 )
             )
 
@@ -77,6 +78,7 @@ def generate_signals_a(
                     max([bar.high] + [item.high for item in previous])
                     + config["sl_buffer_atr"] * current_atr,
                     current_atr,
+                    signal_bar_source=bar.source,
                 )
             )
     return output

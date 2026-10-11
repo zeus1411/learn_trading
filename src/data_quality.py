@@ -6,6 +6,13 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
+from .gaps import (
+    DAILY_BREAK,
+    HOLIDAY_BREAK,
+    UNEXPECTED,
+    WEEKEND,
+    classify_gap,
+)
 from .models import Bar
 
 
@@ -38,6 +45,7 @@ class QualityReport:
     total_gap_events: int = 0
     nonweekend_gap_events: int = 0
     scheduled_market_break_events: int = 0
+    scheduled_holiday_break_events: int = 0
     weekend_crossing_gap_events: int = 0
     unexpected_gap_events: int = 0
     unexpected_missing_bars: int = 0
@@ -124,30 +132,6 @@ def _parse_timestamp(raw: str, assume_utc: bool) -> Tuple[datetime, bool]:
     return parsed, was_naive
 
 
-def _crosses_weekend(start: datetime, end: datetime) -> bool:
-    cursor = start
-    while cursor.date() <= end.date():
-        if cursor.weekday() >= 5:
-            return True
-        cursor += timedelta(days=1)
-    return False
-
-
-def _is_scheduled_metals_break(start: datetime, end: datetime) -> bool:
-    """Recognize the normal one-hour XAUUSD maintenance break.
-
-    The New York maintenance window moves by one UTC hour with US DST, so the
-    last/next M15 opens are either 20:45 -> 22:00 or 21:45 -> 23:00.
-    """
-
-    if end - start != timedelta(minutes=75):
-        return False
-    return (start.hour, start.minute, end.hour, end.minute) in {
-        (20, 45, 22, 0),
-        (21, 45, 23, 0),
-    }
-
-
 def validate_m15_csv(
     path: Path, assume_utc: bool = False, minimum_years: float = 3.0
 ) -> Tuple[List[Bar], QualityReport]:
@@ -171,6 +155,10 @@ def validate_m15_csv(
         if not reader.fieldnames:
             raise DataQualityError("CSV has no header")
         m1_count_column_present = "m1_count" in reader.fieldnames
+        source_column = next(
+            (name for name in reader.fieldnames if _normalise_header(name) == "source"),
+            None,
+        )
         columns = _resolve_columns(reader.fieldnames)
         for row_number, row in enumerate(reader, start=2):
             report.input_rows += 1
@@ -200,7 +188,14 @@ def validate_m15_csv(
                             report.severely_incomplete_m15_rows += 1
                     else:
                         report.missing_m1_count_rows += 1
-                parsed_rows.append((row_number, Bar(timestamp, *values)))
+                source = (
+                    (row.get(source_column) or "").strip()
+                    if source_column is not None
+                    else "UNSPECIFIED"
+                )
+                parsed_rows.append(
+                    (row_number, Bar(timestamp, *values, source or "UNSPECIFIED"))
+                )
             except (KeyError, TypeError, ValueError) as exc:
                 report.bad_tick_rows += 1
                 if len(report.bad_tick_examples) < 100:
@@ -291,20 +286,19 @@ def validate_m15_csv(
         delta = current.timestamp - previous.timestamp
         if delta != timedelta(minutes=15):
             missing = max(0, int(delta.total_seconds() // 900) - 1)
-            weekend = _crosses_weekend(previous.timestamp, current.timestamp)
-            scheduled = _is_scheduled_metals_break(previous.timestamp, current.timestamp)
+            category = classify_gap(previous.timestamp, current.timestamp)
+            weekend = category == WEEKEND
             report.total_gap_events += 1
             report.estimated_missing_bars += missing
-            if weekend:
+            if category == WEEKEND:
                 report.weekend_crossing_gap_events += 1
-                category = "WEEKEND_OR_WEEKEND_CROSSING"
-            elif scheduled:
+            elif category == DAILY_BREAK:
                 report.scheduled_market_break_events += 1
-                category = "SCHEDULED_DAILY_METALS_BREAK"
-            else:
+            elif category == HOLIDAY_BREAK:
+                report.scheduled_holiday_break_events += 1
+            elif category == UNEXPECTED:
                 report.unexpected_gap_events += 1
                 report.unexpected_missing_bars += missing
-                category = "UNEXPECTED"
                 month = previous.timestamp.strftime("%Y-%m")
                 summary = report.unexpected_gaps_by_month.setdefault(
                     month, {"events": 0, "estimated_missing_bars": 0}

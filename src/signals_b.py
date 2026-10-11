@@ -74,6 +74,8 @@ def generate_signals_b(
                         - config["sl_buffer_atr"] * pending_long.atr,
                         pending_long.atr,
                         pending_long.pivot_index,
+                        pending_long.index,
+                        bar.source,
                     )
                 )
                 pending_long = None
@@ -92,6 +94,8 @@ def generate_signals_b(
                         + config["sl_buffer_atr"] * pending_short.atr,
                         pending_short.atr,
                         pending_short.pivot_index,
+                        pending_short.index,
+                        bar.source,
                     )
                 )
                 pending_short = None

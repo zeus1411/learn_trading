@@ -1,0 +1,1295 @@
+{
+  "disagreement_weeks": [],
+  "histdata_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC.csv",
+  "histdata_sha256": "dd7d81e41bf9a16a5eb17041222f1b55eeb1986358e257a563c51495c75d3d16",
+  "method": "Match BID M15 OHLC by UTC timestamp; compare the median close-price error at HistData timestamp shifts -60, 0, and +60 minutes for every ISO week. A disagreement requires a nonzero shift to improve the median by more than 0.02 USD.",
+  "rule_under_test": "UTC-05 in winter; UTC-04 from the last Sunday of March through the day before the last Sunday of October",
+  "status": "PASS",
+  "unavailable_focus_periods": [
+    {
+      "focus": "LATE_OCT_EARLY_NOV",
+      "iso_week_start": "2026-10-12",
+      "reason": "HistData range does not include this week",
+      "year": 2026
+    },
+    {
+      "focus": "LATE_OCT_EARLY_NOV",
+      "iso_week_start": "2026-10-19",
+      "reason": "HistData range does not include this week",
+      "year": 2026
+    },
+    {
+      "focus": "LATE_OCT_EARLY_NOV",
+      "iso_week_start": "2026-10-26",
+      "reason": "HistData range does not include this week",
+      "year": 2026
+    },
+    {
+      "focus": "LATE_OCT_EARLY_NOV",
+      "iso_week_start": "2026-11-02",
+      "reason": "HistData range does not include this week",
+      "year": 2026
+    }
+  ],
+  "years": {
+    "2020": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.00200000000018008,
+          "p99": 0.005000000000109139
+        },
+        "high": {
+          "median": 0.00200000000018008,
+          "p99": 0.005000000000109139
+        },
+        "low": {
+          "median": 0.00200000000018008,
+          "p99": 0.005000000000109139
+        },
+        "open": {
+          "median": 0.00200000000018008,
+          "p99": 0.005000000000109139
+        }
+      },
+      "direct_overlap_rows": 23626,
+      "disagreement_weeks": [],
+      "histdata_rows": 23626,
+      "iso_weeks_checked": 53,
+      "iso_weeks_insufficient": 0,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2020.json.gz",
+      "reference_rows": 23702,
+      "reference_sha256": "51b57a51a072507e3f5c66900eeb18159fae299d3b442ce8cc703031eb72ee3c",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2020-03-09",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 3.501499999999851,
+            "0": 0.004999999999881766,
+            "60": 3.4950000000001182
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2020-03-16",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 5.178500000000099,
+            "0": 0.0019999999999527063,
+            "60": 5.125
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2020-03-23",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 3.4484999999999673,
+            "0": 0.0019999999999527063,
+            "60": 3.468499999999949
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2020-03-30",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.1485000000000127,
+            "0": 0.0019999999999527063,
+            "60": 2.1435000000000173
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2020-04-06",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.1364999999999554,
+            "0": 0.0019999999999527063,
+            "60": 2.1119999999999663
+          },
+          "overlap_by_shift": {
+            "-60": 352,
+            "0": 368,
+            "60": 352
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2020-10-12",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.759999999999991,
+            "0": 0.00200000000018008,
+            "60": 1.7484999999999218
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2020-10-19",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.525000000000091,
+            "0": 0.00200000000018008,
+            "60": 1.5500000000000682
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2020-10-26",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.5200000000000955,
+            "0": 0.00200000000018008,
+            "60": 1.5114999999999554
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2020-11-02",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.91700000000003,
+            "0": 0.0019999999999527063,
+            "60": 1.933499999999981
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 1.7850000000000819,
+          "0": 0.00200000000018008,
+          "60": 1.7850000000000819
+        },
+        "overlap_by_shift": {
+          "-60": 22590,
+          "0": 23626,
+          "60": 22590
+        },
+        "status": "AGREES"
+      }
+    },
+    "2021": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "high": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "low": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "open": {
+          "median": 0.00200000000018008,
+          "p99": 0.005000000000109139
+        }
+      },
+      "direct_overlap_rows": 23562,
+      "disagreement_weeks": [],
+      "histdata_rows": 23562,
+      "iso_weeks_checked": 52,
+      "iso_weeks_insufficient": 1,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2021.json.gz",
+      "reference_rows": 23626,
+      "reference_sha256": "ac6175a28d63cd6827c7dab02f3fe43a41c1c9e0fee188690db8d81b1a9048b2",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2021-03-08",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.91700000000003,
+            "0": 0.0039999999999054126,
+            "60": 1.8965000000001737
+          },
+          "overlap_by_shift": {
+            "-60": 444,
+            "0": 464,
+            "60": 444
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2021-03-15",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.4950000000000045,
+            "0": 0.0039999999999054126,
+            "60": 1.4850000000000136
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2021-03-22",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3200000000001637,
+            "0": 0.0019999999999527063,
+            "60": 1.2965000000000373
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2021-03-29",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.580000000000041,
+            "0": 0.0019999999999527063,
+            "60": 1.6084999999999354
+          },
+          "overlap_by_shift": {
+            "-60": 352,
+            "0": 368,
+            "60": 352
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2021-04-05",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3665000000000873,
+            "0": 0.0019999999999527063,
+            "60": 1.356999999999971
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2021-10-18",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.40300000000002,
+            "0": 0.00200000000018008,
+            "60": 1.4389999999999645
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2021-10-25",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.4119999999999209,
+            "0": 0.002000000000066393,
+            "60": 1.4139999999999873
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2021-11-01",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3355000000000246,
+            "0": 0.00200000000018008,
+            "60": 1.356999999999971
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2021-11-08",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.4145000000000891,
+            "0": 0.00200000000018008,
+            "60": 1.4129999999998972
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 1.4764999999999873,
+          "0": 0.0019999999999527063,
+          "60": 1.4780000000000655
+        },
+        "overlap_by_shift": {
+          "-60": 22534,
+          "0": 23562,
+          "60": 22534
+        },
+        "status": "AGREES"
+      }
+    },
+    "2022": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "high": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "low": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        },
+        "open": {
+          "median": 0.0019999999999527063,
+          "p99": 0.004999999999881766
+        }
+      },
+      "direct_overlap_rows": 23643,
+      "disagreement_weeks": [],
+      "histdata_rows": 23643,
+      "iso_weeks_checked": 52,
+      "iso_weeks_insufficient": 1,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2022.json.gz",
+      "reference_rows": 23647,
+      "reference_sha256": "0c64b4f83c07dd0e3829b7a67b6a56d7f4416d53e21fdf8e843cfeb6347c5627",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2022-03-07",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 3.95699999999988,
+            "0": 0.0019999999999527063,
+            "60": 4.005000000000223
+          },
+          "overlap_by_shift": {
+            "-60": 444,
+            "0": 464,
+            "60": 444
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2022-03-14",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.4104999999999563,
+            "0": 0.0019999999999527063,
+            "60": 2.4075000000000273
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2022-03-21",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.9855000000001155,
+            "0": 0.0019999999999527063,
+            "60": 1.9375000000001137
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2022-03-28",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.316500000000019,
+            "0": 0.0019999999999527063,
+            "60": 2.3295000000000528
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2022-04-04",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7320000000000846,
+            "0": 0.0019999999999527063,
+            "60": 1.7149999999999181
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2022-10-17",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7264999999999873,
+            "0": 0.0019999999999527063,
+            "60": 1.7380000000000564
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2022-10-24",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7000000000000455,
+            "0": 0.0019999999999527063,
+            "60": 1.6449999999999818
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2022-10-31",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7150000000000318,
+            "0": 0.0019999999999527063,
+            "60": 1.7305000000000064
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2022-11-07",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.5679999999999836,
+            "0": 0.0019999999999527063,
+            "60": 1.5299999999999727
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 1.6420000000000528,
+          "0": 0.0019999999999527063,
+          "60": 1.6420000000000528
+        },
+        "overlap_by_shift": {
+          "-60": 22611,
+          "0": 23643,
+          "60": 22611
+        },
+        "status": "AGREES"
+      }
+    },
+    "2023": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.004999999999881766,
+          "p99": 0.005000000000109139
+        },
+        "high": {
+          "median": 0.004999999999881766,
+          "p99": 0.005000000000109139
+        },
+        "low": {
+          "median": 0.004999999999881766,
+          "p99": 0.005000000000109139
+        },
+        "open": {
+          "median": 0.004999999999881766,
+          "p99": 0.005000000000109139
+        }
+      },
+      "direct_overlap_rows": 20600,
+      "disagreement_weeks": [],
+      "histdata_rows": 20600,
+      "iso_weeks_checked": 52,
+      "iso_weeks_insufficient": 0,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2023.json.gz",
+      "reference_rows": 23544,
+      "reference_sha256": "4dc07363f1b178af4f7a5e9b9a5bc8dc58e78906a9ac99730b0086c4a86f5972",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2023-03-06",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3370000000001028,
+            "0": 0.004999999999881766,
+            "60": 1.3400000000000318
+          },
+          "overlap_by_shift": {
+            "-60": 316,
+            "0": 328,
+            "60": 324
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2023-03-13",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.166500000000042,
+            "0": 0.004999999999881766,
+            "60": 2.244999999999891
+          },
+          "overlap_by_shift": {
+            "-60": 316,
+            "0": 328,
+            "60": 320
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2023-03-20",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.349999999999909,
+            "0": 0.004999999999881766,
+            "60": 2.3250000000000455
+          },
+          "overlap_by_shift": {
+            "-60": 320,
+            "0": 332,
+            "60": 320
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2023-03-27",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.6449999999999818,
+            "0": 0.004999999999881766,
+            "60": 1.740000000000009
+          },
+          "overlap_by_shift": {
+            "-60": 328,
+            "0": 344,
+            "60": 328
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2023-04-03",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.615000000000009,
+            "0": 0.004999999999881766,
+            "60": 1.6449999999999818
+          },
+          "overlap_by_shift": {
+            "-60": 260,
+            "0": 264,
+            "60": 256
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2023-10-16",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7515000000000782,
+            "0": 0.004999999999881766,
+            "60": 1.759999999999991
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2023-10-23",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7164999999999964,
+            "0": 0.004999999999881766,
+            "60": 1.7100000000000364
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2023-10-30",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3500000000000227,
+            "0": 0.004999999999881766,
+            "60": 1.3450000000000273
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2023-11-06",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.3700000000000045,
+            "0": 0.004999999999881766,
+            "60": 1.3700000000000045
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 1.365000000000009,
+          "0": 0.004999999999881766,
+          "60": 1.375
+        },
+        "overlap_by_shift": {
+          "-60": 19797,
+          "0": 20600,
+          "60": 19773
+        },
+        "status": "AGREES"
+      }
+    },
+    "2024": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "high": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "low": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "open": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        }
+      },
+      "direct_overlap_rows": 23713,
+      "disagreement_weeks": [],
+      "histdata_rows": 23713,
+      "iso_weeks_checked": 53,
+      "iso_weeks_insufficient": 0,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2024.json.gz",
+      "reference_rows": 23733,
+      "reference_sha256": "3ba26e2edc365f2199bdb7d649d85c2ef43e248a37ebd792a3af0b7471529886",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2024-03-11",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.5800000000001546,
+            "0": 0.004999999999654392,
+            "60": 1.5660000000002583
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2024-03-18",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.5349999999998545,
+            "0": 0.004999999999654392,
+            "60": 1.5450000000000728
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2024-03-25",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 1.7849999999998545,
+            "0": 0.004999999999654392,
+            "60": 1.7800000000002
+          },
+          "overlap_by_shift": {
+            "-60": 348,
+            "0": 364,
+            "60": 348
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2024-04-01",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.5715000000000146,
+            "0": 0.004999999999654392,
+            "60": 2.574999999999818
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2024-04-08",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 3.1000000000001364,
+            "0": 0.004999999999654392,
+            "60": 3.0850000000000364
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2024-10-14",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.274999999999636,
+            "0": 0.004999999999654392,
+            "60": 2.238499999999931
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2024-10-21",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.2799999999999727,
+            "0": 0.004999999999654392,
+            "60": 2.300000000000182
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2024-10-28",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.4199999999998454,
+            "0": 0.004999999999654392,
+            "60": 2.365000000000009
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2024-11-04",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.7549999999996544,
+            "0": 0.004999999999654392,
+            "60": 2.755000000000109
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 2.0019999999999527,
+          "0": 0.004999999999654392,
+          "60": 2.0049999999996544
+        },
+        "overlap_by_shift": {
+          "-60": 22674,
+          "0": 23713,
+          "60": 22678
+        },
+        "status": "AGREES"
+      }
+    },
+    "2025": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "high": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "low": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        },
+        "open": {
+          "median": 0.004999999999654392,
+          "p99": 0.005000000000109139
+        }
+      },
+      "direct_overlap_rows": 23606,
+      "disagreement_weeks": [],
+      "histdata_rows": 23606,
+      "iso_weeks_checked": 53,
+      "iso_weeks_insufficient": 0,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_EVTL_2025.json.gz",
+      "reference_rows": 23638,
+      "reference_sha256": "46445e5a9eb2d59a5a11a06f70b272e69df76bfd1f1e227f34d459f8d464a865",
+      "reference_source": "EV Trading Labs annual M15 BID derived from Dukascopy ticks",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2025-03-10",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.5484999999998763,
+            "0": 0.004999999999654392,
+            "60": 2.5815000000000055
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2025-03-17",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.8734999999996944,
+            "0": 0.004999999999654392,
+            "60": 2.875
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2025-03-24",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 2.878500000000031,
+            "0": 0.004999999999654392,
+            "60": 2.855000000000018
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2025-03-31",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 4.485000000000127,
+            "0": 0.004999999999654392,
+            "60": 4.47849999999994
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2025-04-07",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 5.699999999999818,
+            "0": 0.004999999999654392,
+            "60": 5.5900000000001455
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2025-10-13",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 7.545000000000073,
+            "0": 0.005000000000109139,
+            "60": 7.5050000000003365
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2025-10-20",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 10.375,
+            "0": 0.005000000000109139,
+            "60": 10.370000000000346
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2025-10-27",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 9.034999999999854,
+            "0": 0.004999999999654392,
+            "60": 9.040000000000191
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_OCT_EARLY_NOV",
+          "iso_week_start": "2025-11-03",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 5.0949999999998,
+            "0": 0.004999999999654392,
+            "60": 5.060000000000173
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 3.755000000000109,
+          "0": 0.004999999999654392,
+          "60": 3.755000000000109
+        },
+        "overlap_by_shift": {
+          "-60": 22578,
+          "0": 23606,
+          "60": 22578
+        },
+        "status": "AGREES"
+      }
+    },
+    "2026": {
+      "direct_overlap_abs_ohlc_usd": {
+        "close": {
+          "median": 0.0,
+          "p99": 0.0
+        },
+        "high": {
+          "median": 0.0,
+          "p99": 0.0
+        },
+        "low": {
+          "median": 0.0,
+          "p99": 0.0
+        },
+        "open": {
+          "median": 0.0,
+          "p99": 0.0
+        }
+      },
+      "direct_overlap_rows": 17776,
+      "disagreement_weeks": [],
+      "histdata_rows": 17777,
+      "iso_weeks_checked": 40,
+      "iso_weeks_insufficient": 0,
+      "reference_file": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_DIRECT_2026.json.gz",
+      "reference_rows": 17868,
+      "reference_sha256": "81492d0deee2c2208bde439bbd1f1095041dcbce27d050819396befb884bf62e",
+      "reference_source": "Dukascopy chart endpoint M15 BID",
+      "transition_focus_weeks": [
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2026-03-09",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 9.484999999999673,
+            "0": 0.0,
+            "60": 9.340000000000146
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2026-03-16",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 10.679999999999382,
+            "0": 0.0,
+            "60": 10.679999999999382
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2026-03-23",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 14.950000000000273,
+            "0": 0.0,
+            "60": 14.950000000000273
+          },
+          "overlap_by_shift": {
+            "-60": 436,
+            "0": 456,
+            "60": 436
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2026-03-30",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 12.635000000000218,
+            "0": 0.0,
+            "60": 12.400000000000091
+          },
+          "overlap_by_shift": {
+            "-60": 352,
+            "0": 368,
+            "60": 352
+          },
+          "status": "AGREES"
+        },
+        {
+          "best_shift_minutes": 0,
+          "focus": "LATE_MARCH",
+          "iso_week_start": "2026-04-06",
+          "median_abs_close_usd_by_histdata_shift_minutes": {
+            "-60": 8.983499999999822,
+            "0": 0.0,
+            "60": 9.139999999999418
+          },
+          "overlap_by_shift": {
+            "-60": 440,
+            "0": 460,
+            "60": 440
+          },
+          "status": "AGREES"
+        }
+      ],
+      "whole_year_shift_check": {
+        "best_shift_minutes": 0,
+        "median_abs_close_usd_by_histdata_shift_minutes": {
+          "-60": 7.5900000000001455,
+          "0": 0.0,
+          "60": 7.589999999999236
+        },
+        "overlap_by_shift": {
+          "-60": 16997,
+          "0": 17776,
+          "60": 17001
+        },
+        "status": "AGREES"
+      }
+    }
+  }
+}

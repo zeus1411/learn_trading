@@ -1,0 +1,16 @@
+{
+  "first_bar_utc": "2026-01-01T23:00:00+00:00",
+  "instrument": "XAU/USD",
+  "last_bar_utc": "2026-10-02T20:45:00+00:00",
+  "output": "E:\\SelfProject\\rawdata\\XAUUSD_M15_DUKASCOPY_DIRECT_2026.json.gz",
+  "price_side": "BID",
+  "requested_end_exclusive_utc": "2026-10-03T00:00:00+00:00",
+  "requested_start_utc": "2026-01-01T00:00:00+00:00",
+  "requests": 9,
+  "rows": 17868,
+  "sha256": "81492d0deee2c2208bde439bbd1f1095041dcbce27d050819396befb884bf62e",
+  "source": "https://freeserv.dukascopy.com/2.0/index.php",
+  "status": "PASS",
+  "timeframe": "M15",
+  "timestamp_semantics": "UTC bar open"
+}

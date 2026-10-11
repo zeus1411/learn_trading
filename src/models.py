@@ -12,6 +12,7 @@ class Bar:
     high: float
     low: float
     close: float
+    source: str = "UNSPECIFIED"
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,8 @@ class Signal:
     sl: float
     atr: float
     reference_index: Optional[int] = None
+    sweep_index: Optional[int] = None
+    signal_bar_source: str = "UNSPECIFIED"
 
     def comparable(self) -> Dict[str, Any]:
         result = asdict(self)

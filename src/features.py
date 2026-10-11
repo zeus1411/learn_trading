@@ -104,15 +104,17 @@ def resample_ohlc(bars: Sequence[Bar], hours: int) -> List[Bar]:
             if current is not None:
                 output.append(current)
             current_bucket = bucket
-            current = Bar(bucket, bar.open, bar.high, bar.low, bar.close)
+            current = Bar(bucket, bar.open, bar.high, bar.low, bar.close, bar.source)
         else:
             assert current is not None
+            sources = set(current.source.split("|")) | set(bar.source.split("|"))
             current = Bar(
                 current.timestamp,
                 current.open,
                 max(current.high, bar.high),
                 min(current.low, bar.low),
                 bar.close,
+                "|".join(sorted(sources)),
             )
     if current is not None:
         output.append(current)

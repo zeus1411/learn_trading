@@ -1,0 +1,24 @@
+{
+  "data_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+  "method": "chronological_rows_floor_60_20_20",
+  "test": {
+    "end_utc": "2026-10-02T20:45:00+00:00",
+    "hash_definition": "SHA256 of UTF-8 canonical JSON arrays; first array is ordered CSV field names, followed by one array of ordered string field values per test row, each plus LF",
+    "locked": true,
+    "partition_sha256": "1a96e7873bd39b43f2570d6e8b810a0e2b83422878e19a953cbfb4e6c7f89fec",
+    "results_read_during_development": false,
+    "rows": 31895,
+    "start_utc": "2025-05-28T09:30:00+00:00"
+  },
+  "total_rows": 159471,
+  "train": {
+    "end_utc": "2024-01-22T10:00:00+00:00",
+    "rows": 95682,
+    "start_utc": "2020-01-01T23:00:00+00:00"
+  },
+  "validation": {
+    "end_utc": "2025-05-28T09:15:00+00:00",
+    "rows": 31894,
+    "start_utc": "2024-01-22T10:15:00+00:00"
+  }
+}

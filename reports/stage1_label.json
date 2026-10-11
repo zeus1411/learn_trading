@@ -1,0 +1,105 @@
+{
+  "data_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
+  "development_partition_end_utc": "2025-05-28T09:15:00+00:00",
+  "labeling_audit": {
+    "bid_side_cost_model": {
+      "long_barriers": "bid OHLC",
+      "long_entry": "bid open + spread + slippage",
+      "short_barriers_and_exit": "ask OHLC synthesized as bid + spread",
+      "short_entry": "bid open - slippage",
+      "slippage_usd_per_trade": 0.1,
+      "spread_usd": 0.3
+    },
+    "input_signals": 12117,
+    "labeled_trades": 6050,
+    "outcome_counts_by_setup_direction": {
+      "A_long_LOSS": 913,
+      "A_long_TIMEOUT": 431,
+      "A_long_WIN": 333,
+      "A_short_LOSS": 685,
+      "A_short_TIMEOUT": 237,
+      "A_short_WIN": 231,
+      "B_long_LOSS": 851,
+      "B_long_TIMEOUT": 419,
+      "B_long_WIN": 322,
+      "B_short_LOSS": 953,
+      "B_short_TIMEOUT": 332,
+      "B_short_WIN": 343
+    },
+    "skip_reason_counts": {
+      "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
+      "POSITION_ALREADY_OPEN": 4968,
+      "RISK_ABOVE_MAX_ATR": 883,
+      "RISK_BELOW_MIN_ATR": 114,
+      "SKIPPED_ENTRY_GAP": 100
+    },
+    "skipped_signals": 6067,
+    "termination_reason_counts": {
+      "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1025,
+      "MAX_HOLDING_BARS": 394,
+      "SL_AND_TP_SAME_BAR_LOSS": 11,
+      "STOP_LOSS": 3391,
+      "TAKE_PROFIT": 1229
+    }
+  },
+  "outputs": {
+    "charts": {
+      "A": [
+        "E:\\SelfProject\\reports\\charts\\setup_a\\01_long_timeout_20200103T1415.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\02_long_win_20200724T1145.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\03_long_loss_20201002T1500.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\04_long_timeout_20201208T1245.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\05_short_timeout_20210430T1200.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\06_short_loss_20210607T0545.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\07_long_timeout_20210820T0100.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\08_long_loss_20210826T1045.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\09_long_loss_20211221T1245.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\10_long_win_20220304T1345.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\11_short_win_20220502T1100.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\12_short_loss_20220826T1945.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\13_short_timeout_20220830T1930.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\14_long_win_20230104T0030.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\15_short_timeout_20230215T1445.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\16_long_timeout_20230417T1830.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\17_short_win_20230516T1400.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\18_short_win_20230817T1500.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\19_long_loss_20231220T1830.png",
+        "E:\\SelfProject\\reports\\charts\\setup_a\\20_short_loss_20240501T0730.png"
+      ],
+      "A_contact_sheet": [
+        "E:\\SelfProject\\reports\\charts\\setup_a_contact_sheet.png"
+      ],
+      "B": [
+        "E:\\SelfProject\\reports\\charts\\setup_b\\01_short_win_20200518T0845.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\02_short_loss_20200519T0515.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\03_long_timeout_20201015T0945.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\04_long_win_20210212T1345.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\05_long_win_20210513T1100.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\06_short_win_20211011T0215.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\07_short_timeout_20211206T1730.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\08_short_loss_20220131T0045.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\09_short_timeout_20220228T1600.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\10_long_timeout_20220506T1415.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\11_long_loss_20220623T0115.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\12_long_win_20230209T0130.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\13_long_timeout_20230303T1515.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\14_short_timeout_20230510T1900.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\15_long_timeout_20240530T2015.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\16_short_win_20240722T1100.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\17_short_loss_20250124T0630.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\18_long_loss_20250205T1500.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\19_long_loss_20250407T0800.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\20_long_loss_20250526T0130.png"
+      ],
+      "B_contact_sheet": [
+        "E:\\SelfProject\\reports\\charts\\setup_b_contact_sheet.png"
+      ]
+    },
+    "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1.csv",
+    "trades_csv": "E:\\SelfProject\\reports\\trades_stage1.csv"
+  },
+  "part": "label",
+  "stage": 1,
+  "status": "PASS",
+  "test_partition_read_for_trade_results": false
+}
