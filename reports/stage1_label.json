@@ -1,8 +1,202 @@
 {
+  "chart_spec": {
+    "A": {
+      "annotation": [
+        "previous_closed_H1_EMA50",
+        "previous_closed_H1_EMA200",
+        "previous_closed_H1_ADX14"
+      ],
+      "overlays": [
+        "EMA20",
+        "rolling_highest_20",
+        "rolling_lowest_20"
+      ],
+      "pre_signal_bars": 60
+    },
+    "B": {
+      "pre_signal_bars": 40
+    }
+  },
+  "cost_scenarios": {
+    "normal": {
+      "labeling_audit": {
+        "bid_side_cost_model": {
+          "base_slippage_usd_per_trade": 0.1,
+          "base_spread_usd": 0.3,
+          "cost_multiplier": 1.0,
+          "long_barriers": "bid OHLC",
+          "long_entry": "bid open + spread + slippage",
+          "short_barriers_and_exit": "ask OHLC synthesized as bid + spread",
+          "short_entry": "bid open - slippage",
+          "slippage_usd_per_trade": 0.1,
+          "spread_usd": 0.3
+        },
+        "cost_multiplier": 1.0,
+        "cost_scenario": "normal",
+        "input_signals": 12117,
+        "labeled_trades": 6050,
+        "outcome_counts_by_setup_direction": {
+          "A_long_LOSS": 913,
+          "A_long_TIMEOUT": 431,
+          "A_long_WIN": 333,
+          "A_short_LOSS": 685,
+          "A_short_TIMEOUT": 237,
+          "A_short_WIN": 231,
+          "B_long_LOSS": 851,
+          "B_long_TIMEOUT": 419,
+          "B_long_WIN": 322,
+          "B_short_LOSS": 953,
+          "B_short_TIMEOUT": 332,
+          "B_short_WIN": 343
+        },
+        "skip_reason_counts": {
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
+          "POSITION_ALREADY_OPEN": 4968,
+          "RISK_ABOVE_MAX_ATR": 883,
+          "RISK_BELOW_MIN_ATR": 114,
+          "SKIPPED_ENTRY_GAP": 100
+        },
+        "skipped_signals": 6067,
+        "termination_reason_counts": {
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1025,
+          "MAX_HOLDING_BARS": 394,
+          "SL_AND_TP_SAME_BAR_LOSS": 11,
+          "STOP_LOSS": 3391,
+          "TAKE_PROFIT": 1229
+        },
+        "truncated_trade_count": 1025,
+        "truncated_trade_counts_by_gap_type": {
+          "SCHEDULED_DAILY_METALS_BREAK": 785,
+          "SCHEDULED_HOLIDAY_BREAK": 29,
+          "UNEXPECTED": 0,
+          "WEEKEND_OR_WEEKEND_CROSSING": 211
+        }
+      },
+      "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1.csv",
+      "trades_csv": "E:\\SelfProject\\reports\\trades_stage1.csv"
+    },
+    "plus_100_percent": {
+      "labeling_audit": {
+        "bid_side_cost_model": {
+          "base_slippage_usd_per_trade": 0.1,
+          "base_spread_usd": 0.3,
+          "cost_multiplier": 2.0,
+          "long_barriers": "bid OHLC",
+          "long_entry": "bid open + spread + slippage",
+          "short_barriers_and_exit": "ask OHLC synthesized as bid + spread",
+          "short_entry": "bid open - slippage",
+          "slippage_usd_per_trade": 0.2,
+          "spread_usd": 0.6
+        },
+        "cost_multiplier": 2.0,
+        "cost_scenario": "plus_100_percent",
+        "input_signals": 12117,
+        "labeled_trades": 5979,
+        "outcome_counts_by_setup_direction": {
+          "A_long_LOSS": 921,
+          "A_long_TIMEOUT": 454,
+          "A_long_WIN": 266,
+          "A_short_LOSS": 775,
+          "A_short_TIMEOUT": 236,
+          "A_short_WIN": 202,
+          "B_long_LOSS": 822,
+          "B_long_TIMEOUT": 417,
+          "B_long_WIN": 269,
+          "B_short_LOSS": 992,
+          "B_short_TIMEOUT": 334,
+          "B_short_WIN": 291
+        },
+        "skip_reason_counts": {
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
+          "POSITION_ALREADY_OPEN": 4881,
+          "RISK_ABOVE_MAX_ATR": 1083,
+          "RISK_BELOW_MIN_ATR": 72,
+          "SKIPPED_ENTRY_GAP": 100
+        },
+        "skipped_signals": 6138,
+        "termination_reason_counts": {
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1014,
+          "MAX_HOLDING_BARS": 427,
+          "SL_AND_TP_SAME_BAR_LOSS": 10,
+          "STOP_LOSS": 3500,
+          "TAKE_PROFIT": 1028
+        },
+        "truncated_trade_count": 1014,
+        "truncated_trade_counts_by_gap_type": {
+          "SCHEDULED_DAILY_METALS_BREAK": 773,
+          "SCHEDULED_HOLIDAY_BREAK": 27,
+          "UNEXPECTED": 0,
+          "WEEKEND_OR_WEEKEND_CROSSING": 214
+        }
+      },
+      "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1_cost_plus_100_percent.csv",
+      "trades_csv": "E:\\SelfProject\\reports\\trades_stage1_cost_plus_100_percent.csv"
+    },
+    "plus_50_percent": {
+      "labeling_audit": {
+        "bid_side_cost_model": {
+          "base_slippage_usd_per_trade": 0.1,
+          "base_spread_usd": 0.3,
+          "cost_multiplier": 1.5,
+          "long_barriers": "bid OHLC",
+          "long_entry": "bid open + spread + slippage",
+          "short_barriers_and_exit": "ask OHLC synthesized as bid + spread",
+          "short_entry": "bid open - slippage",
+          "slippage_usd_per_trade": 0.15000000000000002,
+          "spread_usd": 0.44999999999999996
+        },
+        "cost_multiplier": 1.5,
+        "cost_scenario": "plus_50_percent",
+        "input_signals": 12117,
+        "labeled_trades": 6003,
+        "outcome_counts_by_setup_direction": {
+          "A_long_LOSS": 917,
+          "A_long_TIMEOUT": 438,
+          "A_long_WIN": 303,
+          "A_short_LOSS": 726,
+          "A_short_TIMEOUT": 235,
+          "A_short_WIN": 213,
+          "B_long_LOSS": 836,
+          "B_long_TIMEOUT": 421,
+          "B_long_WIN": 291,
+          "B_short_LOSS": 973,
+          "B_short_TIMEOUT": 335,
+          "B_short_WIN": 315
+        },
+        "skip_reason_counts": {
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
+          "POSITION_ALREADY_OPEN": 4947,
+          "RISK_ABOVE_MAX_ATR": 971,
+          "RISK_BELOW_MIN_ATR": 94,
+          "SKIPPED_ENTRY_GAP": 100
+        },
+        "skipped_signals": 6114,
+        "termination_reason_counts": {
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1020,
+          "MAX_HOLDING_BARS": 409,
+          "SL_AND_TP_SAME_BAR_LOSS": 11,
+          "STOP_LOSS": 3441,
+          "TAKE_PROFIT": 1122
+        },
+        "truncated_trade_count": 1020,
+        "truncated_trade_counts_by_gap_type": {
+          "SCHEDULED_DAILY_METALS_BREAK": 779,
+          "SCHEDULED_HOLIDAY_BREAK": 29,
+          "UNEXPECTED": 0,
+          "WEEKEND_OR_WEEKEND_CROSSING": 212
+        }
+      },
+      "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1_cost_plus_50_percent.csv",
+      "trades_csv": "E:\\SelfProject\\reports\\trades_stage1_cost_plus_50_percent.csv"
+    }
+  },
   "data_file": "E:\\SelfProject\\data\\XAUUSD_M15_UTC_RECONSTRUCTED_2023.csv",
   "development_partition_end_utc": "2025-05-28T09:15:00+00:00",
   "labeling_audit": {
     "bid_side_cost_model": {
+      "base_slippage_usd_per_trade": 0.1,
+      "base_spread_usd": 0.3,
+      "cost_multiplier": 1.0,
       "long_barriers": "bid OHLC",
       "long_entry": "bid open + spread + slippage",
       "short_barriers_and_exit": "ask OHLC synthesized as bid + spread",
@@ -10,6 +204,8 @@
       "slippage_usd_per_trade": 0.1,
       "spread_usd": 0.3
     },
+    "cost_multiplier": 1.0,
+    "cost_scenario": "normal",
     "input_signals": 12117,
     "labeled_trades": 6050,
     "outcome_counts_by_setup_direction": {
@@ -40,6 +236,13 @@
       "SL_AND_TP_SAME_BAR_LOSS": 11,
       "STOP_LOSS": 3391,
       "TAKE_PROFIT": 1229
+    },
+    "truncated_trade_count": 1025,
+    "truncated_trade_counts_by_gap_type": {
+      "SCHEDULED_DAILY_METALS_BREAK": 785,
+      "SCHEDULED_HOLIDAY_BREAK": 29,
+      "UNEXPECTED": 0,
+      "WEEKEND_OR_WEEKEND_CROSSING": 211
     }
   },
   "outputs": {
@@ -100,6 +303,18 @@
   },
   "part": "label",
   "stage": 1,
+  "stage2_reporting_contract": {
+    "cost_scenarios": [
+      "normal",
+      "plus_50_percent",
+      "plus_100_percent"
+    ],
+    "truncated_trade_views": [
+      "include",
+      "exclude"
+    ],
+    "truncation_field": "truncated_by_gap"
+  },
   "status": "PASS",
   "test_partition_read_for_trade_results": false
 }

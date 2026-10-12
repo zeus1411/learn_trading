@@ -4,6 +4,7 @@ Status: **PASS / MANUAL CHART REVIEW REQUIRED**
 
 Stage 1 used only the frozen train and validation partitions. It did not create
 signals, labels, or metrics for the locked test period.
+No Setup A/Setup B parameter or GO/NO-GO gate was changed in this regeneration.
 
 ## Preconditions
 
@@ -13,7 +14,7 @@ signals, labels, or metrics for the locked test period.
 - Weeks where a nonzero timestamp shift matched better: 0.
 - The 2026 late-October/early-November focus weeks are unavailable because the
   dataset ends on 2026-10-02.
-- Unit and integration tests after artifact verification: 21/21 PASS.
+- Unit and integration tests after artifact verification: 25/25 PASS.
 
 ## Locked chronological split
 
@@ -65,6 +66,10 @@ partition. The `source` field remains present in the signal output.
 - Entry crosses a gap: 100
 - Incomplete development horizon: 2
 - Trades closed before a gap/weekend as TIMEOUT: 1,025
+- Truncated by weekend/weekend crossing: 211
+- Truncated by scheduled daily metals break: 785
+- Truncated by scheduled holiday break: 29
+- Truncated by unexpected gap: 0
 - Same-bar SL and TP counted as LOSS: 11
 
 These are implementation audit counts, not an edge evaluation. Expectancy,
@@ -81,12 +86,31 @@ profit factor, confidence intervals, gates, and test results have not been run.
 
 The signal, entry, and exit source fields are retained in the labeled-trade CSV.
 
+## Cost scenarios
+
+Labeling is rerun independently for each frozen cost multiplier. This is not a
+post-hoc subtraction from `result_r`: entry, risk, TP, barrier hits, ATR risk
+filters, position overlap, and therefore the accepted trade set are recomputed.
+
+| Scenario | Multiplier | Labeled trades | Skipped | Truncated |
+|---|---:|---:|---:|---:|
+| Normal | 1.0x | 6,050 | 6,067 | 1,025 |
+| Costs +50% | 1.5x | 6,003 | 6,114 | 1,020 |
+| Costs +100% | 2.0x | 5,979 | 6,138 | 1,014 |
+
+Stage 2 is required to report every metric for both views: including truncated
+trades and excluding all trades where `truncated_by_gap` is true.
+
 ## Manual charts
 
 - 20 deterministic examples: `reports/charts/setup_a`
 - 20 deterministic examples: `reports/charts/setup_b`
 - Contact sheets: `reports/charts/setup_a_contact_sheet.png` and
   `reports/charts/setup_b_contact_sheet.png`
+
+Every Setup A chart now shows at least 60 M15 bars before the signal, EMA20,
+the rolling 20-bar highest high and lowest low, and the previous closed H1
+EMA50/EMA200/ADX14 values used at the signal bar.
 
 Purple shading identifies bars inserted from the Dukascopy-derived repair
 source. Charts display BID candles and state the BID/ASK execution convention.

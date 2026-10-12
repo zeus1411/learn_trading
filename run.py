@@ -186,7 +186,16 @@ def run_stage_label(data_path: Optional[Path]) -> int:
     try:
         bars, _, _ = _development_bars(path, config)
         signals, _ = generate_all_signals_with_audit(bars, config)
-        trades, skipped, audit = label_signals(bars, signals, config)
+        cost_scenario_results = {}
+        for scenario, multiplier in config["costs"]["scenarios"].items():
+            cost_scenario_results[scenario] = label_signals(
+                bars,
+                signals,
+                config,
+                cost_multiplier=float(multiplier),
+                cost_scenario=scenario,
+            )
+        trades, skipped, audit = cost_scenario_results["normal"]
         report = write_label_outputs(
             REPORTS_DIR,
             bars,
@@ -197,6 +206,8 @@ def run_stage_label(data_path: Optional[Path]) -> int:
             int(config["random_seed"]),
             path,
             config["split"]["validation"]["end_utc"],
+            config,
+            cost_scenario_results,
         )
     except (DataQualityError, OSError, RuntimeError, ValueError) as exc:
         print(json.dumps({"stage": 1, "part": "label", "status": "FAIL", "error": str(exc)}, indent=2))

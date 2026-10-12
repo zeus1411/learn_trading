@@ -5,6 +5,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from typing import Dict, List, Sequence, Tuple
 
+from .gaps import DAILY_BREAK, HOLIDAY_BREAK, UNEXPECTED, WEEKEND, classify_gap
 from .models import Bar, Signal
 
 
@@ -31,6 +32,10 @@ class Trade:
     termination_reason: str
     spread_usd: float
     slippage_usd: float
+    cost_scenario: str
+    cost_multiplier: float
+    truncated_by_gap: bool
+    gap_type_after_exit: str
     signal_source: str
     entry_source: str
     exit_source: str
@@ -63,7 +68,11 @@ def _source_timestamp(bars: Sequence[Bar], index: int) -> str:
 
 
 def label_signals(
-    bars: Sequence[Bar], signals: Sequence[Signal], config: Dict[str, object]
+    bars: Sequence[Bar],
+    signals: Sequence[Signal],
+    config: Dict[str, object],
+    cost_multiplier: float = 1.0,
+    cost_scenario: str = "normal",
 ) -> Tuple[List[Trade], List[SkippedSignal], Dict[str, object]]:
     labeling = config["labeling"]  # type: ignore
     costs = config["costs"]  # type: ignore
@@ -71,8 +80,12 @@ def label_signals(
     max_holding = int(labeling["max_holding_m15_bars"])
     min_risk_atr = float(labeling["min_risk_atr"])
     max_risk_atr = float(labeling["max_risk_atr"])
-    spread = float(costs["spread_usd"])
-    slippage = float(costs["slippage_usd_per_trade"])
+    if cost_multiplier <= 0:
+        raise ValueError("cost_multiplier must be positive")
+    base_spread = float(costs["spread_usd"])
+    base_slippage = float(costs["slippage_usd_per_trade"])
+    spread = base_spread * cost_multiplier
+    slippage = base_slippage * cost_multiplier
     trades: List[Trade] = []
     skipped: List[SkippedSignal] = []
     busy_until: Dict[Tuple[str, str], int] = {}
@@ -133,6 +146,7 @@ def label_signals(
         favorable = 0.0
         adverse = 0.0
         complete_window = False
+        gap_type_after_exit = ""
 
         for offset in range(max_holding):
             index = entry_index + offset
@@ -141,6 +155,9 @@ def label_signals(
             if (index > entry_index and
                     bars[index].timestamp - bars[index - 1].timestamp != timedelta(minutes=15)):
                 exit_index = index - 1
+                gap_type_after_exit = classify_gap(
+                    bars[exit_index].timestamp, bars[index].timestamp
+                )
                 exit_price = (bars[exit_index].close if signal.direction == "long"
                               else bars[exit_index].close + spread)
                 outcome = "TIMEOUT"
@@ -215,6 +232,10 @@ def label_signals(
             termination_reason=termination,
             spread_usd=spread,
             slippage_usd=slippage,
+            cost_scenario=cost_scenario,
+            cost_multiplier=cost_multiplier,
+            truncated_by_gap=bool(gap_type_after_exit),
+            gap_type_after_exit=gap_type_after_exit,
             signal_source=signal.signal_bar_source,
             entry_source=bars[entry_index].source,
             exit_source=bars[exit_index].source,
@@ -229,7 +250,18 @@ def label_signals(
     outcomes = Counter((trade.setup, trade.direction, trade.outcome) for trade in trades)
     reasons = Counter(item.reason for item in skipped)
     terminations = Counter(trade.termination_reason for trade in trades)
+    truncated = Counter(
+        trade.gap_type_after_exit for trade in trades if trade.truncated_by_gap
+    )
+    truncated_counts = {
+        WEEKEND: truncated.get(WEEKEND, 0),
+        DAILY_BREAK: truncated.get(DAILY_BREAK, 0),
+        HOLIDAY_BREAK: truncated.get(HOLIDAY_BREAK, 0),
+        UNEXPECTED: truncated.get(UNEXPECTED, 0),
+    }
     audit = {
+        "cost_scenario": cost_scenario,
+        "cost_multiplier": cost_multiplier,
         "input_signals": len(signals),
         "labeled_trades": len(trades),
         "skipped_signals": len(skipped),
@@ -238,7 +270,12 @@ def label_signals(
         },
         "skip_reason_counts": dict(sorted(reasons.items())),
         "termination_reason_counts": dict(sorted(terminations.items())),
+        "truncated_trade_counts_by_gap_type": truncated_counts,
+        "truncated_trade_count": sum(truncated_counts.values()),
         "bid_side_cost_model": {
+            "base_spread_usd": base_spread,
+            "base_slippage_usd_per_trade": base_slippage,
+            "cost_multiplier": cost_multiplier,
             "spread_usd": spread,
             "slippage_usd_per_trade": slippage,
             "long_entry": "bid open + spread + slippage",

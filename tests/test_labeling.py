@@ -77,7 +77,44 @@ class LabelingTests(unittest.TestCase):
         self.assertEqual("TIMEOUT", trades[0].outcome)
         self.assertEqual(2, trades[0].exit_index)
         self.assertEqual("GAP_OR_WEEKEND_BEFORE_NEXT_BAR", trades[0].termination_reason)
+        self.assertTrue(trades[0].truncated_by_gap)
+        self.assertEqual("UNEXPECTED", trades[0].gap_type_after_exit)
         self.assertEqual(1, audit["termination_reason_counts"]["GAP_OR_WEEKEND_BEFORE_NEXT_BAR"])
+        self.assertEqual(1, audit["truncated_trade_counts_by_gap_type"]["UNEXPECTED"])
+
+    def test_daily_break_truncation_is_classified(self):
+        start = datetime(2024, 1, 8, 20, 30, tzinfo=timezone.utc)
+        bars = [
+            bar(start, 100, 100.5, 99.5, 100),
+            bar(start + timedelta(minutes=15), 100, 100.5, 99.5, 100),
+            bar(start + timedelta(minutes=90), 100, 100.5, 99.5, 100),
+        ]
+        signal = Signal(start, "A", "long", 1, 98.0, 1.0,
+                        signal_bar_source="HISTDATA_M1_BID")
+        trades, _, audit = label_signals(bars, [signal], config())
+        self.assertEqual("SCHEDULED_DAILY_METALS_BREAK", trades[0].gap_type_after_exit)
+        self.assertEqual(
+            1,
+            audit["truncated_trade_counts_by_gap_type"]["SCHEDULED_DAILY_METALS_BREAK"],
+        )
+
+    def test_cost_multiplier_scales_spread_and_slippage(self):
+        bars = [
+            bar(self.start, 100, 101, 99.5, 100.5),
+            bar(self.start + timedelta(minutes=15), 100, 110, 100, 108),
+        ]
+        signal = Signal(self.start, "A", "long", 1, 99.0, 1.0,
+                        signal_bar_source="HISTDATA_M1_BID")
+        trades, skipped, audit = label_signals(
+            bars, [signal], config(), cost_multiplier=2.0,
+            cost_scenario="plus_100_percent"
+        )
+        self.assertFalse(skipped)
+        self.assertAlmostEqual(100.80, trades[0].entry_price)
+        self.assertAlmostEqual(0.60, trades[0].spread_usd)
+        self.assertAlmostEqual(0.20, trades[0].slippage_usd)
+        self.assertEqual("plus_100_percent", trades[0].cost_scenario)
+        self.assertEqual(2.0, audit["cost_multiplier"])
 
     def test_unexpected_gap_blocks_exactly_previous_100_bars(self):
         bars = []

@@ -51,6 +51,46 @@ class Stage1ArtifactTests(unittest.TestCase):
             for column in source_columns:
                 self.assertTrue(all(row[column] for row in rows))
 
+    def test_cost_scenarios_and_truncation_audit_are_present(self):
+        report = json.loads(
+            (ROOT / "reports" / "stage1_label.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            {"normal", "plus_50_percent", "plus_100_percent"},
+            set(report["cost_scenarios"]),
+        )
+        for scenario, details in report["cost_scenarios"].items():
+            self.assertTrue(Path(details["trades_csv"]).exists(), scenario)
+            self.assertTrue(Path(details["skipped_signals_csv"]).exists(), scenario)
+            counts = details["labeling_audit"]["truncated_trade_counts_by_gap_type"]
+            self.assertEqual(
+                details["labeling_audit"]["truncated_trade_count"], sum(counts.values())
+            )
+
+        with (ROOT / "reports" / "trades_stage1.csv").open(
+            "r", encoding="utf-8", newline=""
+        ) as handle:
+            first = next(csv.DictReader(handle))
+        self.assertIn("truncated_by_gap", first)
+        self.assertIn("gap_type_after_exit", first)
+        self.assertEqual("normal", first["cost_scenario"])
+
+    def test_setup_a_chart_spec_has_required_context(self):
+        report = json.loads(
+            (ROOT / "reports" / "stage1_label.json").read_text(encoding="utf-8")
+        )
+        chart = report["chart_spec"]["A"]
+        self.assertGreaterEqual(chart["pre_signal_bars"], 60)
+        self.assertEqual(
+            {"EMA20", "rolling_highest_20", "rolling_lowest_20"},
+            set(chart["overlays"]),
+        )
+        self.assertEqual(
+            {"previous_closed_H1_EMA50", "previous_closed_H1_EMA200",
+             "previous_closed_H1_ADX14"},
+            set(chart["annotation"]),
+        )
+
     def test_exactly_twenty_charts_per_setup(self):
         for setup in ("a", "b"):
             paths = list((ROOT / "reports" / "charts" / ("setup_" + setup)).glob("*.png"))

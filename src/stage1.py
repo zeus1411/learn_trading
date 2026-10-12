@@ -6,7 +6,7 @@ import random
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Mapping, Sequence, Tuple
+from typing import Dict, List, Mapping, Optional, Sequence, Tuple
 
 import matplotlib
 
@@ -16,8 +16,12 @@ import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
+from .features import ema, shifted_h1_features
 from .labeling import SkippedSignal, Trade
 from .models import Bar, Signal
+
+
+SETUP_A_PRE_SIGNAL_BARS = 60
 
 
 def _timestamp(bars: Sequence[Bar], index: int) -> str:
@@ -124,10 +128,31 @@ def _select_examples(trades: Sequence[Trade], setup: str, count: int, seed: int)
     return sorted(selected, key=lambda trade: trade.signal_timestamp)
 
 
+def _rolling_extrema(
+    bars: Sequence[Bar], lookback: int
+) -> Tuple[List[Optional[float]], List[Optional[float]]]:
+    highs: List[Optional[float]] = [None] * len(bars)
+    lows: List[Optional[float]] = [None] * len(bars)
+    for index in range(lookback - 1, len(bars)):
+        window = bars[index - lookback + 1:index + 1]
+        highs[index] = max(bar.high for bar in window)
+        lows[index] = min(bar.low for bar in window)
+    return highs, lows
+
+
+def _format_indicator(value: Optional[float]) -> str:
+    return "N/A" if value is None else "%.2f" % value
+
+
 def _draw_trade_chart(
-    path: Path, bars: Sequence[Bar], trade: Trade, signal: Signal
+    path: Path,
+    bars: Sequence[Bar],
+    trade: Trade,
+    signal: Signal,
+    setup_a_context: Optional[Mapping[str, Sequence[Optional[float]]]] = None,
 ) -> None:
-    start = max(0, trade.signal_index - 40)
+    bars_before_signal = SETUP_A_PRE_SIGNAL_BARS if trade.setup == "A" else 40
+    start = max(0, trade.signal_index - bars_before_signal)
     end = min(len(bars), trade.exit_index + 11)
     window = bars[start:end]
     fig, ax = plt.subplots(figsize=(12, 6), dpi=130)
@@ -146,6 +171,32 @@ def _draw_trade_chart(
         )
         if bar.source != "HISTDATA_M1_BID":
             ax.axvspan(x - width / 2, x + width / 2, color="#8B5CF6", alpha=0.12)
+
+    if trade.setup == "A":
+        if setup_a_context is None:
+            raise RuntimeError("Setup A chart context is required")
+        indices = list(range(start, end))
+        x_values = [bars[index].timestamp for index in indices]
+        ax.plot(x_values, [setup_a_context["ema20"][index] for index in indices],
+                color="#0EA5E9", linewidth=1.1, label="EMA20")
+        ax.plot(x_values, [setup_a_context["highest20"][index] for index in indices],
+                color="#9333EA", linewidth=0.9, linestyle="-.", label="20-bar high")
+        ax.plot(x_values, [setup_a_context["lowest20"][index] for index in indices],
+                color="#D97706", linewidth=0.9, linestyle="-.", label="20-bar low")
+        h1_note = (
+            "Last closed H1\nEMA50: %s\nEMA200: %s\nADX14: %s"
+            % (
+                _format_indicator(setup_a_context["h1_ema50"][trade.signal_index]),
+                _format_indicator(setup_a_context["h1_ema200"][trade.signal_index]),
+                _format_indicator(setup_a_context["h1_adx"][trade.signal_index]),
+            )
+        )
+        ax.text(
+            0.99, 0.98, h1_note, transform=ax.transAxes, ha="right", va="top",
+            fontsize=8, color="#111827",
+            bbox={"boxstyle": "round,pad=0.35", "facecolor": "white", "alpha": 0.85,
+                  "edgecolor": "#CBD5E1"},
+        )
 
     signal_time = bars[trade.signal_index].timestamp
     entry_time = bars[trade.entry_index].timestamp
@@ -175,7 +226,10 @@ def _draw_trade_chart(
     ax.set_ylabel("XAUUSD (USD)")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%m-%d\n%H:%M"))
     ax.grid(axis="y", color="#E5E7EB", linewidth=0.6)
-    ax.legend(loc="upper left", ncol=6, fontsize=8, frameon=False)
+    ax.legend(
+        loc="upper left", ncol=5 if trade.setup == "A" else 6,
+        fontsize=8, frameon=False,
+    )
     fig.autofmt_xdate(rotation=0)
     fig.tight_layout()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -207,11 +261,55 @@ def write_label_outputs(
     seed: int,
     data_path: Path,
     development_end_utc: str,
+    config: Mapping[str, object],
+    cost_scenario_results: Optional[
+        Mapping[str, Tuple[Sequence[Trade], Sequence[SkippedSignal], Mapping[str, object]]]
+    ] = None,
 ) -> Dict[str, object]:
     trade_rows = [trade.to_dict() for trade in trades]
     skipped_rows = [item.to_dict() for item in skipped]
     _write_rows(reports_dir / "trades_stage1.csv", trade_rows)
     _write_rows(reports_dir / "skipped_signals_stage1.csv", skipped_rows)
+    scenario_results = cost_scenario_results or {
+        "normal": (trades, skipped, audit)
+    }
+    cost_outputs: Dict[str, Dict[str, object]] = {}
+    for scenario, (scenario_trades, scenario_skipped, scenario_audit) in scenario_results.items():
+        if scenario == "normal":
+            trades_path = reports_dir / "trades_stage1.csv"
+            skipped_path = reports_dir / "skipped_signals_stage1.csv"
+        else:
+            trades_path = reports_dir / ("trades_stage1_cost_%s.csv" % scenario)
+            skipped_path = reports_dir / ("skipped_signals_stage1_cost_%s.csv" % scenario)
+            _write_rows(trades_path, [trade.to_dict() for trade in scenario_trades])
+            _write_rows(skipped_path, [item.to_dict() for item in scenario_skipped])
+        cost_outputs[scenario] = {
+            "trades_csv": str(trades_path.resolve()),
+            "skipped_signals_csv": str(skipped_path.resolve()),
+            "labeling_audit": dict(scenario_audit),
+        }
+
+    setup_a = config["setup_a"]  # type: ignore
+    ema20_values = ema(
+        [bar.close for bar in bars], int(setup_a["m15_ema_length"])
+    )
+    highest20, lowest20 = _rolling_extrema(
+        bars, int(setup_a["pullback_lookback"])
+    )
+    h1 = shifted_h1_features(
+        bars,
+        int(setup_a["h1_fast_ema_length"]),
+        int(setup_a["h1_slow_ema_length"]),
+        int(setup_a["adx_length"]),
+    )
+    setup_a_context: Mapping[str, Sequence[Optional[float]]] = {
+        "ema20": ema20_values,
+        "highest20": highest20,
+        "lowest20": lowest20,
+        "h1_ema50": [value.ema50 for value in h1],
+        "h1_ema200": [value.ema200 for value in h1],
+        "h1_adx": [value.adx14 for value in h1],
+    }
     signal_by_key = {
         (signal.timestamp, signal.setup, signal.direction): signal for signal in signals
     }
@@ -228,7 +326,7 @@ def write_label_outputs(
                 trade.signal_timestamp.strftime("%Y%m%dT%H%M"),
             ))
             signal = signal_by_key[(trade.signal_timestamp, trade.setup, trade.direction)]
-            _draw_trade_chart(path, bars, trade, signal)
+            _draw_trade_chart(path, bars, trade, signal, setup_a_context)
             paths.append(path)
         contact = reports_dir / "charts" / ("setup_%s_contact_sheet.png" % setup.lower())
         _contact_sheet(paths, contact, "Setup %s: 20 deterministic Stage 1 examples" % setup)
@@ -243,6 +341,21 @@ def write_label_outputs(
         "development_partition_end_utc": development_end_utc,
         "test_partition_read_for_trade_results": False,
         "labeling_audit": dict(audit),
+        "cost_scenarios": cost_outputs,
+        "stage2_reporting_contract": {
+            "cost_scenarios": list(cost_outputs),
+            "truncated_trade_views": ["include", "exclude"],
+            "truncation_field": "truncated_by_gap",
+        },
+        "chart_spec": {
+            "A": {
+                "pre_signal_bars": SETUP_A_PRE_SIGNAL_BARS,
+                "overlays": ["EMA20", "rolling_highest_20", "rolling_lowest_20"],
+                "annotation": ["previous_closed_H1_EMA50", "previous_closed_H1_EMA200",
+                               "previous_closed_H1_ADX14"],
+            },
+            "B": {"pre_signal_bars": 40},
+        },
         "outputs": {
             "trades_csv": str((reports_dir / "trades_stage1.csv").resolve()),
             "skipped_signals_csv": str((reports_dir / "skipped_signals_stage1.csv").resolve()),

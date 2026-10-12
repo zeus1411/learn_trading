@@ -103,20 +103,28 @@ python run.py --stage label
 The signals command reruns the 50-timestamp no-lookahead test on the real Setup
 A and B functions, including confirmed pivots, previous-closed H1 features,
 previous-closed H4 mapping, and the causal gap filter. The label command applies
-the BID-side cost model, writes the trade and skip logs, and creates 20
-deterministic chart examples for each setup.
+the BID-side cost model under normal, +50%, and +100% cost scenarios, writes the
+trade and skip logs, and creates 20 deterministic chart examples for each setup.
+Setup A charts include at least 60 pre-signal bars, EMA20, rolling 20-bar high
+and low, and the previous closed H1 EMA50/EMA200/ADX values.
 
 Stage 1 outputs:
 
 - `reports/stage1_signals.json` and `reports/signals_stage1.csv`
 - `reports/stage1_label.json`, `reports/trades_stage1.csv`, and
   `reports/skipped_signals_stage1.csv`
+- `reports/trades_stage1_cost_plus_50_percent.csv` and
+  `reports/trades_stage1_cost_plus_100_percent.csv` (with matching skip logs)
 - `reports/charts/setup_a` and `reports/charts/setup_b`
 - `reports/STAGE1_SUMMARY.md`
 
 Gap rules are frozen in `config/research.json`: an unexpected gap in the prior
 100 M15 bars suppresses a signal; an open trade reaching any discontinuity
 closes on the last contiguous bar as `TIMEOUT`. No missing bars are synthesized.
+The trade output records whether a trade was truncated and classifies the next
+gap as weekend, scheduled daily metals break, scheduled holiday break, or
+unexpected. Stage 2 must report all metrics both with and without truncated
+trades.
 
 The source field is preserved from input bar through signals and labeled trades.
 Long entry uses ask (`bid + spread`) plus adverse slippage; long barriers use

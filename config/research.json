@@ -21,6 +21,11 @@
     "spread_usd": 0.30,
     "slippage_usd_per_trade": 0.10,
     "stress_multiplier": 1.5,
+    "scenarios": {
+      "normal": 1.0,
+      "plus_50_percent": 1.5,
+      "plus_100_percent": 2.0
+    },
     "bid_data_execution": {
       "long_entry": "ask = bid open + spread; adverse slippage added at entry",
       "long_barriers_and_exit": "checked and filled on bid",
