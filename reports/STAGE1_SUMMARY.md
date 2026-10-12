@@ -112,6 +112,31 @@ Every Setup A chart now shows at least 60 M15 bars before the signal, EMA20,
 the rolling 20-bar highest high and lowest low, and the previous closed H1
 EMA50/EMA200/ADX14 values used at the signal bar.
 
+Every Setup B chart now shows at least 80 M15 bars before the signal, a
+horizontal pivot line labeled with its price, and an orange highlight over the
+sweep bar.
+
+## Setup B pivot audit
+
+The strict 5-left/5-right comparison passes for every one of the 4,268 kept
+Setup B signals: zero pivot-rule violations were found. However, the current
+meaning of `not previously swept` is narrower than “price never closed beyond
+the pivot.” The code sets `pivot.swept = True` only after a qualifying
+wick-through-and-close-back sweep.
+
+- B signals whose pivot had an earlier close beyond it before the sweep: 2,759
+  of 4,268 (64.64%).
+- Long: 1,393.
+- Short: 1,366.
+- Both requested examples (`2020-05-19 05:15 UTC` and
+  `2025-05-26 01:30 UTC`) pass strict 5/5 but had an earlier close beyond the
+  selected pivot.
+
+See `reports/STAGE1_SETUP_B_PIVOT_AUDIT.md` and
+`reports/stage1_setup_b_pivot_audit.json` for the 5 bars on each side of both
+pivots, sweep OHLC, and close extrema. This regeneration reports the behavior
+but deliberately does not alter the signal rule or any Setup A/B parameter.
+
 Purple shading identifies bars inserted from the Dukascopy-derived repair
 source. Charts display BID candles and state the BID/ASK execution convention.
 

@@ -107,6 +107,9 @@ the BID-side cost model under normal, +50%, and +100% cost scenarios, writes the
 trade and skip logs, and creates 20 deterministic chart examples for each setup.
 Setup A charts include at least 60 pre-signal bars, EMA20, rolling 20-bar high
 and low, and the previous closed H1 EMA50/EMA200/ADX values.
+Setup B charts include at least 80 pre-signal bars, a horizontal labeled pivot
+line, and a highlighted sweep bar. `reports/STAGE1_SETUP_B_PIVOT_AUDIT.md`
+documents the strict 5/5 audit and prior-close-beyond-pivot diagnostic.
 
 Stage 1 outputs:
 

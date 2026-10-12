@@ -22,6 +22,7 @@ from .models import Bar, Signal
 
 
 SETUP_A_PRE_SIGNAL_BARS = 60
+SETUP_B_PRE_SIGNAL_BARS = 80
 
 
 def _timestamp(bars: Sequence[Bar], index: int) -> str:
@@ -151,7 +152,9 @@ def _draw_trade_chart(
     signal: Signal,
     setup_a_context: Optional[Mapping[str, Sequence[Optional[float]]]] = None,
 ) -> None:
-    bars_before_signal = SETUP_A_PRE_SIGNAL_BARS if trade.setup == "A" else 40
+    bars_before_signal = (
+        SETUP_A_PRE_SIGNAL_BARS if trade.setup == "A" else SETUP_B_PRE_SIGNAL_BARS
+    )
     start = max(0, trade.signal_index - bars_before_signal)
     end = min(len(bars), trade.exit_index + 11)
     window = bars[start:end]
@@ -210,11 +213,25 @@ def _draw_trade_chart(
     ax.axhline(trade.stop_loss, color="#DC2626", linewidth=1.0, label="SL")
     ax.axhline(trade.take_profit, color="#16A34A", linewidth=1.0, label="TP")
     if signal.reference_index is not None and start <= signal.reference_index < end:
+        pivot_price = (
+            bars[signal.reference_index].low
+            if trade.direction == "long"
+            else bars[signal.reference_index].high
+        )
         ax.axvline(bars[signal.reference_index].timestamp, color="#7C3AED", linestyle=":",
-                   linewidth=1.0, label="Confirmed pivot")
+                   linewidth=1.0, label="Pivot bar")
+        ax.axhline(
+            pivot_price, color="#7C3AED", linestyle="--", linewidth=1.1,
+            label="Pivot %.3f" % pivot_price,
+        )
     if signal.sweep_index is not None and start <= signal.sweep_index < end:
+        sweep_x = mdates.date2num(bars[signal.sweep_index].timestamp)
+        ax.axvspan(
+            sweep_x - width / 2, sweep_x + width / 2,
+            color="#F97316", alpha=0.28, label="Sweep bar",
+        )
         ax.axvline(bars[signal.sweep_index].timestamp, color="#EA580C", linestyle=":",
-                   linewidth=1.0, label="Sweep")
+                   linewidth=1.0)
     ax.set_title(
         "Setup %s %s | %s | signal %s | source %s"
         % (trade.setup, trade.direction.upper(), trade.outcome,
@@ -265,6 +282,7 @@ def write_label_outputs(
     cost_scenario_results: Optional[
         Mapping[str, Tuple[Sequence[Trade], Sequence[SkippedSignal], Mapping[str, object]]]
     ] = None,
+    setup_b_pivot_audit: Optional[Mapping[str, object]] = None,
 ) -> Dict[str, object]:
     trade_rows = [trade.to_dict() for trade in trades]
     skipped_rows = [item.to_dict() for item in skipped]
@@ -354,8 +372,26 @@ def write_label_outputs(
                 "annotation": ["previous_closed_H1_EMA50", "previous_closed_H1_EMA200",
                                "previous_closed_H1_ADX14"],
             },
-            "B": {"pre_signal_bars": 40},
+            "B": {
+                "pre_signal_bars": SETUP_B_PRE_SIGNAL_BARS,
+                "overlays": ["horizontal_pivot_line_with_price", "highlighted_sweep_bar"],
+            },
         },
+        "setup_b_pivot_audit": (
+            {
+                "status": setup_b_pivot_audit["status"],
+                "signals_checked": setup_b_pivot_audit["signals_checked"],
+                "strict_pivot_5_5_violations": setup_b_pivot_audit[
+                    "strict_pivot_5_5_violations"
+                ],
+                "already_closed_beyond_before_sweep": setup_b_pivot_audit[
+                    "already_closed_beyond_before_sweep"
+                ],
+                "output_json": setup_b_pivot_audit["output_json"],
+                "output_markdown": setup_b_pivot_audit["output_markdown"],
+            }
+            if setup_b_pivot_audit is not None else None
+        ),
         "outputs": {
             "trades_csv": str((reports_dir / "trades_stage1.csv").resolve()),
             "skipped_signals_csv": str((reports_dir / "skipped_signals_stage1.csv").resolve()),
@@ -365,4 +401,210 @@ def write_label_outputs(
     (reports_dir / "stage1_label.json").write_text(
         json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
     )
+    return report
+
+
+def _strict_pivot_5_5(
+    bars: Sequence[Bar], index: int, direction: str, left: int, right: int
+) -> bool:
+    if index - left < 0 or index + right >= len(bars):
+        return False
+    if direction == "long":
+        center = bars[index].low
+        return all(
+            center < bars[other].low
+            for other in range(index - left, index + right + 1)
+            if other != index
+        )
+    center = bars[index].high
+    return all(
+        center > bars[other].high
+        for other in range(index - left, index + right + 1)
+        if other != index
+    )
+
+
+def _bar_audit_row(bar: Bar, offset: int) -> Dict[str, object]:
+    return {
+        "offset_from_pivot": offset,
+        "timestamp": bar.timestamp.isoformat(),
+        "open": bar.open,
+        "high": bar.high,
+        "low": bar.low,
+        "close": bar.close,
+    }
+
+
+def write_setup_b_pivot_audit(
+    reports_dir: Path,
+    bars: Sequence[Bar],
+    signals: Sequence[Signal],
+    setup_b_config: Mapping[str, object],
+) -> Dict[str, object]:
+    """Audit strict pivots and the implemented meaning of 'not previously swept'."""
+
+    left = int(setup_b_config["pivot_left"])
+    right = int(setup_b_config["pivot_right"])
+    b_signals = [
+        signal for signal in signals
+        if signal.setup == "B"
+        and signal.reference_index is not None
+        and signal.sweep_index is not None
+    ]
+    target_timestamps = {
+        "2020-05-19T05:15:00+00:00",
+        "2025-05-26T01:30:00+00:00",
+    }
+    affected_by_direction = Counter()
+    strict_violations = 0
+    targets: List[Dict[str, object]] = []
+    for signal in b_signals:
+        pivot_index = int(signal.reference_index)  # type: ignore
+        sweep_index = int(signal.sweep_index)  # type: ignore
+        pivot_price = (
+            bars[pivot_index].low if signal.direction == "long"
+            else bars[pivot_index].high
+        )
+        strict = _strict_pivot_5_5(
+            bars, pivot_index, signal.direction, left, right
+        )
+        if not strict:
+            strict_violations += 1
+        before_sweep = bars[pivot_index + 1:sweep_index]
+        beyond = [
+            bar for bar in before_sweep
+            if (
+                bar.close < pivot_price
+                if signal.direction == "long"
+                else bar.close > pivot_price
+            )
+        ]
+        if beyond:
+            affected_by_direction[signal.direction] += 1
+
+        signal_timestamp = signal.timestamp.isoformat()
+        if signal_timestamp in target_timestamps:
+            through_before_sweep = bars[pivot_index:sweep_index]
+            through_sweep = bars[pivot_index:sweep_index + 1]
+            sweep = bars[sweep_index]
+            targets.append({
+                "signal_timestamp": signal_timestamp,
+                "direction": signal.direction,
+                "pivot_timestamp": bars[pivot_index].timestamp.isoformat(),
+                "pivot_price": pivot_price,
+                "strict_5_left_5_right": strict,
+                "pivot_neighborhood": [
+                    _bar_audit_row(bars[index], index - pivot_index)
+                    for index in range(pivot_index - left, pivot_index + right + 1)
+                ],
+                "sweep_bar": _bar_audit_row(sweep, sweep_index - pivot_index),
+                "highest_close_pivot_through_before_sweep": max(
+                    bar.close for bar in through_before_sweep
+                ),
+                "lowest_close_pivot_through_before_sweep": min(
+                    bar.close for bar in through_before_sweep
+                ),
+                "highest_close_pivot_through_sweep": max(
+                    bar.close for bar in through_sweep
+                ),
+                "lowest_close_pivot_through_sweep": min(
+                    bar.close for bar in through_sweep
+                ),
+                "already_closed_beyond_before_sweep": bool(beyond),
+                "first_close_beyond_timestamp": (
+                    beyond[0].timestamp.isoformat() if beyond else None
+                ),
+            })
+
+    affected_total = sum(affected_by_direction.values())
+    report: Dict[str, object] = {
+        "status": "WARNING" if affected_total else "PASS",
+        "scope": "Stage 1 kept Setup B signals after the unexpected-gap filter",
+        "signals_checked": len(b_signals),
+        "strict_pivot_5_5_violations": strict_violations,
+        "already_closed_beyond_before_sweep": {
+            "definition": {
+                "long": "a close below the pivot low after the pivot and before the sweep bar",
+                "short": "a close above the pivot high after the pivot and before the sweep bar",
+            },
+            "total": affected_total,
+            "long": affected_by_direction.get("long", 0),
+            "short": affected_by_direction.get("short", 0),
+            "fraction": affected_total / len(b_signals) if b_signals else 0.0,
+        },
+        "implementation_note": (
+            "src/signals_b.py initializes pivot.swept=False and changes it to True only "
+            "when a qualifying wick-through-and-close-back sweep is detected. A prior "
+            "close beyond the pivot does not invalidate or mark the pivot as swept."
+        ),
+        "targets": sorted(targets, key=lambda item: str(item["signal_timestamp"])),
+    }
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    json_path = reports_dir / "stage1_setup_b_pivot_audit.json"
+    markdown_path = reports_dir / "STAGE1_SETUP_B_PIVOT_AUDIT.md"
+    json_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
+
+    lines = [
+        "# Stage 1 Setup B pivot audit",
+        "",
+        "Status: **%s**" % report["status"],
+        "",
+        "Scope: %s." % report["scope"],
+        "",
+        "- Signals checked: %d" % len(b_signals),
+        "- Strict 5-left/5-right pivot violations: %d" % strict_violations,
+        "- Prior close beyond pivot before sweep: %d (%.2f%%)" % (
+            affected_total,
+            100.0 * affected_total / len(b_signals) if b_signals else 0.0,
+        ),
+        "- Long: %d" % affected_by_direction.get("long", 0),
+        "- Short: %d" % affected_by_direction.get("short", 0),
+        "",
+        "The current `not previously swept` implementation only sets `pivot.swept = True`",
+        "after a qualifying wick-through-and-close-back sweep. A prior close beyond the",
+        "pivot does not invalidate it. This audit does not change that rule.",
+    ]
+    for target in sorted(targets, key=lambda item: str(item["signal_timestamp"])):
+        lines.extend([
+            "",
+            "## %s (%s)" % (target["signal_timestamp"], str(target["direction"]).upper()),
+            "",
+            "- Pivot: `%s` at `%.6f`" % (
+                target["pivot_timestamp"], target["pivot_price"]
+            ),
+            "- Strict 5/5: **%s**" % (
+                "PASS" if target["strict_5_left_5_right"] else "FAIL"
+            ),
+            "- Sweep OHLC: O `%.6f`, H `%.6f`, L `%.6f`, C `%.6f`" % (
+                target["sweep_bar"]["open"], target["sweep_bar"]["high"],
+                target["sweep_bar"]["low"], target["sweep_bar"]["close"],
+            ),
+            "- Highest/lowest close from pivot through before sweep: `%.6f` / `%.6f`" % (
+                target["highest_close_pivot_through_before_sweep"],
+                target["lowest_close_pivot_through_before_sweep"],
+            ),
+            "- Highest/lowest close from pivot through sweep: `%.6f` / `%.6f`" % (
+                target["highest_close_pivot_through_sweep"],
+                target["lowest_close_pivot_through_sweep"],
+            ),
+            "- Already closed beyond before sweep: **%s** (first: `%s`)" % (
+                target["already_closed_beyond_before_sweep"],
+                target["first_close_beyond_timestamp"],
+            ),
+            "",
+            "| Offset | UTC timestamp | Open | High | Low | Close |",
+            "|---:|---|---:|---:|---:|---:|",
+        ])
+        for row in target["pivot_neighborhood"]:
+            lines.append(
+                "| %d | %s | %.6f | %.6f | %.6f | %.6f |" % (
+                    row["offset_from_pivot"], row["timestamp"], row["open"],
+                    row["high"], row["low"], row["close"],
+                )
+            )
+    markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report["output_json"] = str(json_path.resolve())
+    report["output_markdown"] = str(markdown_path.resolve())
     return report

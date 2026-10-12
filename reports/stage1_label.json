@@ -14,7 +14,11 @@
       "pre_signal_bars": 60
     },
     "B": {
-      "pre_signal_bars": 40
+      "overlays": [
+        "horizontal_pivot_line_with_price",
+        "highlighted_sweep_bar"
+      ],
+      "pre_signal_bars": 80
     }
   },
   "cost_scenarios": {
@@ -302,6 +306,23 @@
     "trades_csv": "E:\\SelfProject\\reports\\trades_stage1.csv"
   },
   "part": "label",
+  "setup_b_pivot_audit": {
+    "already_closed_beyond_before_sweep": {
+      "definition": {
+        "long": "a close below the pivot low after the pivot and before the sweep bar",
+        "short": "a close above the pivot high after the pivot and before the sweep bar"
+      },
+      "fraction": 0.6464386129334583,
+      "long": 1393,
+      "short": 1366,
+      "total": 2759
+    },
+    "output_json": "E:\\SelfProject\\reports\\stage1_setup_b_pivot_audit.json",
+    "output_markdown": "E:\\SelfProject\\reports\\STAGE1_SETUP_B_PIVOT_AUDIT.md",
+    "signals_checked": 4268,
+    "status": "WARNING",
+    "strict_pivot_5_5_violations": 0
+  },
   "stage": 1,
   "stage2_reporting_contract": {
     "cost_scenarios": [

@@ -13,7 +13,11 @@ from src.pipeline import (
     test_no_lookahead,
 )
 from src.split_lock import compute_split_lock
-from src.stage1 import write_label_outputs, write_signal_outputs
+from src.stage1 import (
+    write_label_outputs,
+    write_setup_b_pivot_audit,
+    write_signal_outputs,
+)
 
 
 ROOT = Path(__file__).resolve().parent
@@ -196,6 +200,9 @@ def run_stage_label(data_path: Optional[Path]) -> int:
                 cost_scenario=scenario,
             )
         trades, skipped, audit = cost_scenario_results["normal"]
+        setup_b_pivot_audit = write_setup_b_pivot_audit(
+            REPORTS_DIR, bars, signals, config["setup_b"]
+        )
         report = write_label_outputs(
             REPORTS_DIR,
             bars,
@@ -208,6 +215,7 @@ def run_stage_label(data_path: Optional[Path]) -> int:
             config["split"]["validation"]["end_utc"],
             config,
             cost_scenario_results,
+            setup_b_pivot_audit,
         )
     except (DataQualityError, OSError, RuntimeError, ValueError) as exc:
         print(json.dumps({"stage": 1, "part": "label", "status": "FAIL", "error": str(exc)}, indent=2))

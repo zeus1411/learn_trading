@@ -1,0 +1,241 @@
+{
+  "already_closed_beyond_before_sweep": {
+    "definition": {
+      "long": "a close below the pivot low after the pivot and before the sweep bar",
+      "short": "a close above the pivot high after the pivot and before the sweep bar"
+    },
+    "fraction": 0.6464386129334583,
+    "long": 1393,
+    "short": 1366,
+    "total": 2759
+  },
+  "implementation_note": "src/signals_b.py initializes pivot.swept=False and changes it to True only when a qualifying wick-through-and-close-back sweep is detected. A prior close beyond the pivot does not invalidate or mark the pivot as swept.",
+  "scope": "Stage 1 kept Setup B signals after the unexpected-gap filter",
+  "signals_checked": 4268,
+  "status": "WARNING",
+  "strict_pivot_5_5_violations": 0,
+  "targets": [
+    {
+      "already_closed_beyond_before_sweep": true,
+      "direction": "short",
+      "first_close_beyond_timestamp": "2020-05-19T00:30:00+00:00",
+      "highest_close_pivot_through_before_sweep": 1739.758,
+      "highest_close_pivot_through_sweep": 1739.758,
+      "lowest_close_pivot_through_before_sweep": 1733.048,
+      "lowest_close_pivot_through_sweep": 1733.048,
+      "pivot_neighborhood": [
+        {
+          "close": 1731.228,
+          "high": 1732.368,
+          "low": 1730.635,
+          "offset_from_pivot": -5,
+          "open": 1731.645,
+          "timestamp": "2020-05-18T20:15:00+00:00"
+        },
+        {
+          "close": 1730.538,
+          "high": 1731.878,
+          "low": 1730.418,
+          "offset_from_pivot": -4,
+          "open": 1731.328,
+          "timestamp": "2020-05-18T20:30:00+00:00"
+        },
+        {
+          "close": 1732.305,
+          "high": 1732.868,
+          "low": 1730.228,
+          "offset_from_pivot": -3,
+          "open": 1730.528,
+          "timestamp": "2020-05-18T20:45:00+00:00"
+        },
+        {
+          "close": 1733.675,
+          "high": 1733.795,
+          "low": 1730.218,
+          "offset_from_pivot": -2,
+          "open": 1730.418,
+          "timestamp": "2020-05-18T22:00:00+00:00"
+        },
+        {
+          "close": 1734.238,
+          "high": 1735.205,
+          "low": 1732.855,
+          "offset_from_pivot": -1,
+          "open": 1733.625,
+          "timestamp": "2020-05-18T22:15:00+00:00"
+        },
+        {
+          "close": 1733.048,
+          "high": 1735.545,
+          "low": 1732.488,
+          "offset_from_pivot": 0,
+          "open": 1734.235,
+          "timestamp": "2020-05-18T22:30:00+00:00"
+        },
+        {
+          "close": 1733.438,
+          "high": 1733.988,
+          "low": 1732.018,
+          "offset_from_pivot": 1,
+          "open": 1733.028,
+          "timestamp": "2020-05-18T22:45:00+00:00"
+        },
+        {
+          "close": 1733.795,
+          "high": 1734.118,
+          "low": 1732.658,
+          "offset_from_pivot": 2,
+          "open": 1733.488,
+          "timestamp": "2020-05-18T23:00:00+00:00"
+        },
+        {
+          "close": 1734.355,
+          "high": 1734.355,
+          "low": 1733.138,
+          "offset_from_pivot": 3,
+          "open": 1733.695,
+          "timestamp": "2020-05-18T23:15:00+00:00"
+        },
+        {
+          "close": 1733.415,
+          "high": 1734.915,
+          "low": 1733.255,
+          "offset_from_pivot": 4,
+          "open": 1734.355,
+          "timestamp": "2020-05-18T23:30:00+00:00"
+        },
+        {
+          "close": 1734.645,
+          "high": 1734.745,
+          "low": 1733.135,
+          "offset_from_pivot": 5,
+          "open": 1733.415,
+          "timestamp": "2020-05-18T23:45:00+00:00"
+        }
+      ],
+      "pivot_price": 1735.545,
+      "pivot_timestamp": "2020-05-18T22:30:00+00:00",
+      "signal_timestamp": "2020-05-19T05:15:00+00:00",
+      "strict_5_left_5_right": true,
+      "sweep_bar": {
+        "close": 1735.425,
+        "high": 1737.245,
+        "low": 1735.368,
+        "offset_from_pivot": 25,
+        "open": 1736.505,
+        "timestamp": "2020-05-19T04:45:00+00:00"
+      }
+    },
+    {
+      "already_closed_beyond_before_sweep": true,
+      "direction": "long",
+      "first_close_beyond_timestamp": "2025-05-26T00:00:00+00:00",
+      "highest_close_pivot_through_before_sweep": 3349.385,
+      "highest_close_pivot_through_sweep": 3349.385,
+      "lowest_close_pivot_through_before_sweep": 3333.548,
+      "lowest_close_pivot_through_sweep": 3333.548,
+      "pivot_neighborhood": [
+        {
+          "close": 3361.248,
+          "high": 3361.598,
+          "low": 3359.849,
+          "offset_from_pivot": -5,
+          "open": 3360.548,
+          "timestamp": "2025-05-23T20:00:00+00:00"
+        },
+        {
+          "close": 3361.019,
+          "high": 3361.448,
+          "low": 3359.048,
+          "offset_from_pivot": -4,
+          "open": 3361.248,
+          "timestamp": "2025-05-23T20:15:00+00:00"
+        },
+        {
+          "close": 3357.798,
+          "high": 3361.365,
+          "low": 3356.798,
+          "offset_from_pivot": -3,
+          "open": 3360.998,
+          "timestamp": "2025-05-23T20:30:00+00:00"
+        },
+        {
+          "close": 3356.575,
+          "high": 3360.048,
+          "low": 3355.975,
+          "offset_from_pivot": -2,
+          "open": 3357.875,
+          "timestamp": "2025-05-23T20:45:00+00:00"
+        },
+        {
+          "close": 3351.215,
+          "high": 3356.085,
+          "low": 3345.735,
+          "offset_from_pivot": -1,
+          "open": 3355.698,
+          "timestamp": "2025-05-25T22:00:00+00:00"
+        },
+        {
+          "close": 3343.048,
+          "high": 3351.965,
+          "low": 3340.905,
+          "offset_from_pivot": 0,
+          "open": 3351.285,
+          "timestamp": "2025-05-25T22:15:00+00:00"
+        },
+        {
+          "close": 3349.385,
+          "high": 3350.725,
+          "low": 3342.505,
+          "offset_from_pivot": 1,
+          "open": 3343.055,
+          "timestamp": "2025-05-25T22:30:00+00:00"
+        },
+        {
+          "close": 3343.948,
+          "high": 3350.885,
+          "low": 3343.665,
+          "offset_from_pivot": 2,
+          "open": 3349.285,
+          "timestamp": "2025-05-25T22:45:00+00:00"
+        },
+        {
+          "close": 3348.348,
+          "high": 3350.398,
+          "low": 3343.948,
+          "offset_from_pivot": 3,
+          "open": 3343.948,
+          "timestamp": "2025-05-25T23:00:00+00:00"
+        },
+        {
+          "close": 3348.448,
+          "high": 3348.748,
+          "low": 3344.985,
+          "offset_from_pivot": 4,
+          "open": 3348.348,
+          "timestamp": "2025-05-25T23:15:00+00:00"
+        },
+        {
+          "close": 3345.648,
+          "high": 3348.848,
+          "low": 3344.748,
+          "offset_from_pivot": 5,
+          "open": 3348.548,
+          "timestamp": "2025-05-25T23:30:00+00:00"
+        }
+      ],
+      "pivot_price": 3340.905,
+      "pivot_timestamp": "2025-05-25T22:15:00+00:00",
+      "signal_timestamp": "2025-05-26T01:30:00+00:00",
+      "strict_5_left_5_right": true,
+      "sweep_bar": {
+        "close": 3341.205,
+        "high": 3342.455,
+        "low": 3336.475,
+        "offset_from_pivot": 12,
+        "open": 3338.185,
+        "timestamp": "2025-05-26T01:15:00+00:00"
+      }
+    }
+  ]
+}

@@ -91,6 +91,32 @@ class Stage1ArtifactTests(unittest.TestCase):
             set(chart["annotation"]),
         )
 
+    def test_setup_b_chart_and_pivot_audit_contract(self):
+        report = json.loads(
+            (ROOT / "reports" / "stage1_label.json").read_text(encoding="utf-8")
+        )
+        chart = report["chart_spec"]["B"]
+        self.assertGreaterEqual(chart["pre_signal_bars"], 80)
+        self.assertEqual(
+            {"horizontal_pivot_line_with_price", "highlighted_sweep_bar"},
+            set(chart["overlays"]),
+        )
+        audit = json.loads(
+            (ROOT / "reports" / "stage1_setup_b_pivot_audit.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(4268, audit["signals_checked"])
+        self.assertEqual(0, audit["strict_pivot_5_5_violations"])
+        self.assertEqual(
+            2759, audit["already_closed_beyond_before_sweep"]["total"]
+        )
+        self.assertEqual(2, len(audit["targets"]))
+        self.assertTrue(all(item["strict_5_left_5_right"] for item in audit["targets"]))
+        self.assertTrue(
+            all(item["already_closed_beyond_before_sweep"] for item in audit["targets"])
+        )
+
     def test_exactly_twenty_charts_per_setup(self):
         for setup in ("a", "b"):
             paths = list((ROOT / "reports" / "charts" / ("setup_" + setup)).glob("*.png"))
