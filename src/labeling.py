@@ -41,6 +41,7 @@ class Trade:
     exit_source: str
     reference_timestamp: str
     sweep_timestamp: str
+    strategy_version: str = "v1"
 
     def to_dict(self) -> Dict[str, object]:
         result = asdict(self)
@@ -243,6 +244,7 @@ def label_signals(
                                  if signal.reference_index is not None else ""),
             sweep_timestamp=(_source_timestamp(bars, signal.sweep_index)
                              if signal.sweep_index is not None else ""),
+            strategy_version=signal.strategy_version,
         )
         trades.append(trade)
         busy_until[key] = exit_index

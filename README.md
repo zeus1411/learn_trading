@@ -101,15 +101,19 @@ python run.py --stage label
 ```
 
 The signals command reruns the 50-timestamp no-lookahead test on the real Setup
-A and B functions, including confirmed pivots, previous-closed H1 features,
+A and active B_v2 functions, including confirmed pivots, previous-closed H1 features,
 previous-closed H4 mapping, and the causal gap filter. The label command applies
 the BID-side cost model under normal, +50%, and +100% cost scenarios, writes the
 trade and skip logs, and creates 20 deterministic chart examples for each setup.
 Setup A charts include at least 60 pre-signal bars, EMA20, rolling 20-bar high
 and low, and the previous closed H1 EMA50/EMA200/ADX values.
 Setup B charts include at least 80 pre-signal bars, a horizontal labeled pivot
-line, and a highlighted sweep bar. `reports/STAGE1_SETUP_B_PIVOT_AUDIT.md`
-documents the strict 5/5 audit and prior-close-beyond-pivot diagnostic.
+line, and a highlighted sweep bar. B_v2 invalidates a pivot on the first bar
+that trades beyond it; only that first bar can qualify as a sweep. It also
+rejects pivot windows and pivot-to-sweep intervals containing weekend, holiday,
+or unexpected gaps. Scheduled daily breaks remain allowed. B_v1 is retained
+behind `setup_b.version` for audit reproducibility and must not be evaluated for
+expectancy or profit factor.
 
 Stage 1 outputs:
 
@@ -120,6 +124,10 @@ Stage 1 outputs:
   `reports/trades_stage1_cost_plus_100_percent.csv` (with matching skip logs)
 - `reports/charts/setup_a` and `reports/charts/setup_b`
 - `reports/STAGE1_SUMMARY.md`
+- `reports/STAGE1_SETUP_B_V1_GAP_AUDIT.md`
+- `reports/STAGE1_SETUP_B_V2_PIVOT_AUDIT.md`
+- `reports/STAGE1_SETUP_B_V2_COUNTS.md`
+- `DECISIONS.md`
 
 Gap rules are frozen in `config/research.json`: an unexpected gap in the prior
 100 M15 bars suppresses a signal; an open trade reaching any discontinuity
@@ -133,6 +141,10 @@ The source field is preserved from input bar through signals and labeled trades.
 Long entry uses ask (`bid + spread`) plus adverse slippage; long barriers use
 bid. Short entry uses bid minus adverse slippage; short barriers and exits use
 synthetic ask (`bid + spread`).
+
+The B_v2 audit added one hypothesis trial: Setup B `n_trials` is 2 and the
+global `n_trials` is 3. Setup A and all frozen numeric setup parameters and
+Stage 2 gates remain unchanged.
 
 ## Stage 2 gate (pre-registered)
 

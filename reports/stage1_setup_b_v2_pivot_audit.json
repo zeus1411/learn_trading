@@ -1,0 +1,29 @@
+{
+  "already_closed_beyond_before_sweep": {
+    "definition": {
+      "long": "a close below the pivot low after the pivot and before the sweep bar",
+      "short": "a close above the pivot high after the pivot and before the sweep bar"
+    },
+    "fraction": 0.0,
+    "long": 0,
+    "short": 0,
+    "total": 0
+  },
+  "implementation_note": "B_v2 invalidates a pivot on the first bar that trades beyond it. Only that first-pierce bar may qualify as a sweep, and it must also meet the ATR buffer and close-back-inside rules.",
+  "prior_pierce_beyond_before_sweep": {
+    "definition": {
+      "long": "a low below the pivot low after the pivot and before the sweep bar",
+      "short": "a high above the pivot high after the pivot and before the sweep bar"
+    },
+    "fraction": 0.0,
+    "long": 0,
+    "short": 0,
+    "total": 0
+  },
+  "scope": "Stage 1 kept Setup B signals after the unexpected-gap filter",
+  "signals_checked": 1222,
+  "status": "PASS",
+  "strategy_version": "v2",
+  "strict_pivot_5_5_violations": 0,
+  "targets": []
+}

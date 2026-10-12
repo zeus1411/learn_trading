@@ -8,26 +8,26 @@
       "lookback_m15_bars": 100,
       "suppressed_by_setup_direction": {
         "A_short": 14,
-        "B_long": 6,
-        "B_short": 7
+        "B_long": 2,
+        "B_short": 3
       },
-      "suppressed_total": 27,
+      "suppressed_total": 19,
       "unexpected_gap_events": 4
     },
     "kept_by_setup_direction": {
       "A_long": 4745,
       "A_short": 3104,
-      "B_long": 2154,
-      "B_short": 2114
+      "B_long": 624,
+      "B_short": 598
     },
-    "kept_signal_count": 12117,
+    "kept_signal_count": 9071,
     "raw_by_setup_direction": {
       "A_long": 4745,
       "A_short": 3118,
-      "B_long": 2160,
-      "B_short": 2121
+      "B_long": 626,
+      "B_short": 601
     },
-    "raw_signal_count": 12144
+    "raw_signal_count": 9090
   },
   "signal_counts_by_setup_direction_year": {
     "A_long_2020": 1137,
@@ -42,22 +42,22 @@
     "A_short_2023": 743,
     "A_short_2024": 455,
     "A_short_2025": 81,
-    "B_long_2020": 371,
-    "B_long_2021": 389,
-    "B_long_2022": 417,
-    "B_long_2023": 420,
-    "B_long_2024": 392,
-    "B_long_2025": 165,
-    "B_short_2020": 382,
-    "B_short_2021": 391,
-    "B_short_2022": 396,
-    "B_short_2023": 384,
-    "B_short_2024": 401,
-    "B_short_2025": 160
+    "B_long_2020": 110,
+    "B_long_2021": 115,
+    "B_long_2022": 125,
+    "B_long_2023": 120,
+    "B_long_2024": 108,
+    "B_long_2025": 46,
+    "B_short_2020": 126,
+    "B_short_2021": 99,
+    "B_short_2022": 109,
+    "B_short_2023": 108,
+    "B_short_2024": 115,
+    "B_short_2025": 41
   },
   "signal_counts_by_source": {
-    "EVTL_DUKASCOPY_M15_BID_FILL": 277,
-    "HISTDATA_M1_BID": 11840
+    "EVTL_DUKASCOPY_M15_BID_FILL": 203,
+    "HISTDATA_M1_BID": 8868
   },
   "signal_function_used_by_stage0_and_stage1": "src.pipeline.generate_all_signals",
   "stage": 1,
@@ -71,7 +71,7 @@
       "previous closed H4 bar mapping (verified although not a setup condition)",
       "100-M15-bar unexpected-gap signal filter"
     ],
-    "full_signal_count": 12117,
+    "full_signal_count": 9071,
     "sample_indices": [
       356,
       5548,

@@ -1,4 +1,5 @@
 import argparse
+import copy
 import json
 import sys
 from datetime import datetime, timezone
@@ -16,6 +17,8 @@ from src.split_lock import compute_split_lock
 from src.stage1 import (
     write_label_outputs,
     write_setup_b_pivot_audit,
+    write_setup_b_v1_gap_audit,
+    write_setup_b_v2_counts,
     write_signal_outputs,
 )
 
@@ -200,8 +203,17 @@ def run_stage_label(data_path: Optional[Path]) -> int:
                 cost_scenario=scenario,
             )
         trades, skipped, audit = cost_scenario_results["normal"]
+        v1_config = copy.deepcopy(config)
+        v1_config["setup_b"]["version"] = "v1"
+        v1_signals, _ = generate_all_signals_with_audit(bars, v1_config)
+        setup_b_v1_gap_audit = write_setup_b_v1_gap_audit(
+            REPORTS_DIR, bars, v1_signals, config["setup_b"]
+        )
         setup_b_pivot_audit = write_setup_b_pivot_audit(
             REPORTS_DIR, bars, signals, config["setup_b"]
+        )
+        setup_b_v2_counts = write_setup_b_v2_counts(
+            REPORTS_DIR, signals, cost_scenario_results, config["split"]
         )
         report = write_label_outputs(
             REPORTS_DIR,
@@ -216,6 +228,8 @@ def run_stage_label(data_path: Optional[Path]) -> int:
             config,
             cost_scenario_results,
             setup_b_pivot_audit,
+            setup_b_v1_gap_audit,
+            setup_b_v2_counts,
         )
     except (DataQualityError, OSError, RuntimeError, ValueError) as exc:
         print(json.dumps({"stage": 1, "part": "label", "status": "FAIL", "error": str(exc)}, indent=2))

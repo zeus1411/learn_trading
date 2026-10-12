@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "random_seed": 20261010,
   "timestamp_semantics": "bar_open_utc",
   "data_source": {
@@ -60,6 +60,7 @@
     "sl_buffer_atr": 0.25
   },
   "setup_b": {
+    "version": "v2",
     "atr_length": 14,
     "pivot_left": 5,
     "pivot_right": 5,
@@ -67,6 +68,18 @@
     "sweep_buffer_atr": 0.1,
     "confirmation_window_bars": 3,
     "sl_buffer_atr": 0.25
+  },
+  "trials": {
+    "global_n_trials": 3,
+    "by_setup": {
+      "A": 1,
+      "B": 2
+    },
+    "history": [
+      "A_v1: original pre-registered Setup A",
+      "B_v1: original pre-registered Setup B",
+      "B_v2: first-pierce-only sweep plus weekend/holiday/unexpected-gap rejection"
+    ]
   },
   "split": {
     "method": "chronological_rows_floor_60_20_20",

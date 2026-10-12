@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
 from .features import ema, shifted_h1_features
+from .gaps import CONTIGUOUS, DAILY_BREAK, HOLIDAY_BREAK, UNEXPECTED, WEEKEND, classify_gap
 from .labeling import SkippedSignal, Trade
 from .models import Bar, Signal
 
@@ -59,6 +60,7 @@ def signal_rows(bars: Sequence[Bar], signals: Sequence[Signal]) -> List[Dict[str
                     if signal.entry_index < len(bars)
                     else ""
                 ),
+                "strategy_version": signal.strategy_version,
             }
         )
     return rows
@@ -232,9 +234,13 @@ def _draw_trade_chart(
         )
         ax.axvline(bars[signal.sweep_index].timestamp, color="#EA580C", linestyle=":",
                    linewidth=1.0)
+    setup_label = (
+        "%s_%s" % (trade.setup, trade.strategy_version)
+        if trade.setup == "B" else trade.setup
+    )
     ax.set_title(
         "Setup %s %s | %s | signal %s | source %s"
-        % (trade.setup, trade.direction.upper(), trade.outcome,
+        % (setup_label, trade.direction.upper(), trade.outcome,
            trade.signal_timestamp.strftime("%Y-%m-%d %H:%M UTC"), trade.signal_source),
         loc="left", fontsize=11,
     )
@@ -283,6 +289,8 @@ def write_label_outputs(
         Mapping[str, Tuple[Sequence[Trade], Sequence[SkippedSignal], Mapping[str, object]]]
     ] = None,
     setup_b_pivot_audit: Optional[Mapping[str, object]] = None,
+    setup_b_v1_gap_audit: Optional[Mapping[str, object]] = None,
+    setup_b_v2_counts: Optional[Mapping[str, object]] = None,
 ) -> Dict[str, object]:
     trade_rows = [trade.to_dict() for trade in trades]
     skipped_rows = [item.to_dict() for item in skipped]
@@ -337,6 +345,9 @@ def write_label_outputs(
         if len(selected) < 20:
             raise RuntimeError("Setup %s has only %d chartable trades" % (setup, len(selected)))
         setup_dir = reports_dir / "charts" / ("setup_" + setup.lower())
+        setup_dir.mkdir(parents=True, exist_ok=True)
+        for obsolete_chart in setup_dir.glob("*.png"):
+            obsolete_chart.unlink()
         paths = []
         for number, trade in enumerate(selected, start=1):
             path = setup_dir / ("%02d_%s_%s_%s.png" % (
@@ -387,10 +398,34 @@ def write_label_outputs(
                 "already_closed_beyond_before_sweep": setup_b_pivot_audit[
                     "already_closed_beyond_before_sweep"
                 ],
+                "prior_pierce_beyond_before_sweep": setup_b_pivot_audit[
+                    "prior_pierce_beyond_before_sweep"
+                ],
                 "output_json": setup_b_pivot_audit["output_json"],
                 "output_markdown": setup_b_pivot_audit["output_markdown"],
             }
             if setup_b_pivot_audit is not None else None
+        ),
+        "setup_b_v1_gap_audit": (
+            {
+                "signals_checked": setup_b_v1_gap_audit["signals_checked"],
+                "pivot_window": setup_b_v1_gap_audit["pivot_window"],
+                "pivot_to_sweep": setup_b_v1_gap_audit["pivot_to_sweep"],
+                "output_json": setup_b_v1_gap_audit["output_json"],
+                "output_markdown": setup_b_v1_gap_audit["output_markdown"],
+            }
+            if setup_b_v1_gap_audit is not None else None
+        ),
+        "setup_b_v2_counts": (
+            {
+                "signals": setup_b_v2_counts["signals"],
+                "trades_by_cost_scenario": setup_b_v2_counts[
+                    "trades_by_cost_scenario"
+                ],
+                "output_json": setup_b_v2_counts["output_json"],
+                "output_markdown": setup_b_v2_counts["output_markdown"],
+            }
+            if setup_b_v2_counts is not None else None
         ),
         "outputs": {
             "trades_csv": str((reports_dir / "trades_stage1.csv").resolve()),
@@ -456,6 +491,7 @@ def write_setup_b_pivot_audit(
         "2025-05-26T01:30:00+00:00",
     }
     affected_by_direction = Counter()
+    pierced_by_direction = Counter()
     strict_violations = 0
     targets: List[Dict[str, object]] = []
     for signal in b_signals:
@@ -481,6 +517,16 @@ def write_setup_b_pivot_audit(
         ]
         if beyond:
             affected_by_direction[signal.direction] += 1
+        pierced = [
+            bar for bar in before_sweep
+            if (
+                bar.low < pivot_price
+                if signal.direction == "long"
+                else bar.high > pivot_price
+            )
+        ]
+        if pierced:
+            pierced_by_direction[signal.direction] += 1
 
         signal_timestamp = signal.timestamp.isoformat()
         if signal_timestamp in target_timestamps:
@@ -514,11 +560,35 @@ def write_setup_b_pivot_audit(
                 "first_close_beyond_timestamp": (
                     beyond[0].timestamp.isoformat() if beyond else None
                 ),
+                "already_pierced_beyond_before_sweep": bool(pierced),
+                "first_pierce_beyond_timestamp": (
+                    pierced[0].timestamp.isoformat() if pierced else None
+                ),
             })
 
     affected_total = sum(affected_by_direction.values())
+    pierced_total = sum(pierced_by_direction.values())
+    strategy_version = (
+        b_signals[0].strategy_version if b_signals else "unknown"
+    )
+    if strategy_version == "v2":
+        implementation_note = (
+            "B_v2 invalidates a pivot on the first bar that trades beyond it. "
+            "Only that first-pierce bar may qualify as a sweep, and it must also "
+            "meet the ATR buffer and close-back-inside rules."
+        )
+    else:
+        implementation_note = (
+            "B_v1 initializes pivot.swept=False and changes it to True only when "
+            "a qualifying wick-through-and-close-back sweep is detected. A prior "
+            "close beyond the pivot does not invalidate or mark the pivot as swept."
+        )
+
     report: Dict[str, object] = {
-        "status": "WARNING" if affected_total else "PASS",
+        "status": (
+            "PASS" if not pierced_total and not strict_violations else "WARNING"
+        ),
+        "strategy_version": strategy_version,
         "scope": "Stage 1 kept Setup B signals after the unexpected-gap filter",
         "signals_checked": len(b_signals),
         "strict_pivot_5_5_violations": strict_violations,
@@ -532,22 +602,42 @@ def write_setup_b_pivot_audit(
             "short": affected_by_direction.get("short", 0),
             "fraction": affected_total / len(b_signals) if b_signals else 0.0,
         },
-        "implementation_note": (
-            "src/signals_b.py initializes pivot.swept=False and changes it to True only "
-            "when a qualifying wick-through-and-close-back sweep is detected. A prior "
-            "close beyond the pivot does not invalidate or mark the pivot as swept."
-        ),
+        "prior_pierce_beyond_before_sweep": {
+            "definition": {
+                "long": "a low below the pivot low after the pivot and before the sweep bar",
+                "short": "a high above the pivot high after the pivot and before the sweep bar",
+            },
+            "total": pierced_total,
+            "long": pierced_by_direction.get("long", 0),
+            "short": pierced_by_direction.get("short", 0),
+            "fraction": pierced_total / len(b_signals) if b_signals else 0.0,
+        },
+        "implementation_note": implementation_note,
         "targets": sorted(targets, key=lambda item: str(item["signal_timestamp"])),
     }
     reports_dir.mkdir(parents=True, exist_ok=True)
-    json_path = reports_dir / "stage1_setup_b_pivot_audit.json"
-    markdown_path = reports_dir / "STAGE1_SETUP_B_PIVOT_AUDIT.md"
+    suffix = "_%s" % strategy_version if strategy_version != "v1" else ""
+    json_path = reports_dir / ("stage1_setup_b%s_pivot_audit.json" % suffix)
+    markdown_path = reports_dir / ("STAGE1_SETUP_B%s_PIVOT_AUDIT.md" % suffix.upper())
     json_path.write_text(
         json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
     )
 
+    if strategy_version == "v2":
+        rule_lines = [
+            "B_v2 invalidates a pivot on the first bar that trades beyond it. Only that",
+            "first-pierce bar may qualify as the sweep; it must meet the ATR buffer and",
+            "close-back-inside rules. The zero count above is the required audit result.",
+        ]
+    else:
+        rule_lines = [
+            "B_v1 only sets `pivot.swept = True` after a qualifying wick-through-and-",
+            "close-back sweep. A prior close beyond the pivot does not invalidate it.",
+            "This audit records the legacy behavior and does not change that rule.",
+        ]
+
     lines = [
-        "# Stage 1 Setup B pivot audit",
+        "# Stage 1 Setup B_%s pivot audit" % strategy_version,
         "",
         "Status: **%s**" % report["status"],
         "",
@@ -561,10 +651,12 @@ def write_setup_b_pivot_audit(
         ),
         "- Long: %d" % affected_by_direction.get("long", 0),
         "- Short: %d" % affected_by_direction.get("short", 0),
+        "- Prior pierce beyond pivot before sweep: %d (%.2f%%)" % (
+            pierced_total,
+            100.0 * pierced_total / len(b_signals) if b_signals else 0.0,
+        ),
         "",
-        "The current `not previously swept` implementation only sets `pivot.swept = True`",
-        "after a qualifying wick-through-and-close-back sweep. A prior close beyond the",
-        "pivot does not invalidate it. This audit does not change that rule.",
+        *rule_lines,
     ]
     for target in sorted(targets, key=lambda item: str(item["signal_timestamp"])):
         lines.extend([
@@ -593,6 +685,10 @@ def write_setup_b_pivot_audit(
                 target["already_closed_beyond_before_sweep"],
                 target["first_close_beyond_timestamp"],
             ),
+            "- Already pierced beyond before sweep: **%s** (first: `%s`)" % (
+                target["already_pierced_beyond_before_sweep"],
+                target["first_pierce_beyond_timestamp"],
+            ),
             "",
             "| Offset | UTC timestamp | Open | High | Low | Close |",
             "|---:|---|---:|---:|---:|---:|",
@@ -604,6 +700,221 @@ def write_setup_b_pivot_audit(
                     row["high"], row["low"], row["close"],
                 )
             )
+    markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report["output_json"] = str(json_path.resolve())
+    report["output_markdown"] = str(markdown_path.resolve())
+    return report
+
+
+def write_setup_b_v1_gap_audit(
+    reports_dir: Path,
+    bars: Sequence[Bar],
+    v1_signals: Sequence[Signal],
+    setup_b_config: Mapping[str, object],
+) -> Dict[str, object]:
+    """Freeze the requested gap counts over the pre-decision B_v1 signals."""
+
+    left = int(setup_b_config["pivot_left"])
+    right = int(setup_b_config["pivot_right"])
+    gap_types = (WEEKEND, HOLIDAY_BREAK, DAILY_BREAK, UNEXPECTED)
+
+    def gap_types_between(start: int, end: int) -> List[str]:
+        return [
+            gap_type
+            for index in range(start + 1, end + 1)
+            for gap_type in [classify_gap(
+                bars[index - 1].timestamp, bars[index].timestamp
+            )]
+            if gap_type != CONTIGUOUS
+        ]
+
+    window_signal_counts = Counter()
+    interval_signal_counts = Counter()
+    window_event_counts = Counter()
+    interval_event_counts = Counter()
+    window_any = 0
+    interval_any = 0
+    b_signals = [signal for signal in v1_signals if signal.setup == "B"]
+    for signal in b_signals:
+        if signal.reference_index is None or signal.sweep_index is None:
+            continue
+        pivot_index = signal.reference_index
+        sweep_index = signal.sweep_index
+        window_gaps = gap_types_between(
+            pivot_index - left, pivot_index + right
+        )
+        interval_gaps = gap_types_between(pivot_index, sweep_index)
+        window_any += bool(window_gaps)
+        interval_any += bool(interval_gaps)
+        window_event_counts.update(window_gaps)
+        interval_event_counts.update(interval_gaps)
+        window_signal_counts.update(set(window_gaps))
+        interval_signal_counts.update(set(interval_gaps))
+
+    def section(
+        any_count: int, signal_counts: Counter, event_counts: Counter
+    ) -> Dict[str, object]:
+        return {
+            "signals_with_any_gap": any_count,
+            "signals_by_gap_type": {
+                gap_type: signal_counts.get(gap_type, 0) for gap_type in gap_types
+            },
+            "gap_events_by_type": {
+                gap_type: event_counts.get(gap_type, 0) for gap_type in gap_types
+            },
+        }
+
+    report: Dict[str, object] = {
+        "strategy_version": "v1",
+        "scope": "4,268 kept Stage 1 B_v1 signals after unexpected-gap filter",
+        "signals_checked": len(b_signals),
+        "pivot_window_definition": "pivot bar plus 5 bars left and 5 bars right",
+        "pivot_window": section(
+            window_any, window_signal_counts, window_event_counts
+        ),
+        "pivot_to_sweep": section(
+            interval_any, interval_signal_counts, interval_event_counts
+        ),
+        "b_v2_rejected_gap_types": [WEEKEND, HOLIDAY_BREAK, UNEXPECTED],
+        "daily_break_decision": (
+            "Counted but retained for B_v2; only weekend, holiday, and unexpected "
+            "gaps are rejected by the approved rule."
+        ),
+    }
+    json_path = reports_dir / "stage1_setup_b_v1_gap_audit.json"
+    markdown_path = reports_dir / "STAGE1_SETUP_B_V1_GAP_AUDIT.md"
+    json_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    lines = [
+        "# Stage 1 Setup B_v1 gap audit",
+        "",
+        "Scope: 4,268 kept B_v1 signals after the unexpected-gap filter.",
+        "",
+        "| Interval | Any gap | Weekend | Holiday | Daily break | Unexpected |",
+        "|---|---:|---:|---:|---:|---:|",
+        "| 11-bar pivot window | %d | %d | %d | %d | %d |" % (
+            window_any,
+            window_signal_counts.get(WEEKEND, 0),
+            window_signal_counts.get(HOLIDAY_BREAK, 0),
+            window_signal_counts.get(DAILY_BREAK, 0),
+            window_signal_counts.get(UNEXPECTED, 0),
+        ),
+        "| Pivot bar through sweep bar | %d | %d | %d | %d | %d |" % (
+            interval_any,
+            interval_signal_counts.get(WEEKEND, 0),
+            interval_signal_counts.get(HOLIDAY_BREAK, 0),
+            interval_signal_counts.get(DAILY_BREAK, 0),
+            interval_signal_counts.get(UNEXPECTED, 0),
+        ),
+        "",
+        "Counts by type are numbers of signals containing at least one gap of that type.",
+        "The pivot-to-sweep interval contains 193 weekend gap events across 190 signals;",
+        "all other listed signal counts equal their event counts.",
+        "",
+        "B_v2 rejects weekend, holiday, and unexpected gaps. Daily metals breaks are",
+        "counted but remain allowed, following the recorded decision.",
+    ]
+    markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    report["output_json"] = str(json_path.resolve())
+    report["output_markdown"] = str(markdown_path.resolve())
+    return report
+
+
+def write_setup_b_v2_counts(
+    reports_dir: Path,
+    signals: Sequence[Signal],
+    cost_scenario_results: Mapping[
+        str, Tuple[Sequence[Trade], Sequence[SkippedSignal], Mapping[str, object]]
+    ],
+    split: Mapping[str, object],
+) -> Dict[str, object]:
+    """Write count-only train/validation reporting; never compute edge metrics."""
+
+    train_end = datetime.fromisoformat(split["train"]["end_utc"])  # type: ignore
+    validation_start = datetime.fromisoformat(  # type: ignore
+        split["validation"]["start_utc"]
+    )
+
+    def partition(timestamp: datetime) -> str:
+        if timestamp <= train_end:
+            return "train"
+        if timestamp >= validation_start:
+            return "validation"
+        raise ValueError("Timestamp falls outside frozen train/validation split")
+
+    def count_rows(items: Sequence[object]) -> Dict[str, Dict[str, int]]:
+        def item_timestamp(item: object) -> datetime:
+            if isinstance(item, Signal):
+                return item.timestamp
+            return item.signal_timestamp  # type: ignore
+
+        counts = Counter(
+            (partition(item_timestamp(item)), item.direction)  # type: ignore
+            for item in items
+            if item.setup == "B"  # type: ignore
+        )
+        return {
+            split_name: {
+                "long": counts.get((split_name, "long"), 0),
+                "short": counts.get((split_name, "short"), 0),
+                "total": (
+                    counts.get((split_name, "long"), 0)
+                    + counts.get((split_name, "short"), 0)
+                ),
+            }
+            for split_name in ("train", "validation")
+        }
+
+    signal_counts = count_rows(signals)
+    trade_counts = {
+        scenario: count_rows(result[0])
+        for scenario, result in cost_scenario_results.items()
+    }
+    report: Dict[str, object] = {
+        "strategy_version": "v2",
+        "metrics_computed": False,
+        "expectancy_computed": False,
+        "profit_factor_computed": False,
+        "signals": signal_counts,
+        "trades_by_cost_scenario": trade_counts,
+    }
+    json_path = reports_dir / "stage1_setup_b_v2_counts.json"
+    markdown_path = reports_dir / "STAGE1_SETUP_B_V2_COUNTS.md"
+    json_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
+    lines = [
+        "# Stage 1 Setup B_v2 counts",
+        "",
+        "No expectancy, profit factor, confidence interval, or GO/NO-GO metric",
+        "was computed.",
+        "",
+        "## Signals",
+        "",
+        "| Split | Long | Short | Total |",
+        "|---|---:|---:|---:|",
+        "| Train | %d | %d | %d |" % (
+            signal_counts["train"]["long"], signal_counts["train"]["short"],
+            signal_counts["train"]["total"],
+        ),
+        "| Validation | %d | %d | %d |" % (
+            signal_counts["validation"]["long"],
+            signal_counts["validation"]["short"],
+            signal_counts["validation"]["total"],
+        ),
+        "",
+        "## Labeled trades",
+        "",
+        "| Cost scenario | Split | Long | Short | Total |",
+        "|---|---|---:|---:|---:|",
+    ]
+    for scenario in ("normal", "plus_50_percent", "plus_100_percent"):
+        for split_name in ("train", "validation"):
+            values = trade_counts[scenario][split_name]
+            lines.append("| %s | %s | %d | %d | %d |" % (
+                scenario, split_name, values["long"], values["short"], values["total"]
+            ))
     markdown_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     report["output_json"] = str(json_path.resolve())
     report["output_markdown"] = str(markdown_path.resolve())

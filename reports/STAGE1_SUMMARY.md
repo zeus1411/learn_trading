@@ -3,144 +3,128 @@
 Status: **PASS / MANUAL CHART REVIEW REQUIRED**
 
 Stage 1 used only the frozen train and validation partitions. It did not create
-signals, labels, or metrics for the locked test period.
-No Setup A/Setup B parameter or GO/NO-GO gate was changed in this regeneration.
+signals, labels, or metrics for the locked test period. No numeric Setup A or
+Setup B parameter and no GO/NO-GO gate was changed. Setup B is now versioned;
+the active implementation is B_v2 as recorded in `DECISIONS.md`.
 
 ## Preconditions
 
 - Active dataset SHA-256:
   `99654161cc09ab9336e20063666b467250b0181151dab366ed1ead162e68d3f6`
 - Timezone verification: PASS for every available ISO week in 2020-2026.
-- Weeks where a nonzero timestamp shift matched better: 0.
-- The 2026 late-October/early-November focus weeks are unavailable because the
-  dataset ends on 2026-10-02.
-- Unit and integration tests after artifact verification: 25/25 PASS.
-
-## Locked chronological split
-
-| Partition | UTC range | Rows |
-|---|---|---:|
-| Train | 2020-01-01 23:00 to 2024-01-22 10:00 | 95,682 |
-| Validation | 2024-01-22 10:15 to 2025-05-28 09:15 | 31,894 |
-| Test - locked | 2025-05-28 09:30 to 2026-10-02 20:45 | 31,895 |
-
-Test partition SHA-256:
-`1a96e7873bd39b43f2570d6e8b810a0e2b83422878e19a953cbfb4e6c7f89fec`
+- Unit and integration tests after artifact verification: 31/31 PASS.
+- Test begins at `2025-05-28T09:30:00+00:00`, remains locked, and was not used
+  to create signal or trade results.
 
 ## No-lookahead
 
-Stage 0 used `src.pipeline.generate_all_signals`, which directly called the real
-Setup A and Setup B generators. Stage 1 reran the same public signal function
-after adding the frozen causal gap policy.
-
-Coverage in the Stage 1 run:
-
-- Setup A real signal logic
-- Setup B real signal logic and right-delayed confirmed pivots
-- Previous complete H1 EMA50, EMA200, and ADX values
-- Previous complete H4 bar mapping (verified although H4 is not a setup rule)
-- Prior-100-M15-bar unexpected-gap filter
-
-Result: **PASS at 50/50 deterministic timestamps**.
+The active B_v2 implementation and unchanged Setup A passed the mandatory
+full-history versus prefix comparison at 50/50 deterministic timestamps. This
+includes delayed pivots, previous-closed H1 features, previous-closed H4
+mapping, and the causal unexpected-gap filter.
 
 ## Signal counts - train plus validation only
 
 | Setup | Long | Short | Total |
 |---|---:|---:|---:|
 | A | 4,745 | 3,104 | 7,849 |
-| B | 2,154 | 2,114 | 4,268 |
-| Total | 6,899 | 5,218 | 12,117 |
+| B_v2 | 624 | 598 | 1,222 |
+| Total | 5,369 | 3,702 | 9,071 |
 
-The unexpected-gap lookback suppressed 27 raw signals: 14 A-short, 6 B-long,
-and 7 B-short. Four unexpected gap events were observed in the development
-partition. The `source` field remains present in the signal output.
+The unexpected-gap lookback suppressed 19 raw signals: 14 A-short, 2 B_v2-long,
+and 3 B_v2-short. The `source` and `strategy_version` fields remain present in
+the signal output.
+
+### B_v2 train/validation counts
+
+| Split | Long signals | Short signals | Total signals | Long trades | Short trades | Total trades |
+|---|---:|---:|---:|---:|---:|---:|
+| Train | 475 | 444 | 919 | 383 | 377 | 760 |
+| Validation | 149 | 154 | 303 | 118 | 130 | 248 |
+
+Trade counts above use normal-cost labeling. No expectancy, profit factor,
+confidence interval, or GO/NO-GO metric was computed.
 
 ## Labeling audit
 
-- Input signals: 12,117
-- Labeled trades: 6,050
-- Skipped signals: 6,067
-- Position-already-open skips: 4,968
-- Risk above 3 ATR: 883
-- Risk below 0.8 ATR: 114
-- Entry crosses a gap: 100
-- Incomplete development horizon: 2
-- Trades closed before a gap/weekend as TIMEOUT: 1,025
-- Truncated by weekend/weekend crossing: 211
-- Truncated by scheduled daily metals break: 785
-- Truncated by scheduled holiday break: 29
+- Input signals: 9,071
+- Labeled trades: 3,838
+- Skipped signals: 5,233
+- Position-already-open skips: 4,560
+- Risk above 3 ATR: 483
+- Risk below 0.8 ATR: 103
+- Entry crosses a gap: 86
+- Incomplete development horizon: 1
+- Trades truncated before a gap/weekend: 658
+- Truncated by weekend/weekend crossing: 136
+- Truncated by scheduled daily metals break: 506
+- Truncated by scheduled holiday break: 16
 - Truncated by unexpected gap: 0
-- Same-bar SL and TP counted as LOSS: 11
+- Same-bar SL and TP counted as LOSS: 6
 
-These are implementation audit counts, not an edge evaluation. Expectancy,
-profit factor, confidence intervals, gates, and test results have not been run.
-
-## BID execution model
-
-- Spread: 0.30 USD
-- Slippage: 0.10 USD per trade, applied adversely at entry
-- Long entry: BID open + spread + slippage
-- Long SL, TP, and exit: BID OHLC
-- Short entry: BID open - slippage
-- Short SL, TP, and exit: ASK OHLC, synthesized as BID + spread
-
-The signal, entry, and exit source fields are retained in the labeled-trade CSV.
+These are implementation counts, not edge results.
 
 ## Cost scenarios
 
-Labeling is rerun independently for each frozen cost multiplier. This is not a
-post-hoc subtraction from `result_r`: entry, risk, TP, barrier hits, ATR risk
-filters, position overlap, and therefore the accepted trade set are recomputed.
+Labeling is rerun independently for every cost multiplier. Entry, risk, TP,
+barrier hits, risk filters, position overlap, and the accepted trade set are
+therefore recomputed rather than adjusted after the fact.
 
 | Scenario | Multiplier | Labeled trades | Skipped | Truncated |
 |---|---:|---:|---:|---:|
-| Normal | 1.0x | 6,050 | 6,067 | 1,025 |
-| Costs +50% | 1.5x | 6,003 | 6,114 | 1,020 |
-| Costs +100% | 2.0x | 5,979 | 6,138 | 1,014 |
+| Normal | 1.0x | 3,838 | 5,233 | 658 |
+| Costs +50% | 1.5x | 3,822 | 5,249 | 654 |
+| Costs +100% | 2.0x | 3,823 | 5,248 | 651 |
 
-Stage 2 is required to report every metric for both views: including truncated
-trades and excluding all trades where `truncated_by_gap` is true.
+Stage 2 must report every metric both including and excluding truncated trades.
+
+## B_v1 gap audit
+
+The audit scope is all 4,268 kept B_v1 signals.
+
+| Interval | Any gap | Weekend | Holiday | Daily break | Unexpected |
+|---|---:|---:|---:|---:|---:|
+| 11-bar pivot window | 546 | 111 | 13 | 422 | 0 |
+| Pivot through sweep | 1,047 | 190 | 38 | 819 | 0 |
+
+Counts by type are signal counts. The pivot-to-sweep interval contains 193
+weekend gap events across 190 signals. Daily breaks are counted but remain
+allowed in B_v2; weekend, holiday, and unexpected gaps are rejected.
+
+## B_v2 rule and pivot audit
+
+B_v1 remains available behind `setup_b.version = "v1"`. Active B_v2 invalidates
+a pivot on the first bar that trades beyond it (`low < P` for lows, `high > P`
+for highs). Only that same bar may qualify as the sweep and must still meet the
+frozen 0.1 ATR buffer plus close-back-inside conditions.
+
+The regenerated audit covers all 1,222 kept B_v2 signals:
+
+- Strict 5-left/5-right violations: 0.
+- Prior pierce beyond the pivot before the sweep: 0.
+- Prior close beyond the pivot before the sweep: 0.
+- No B_v1 expectancy or profit factor was computed.
+
+Trial accounting is now Setup A `n_trials = 1`, Setup B `n_trials = 2`, and
+global `n_trials = 3`.
 
 ## Manual charts
 
-- 20 deterministic examples: `reports/charts/setup_a`
-- 20 deterministic examples: `reports/charts/setup_b`
-- Contact sheets: `reports/charts/setup_a_contact_sheet.png` and
-  `reports/charts/setup_b_contact_sheet.png`
+- Setup A: 20 deterministic examples, unchanged rules and counts.
+- Setup B_v2: 20 deterministic examples with at least 80 pre-signal bars, a
+  horizontal pivot line labeled with price, and an orange sweep-bar highlight.
+- Purple shading identifies bars inserted from the Dukascopy-derived repair
+  source. Charts use BID candles and document the BID/ASK convention.
 
-Every Setup A chart now shows at least 60 M15 bars before the signal, EMA20,
-the rolling 20-bar highest high and lowest low, and the previous closed H1
-EMA50/EMA200/ADX14 values used at the signal bar.
+Relevant reports:
 
-Every Setup B chart now shows at least 80 M15 bars before the signal, a
-horizontal pivot line labeled with its price, and an orange highlight over the
-sweep bar.
-
-## Setup B pivot audit
-
-The strict 5-left/5-right comparison passes for every one of the 4,268 kept
-Setup B signals: zero pivot-rule violations were found. However, the current
-meaning of `not previously swept` is narrower than “price never closed beyond
-the pivot.” The code sets `pivot.swept = True` only after a qualifying
-wick-through-and-close-back sweep.
-
-- B signals whose pivot had an earlier close beyond it before the sweep: 2,759
-  of 4,268 (64.64%).
-- Long: 1,393.
-- Short: 1,366.
-- Both requested examples (`2020-05-19 05:15 UTC` and
-  `2025-05-26 01:30 UTC`) pass strict 5/5 but had an earlier close beyond the
-  selected pivot.
-
-See `reports/STAGE1_SETUP_B_PIVOT_AUDIT.md` and
-`reports/stage1_setup_b_pivot_audit.json` for the 5 bars on each side of both
-pivots, sweep OHLC, and close extrema. This regeneration reports the behavior
-but deliberately does not alter the signal rule or any Setup A/B parameter.
-
-Purple shading identifies bars inserted from the Dukascopy-derived repair
-source. Charts display BID candles and state the BID/ASK execution convention.
+- `DECISIONS.md`
+- `reports/STAGE1_SETUP_B_V1_GAP_AUDIT.md`
+- `reports/STAGE1_SETUP_B_V2_PIVOT_AUDIT.md`
+- `reports/STAGE1_SETUP_B_V2_COUNTS.md`
+- `reports/stage1_label.json`
 
 ## Gate
 
-Stop here. Stage 2 evaluation and walk-forward remain blocked until the user
-reviews the 40 examples and explicitly approves Stage 1.
+Stop here. Stage 2 remains blocked until the regenerated B_v2 charts and this
+Stage 1 checkpoint receive explicit human approval.

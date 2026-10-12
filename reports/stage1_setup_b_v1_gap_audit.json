@@ -1,0 +1,42 @@
+{
+  "b_v2_rejected_gap_types": [
+    "WEEKEND_OR_WEEKEND_CROSSING",
+    "SCHEDULED_HOLIDAY_BREAK",
+    "UNEXPECTED"
+  ],
+  "daily_break_decision": "Counted but retained for B_v2; only weekend, holiday, and unexpected gaps are rejected by the approved rule.",
+  "pivot_to_sweep": {
+    "gap_events_by_type": {
+      "SCHEDULED_DAILY_METALS_BREAK": 819,
+      "SCHEDULED_HOLIDAY_BREAK": 38,
+      "UNEXPECTED": 0,
+      "WEEKEND_OR_WEEKEND_CROSSING": 193
+    },
+    "signals_by_gap_type": {
+      "SCHEDULED_DAILY_METALS_BREAK": 819,
+      "SCHEDULED_HOLIDAY_BREAK": 38,
+      "UNEXPECTED": 0,
+      "WEEKEND_OR_WEEKEND_CROSSING": 190
+    },
+    "signals_with_any_gap": 1047
+  },
+  "pivot_window": {
+    "gap_events_by_type": {
+      "SCHEDULED_DAILY_METALS_BREAK": 422,
+      "SCHEDULED_HOLIDAY_BREAK": 13,
+      "UNEXPECTED": 0,
+      "WEEKEND_OR_WEEKEND_CROSSING": 111
+    },
+    "signals_by_gap_type": {
+      "SCHEDULED_DAILY_METALS_BREAK": 422,
+      "SCHEDULED_HOLIDAY_BREAK": 13,
+      "UNEXPECTED": 0,
+      "WEEKEND_OR_WEEKEND_CROSSING": 111
+    },
+    "signals_with_any_gap": 546
+  },
+  "pivot_window_definition": "pivot bar plus 5 bars left and 5 bars right",
+  "scope": "4,268 kept Stage 1 B_v1 signals after unexpected-gap filter",
+  "signals_checked": 4268,
+  "strategy_version": "v1"
+}

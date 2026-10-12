@@ -1,0 +1,56 @@
+{
+  "expectancy_computed": false,
+  "metrics_computed": false,
+  "profit_factor_computed": false,
+  "signals": {
+    "train": {
+      "long": 475,
+      "short": 444,
+      "total": 919
+    },
+    "validation": {
+      "long": 149,
+      "short": 154,
+      "total": 303
+    }
+  },
+  "strategy_version": "v2",
+  "trades_by_cost_scenario": {
+    "normal": {
+      "train": {
+        "long": 383,
+        "short": 377,
+        "total": 760
+      },
+      "validation": {
+        "long": 118,
+        "short": 130,
+        "total": 248
+      }
+    },
+    "plus_100_percent": {
+      "train": {
+        "long": 351,
+        "short": 373,
+        "total": 724
+      },
+      "validation": {
+        "long": 115,
+        "short": 130,
+        "total": 245
+      }
+    },
+    "plus_50_percent": {
+      "train": {
+        "long": 367,
+        "short": 376,
+        "total": 743
+      },
+      "validation": {
+        "long": 117,
+        "short": 130,
+        "total": 247
+      }
+    }
+  }
+}

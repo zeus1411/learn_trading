@@ -102,20 +102,69 @@ class Stage1ArtifactTests(unittest.TestCase):
             set(chart["overlays"]),
         )
         audit = json.loads(
-            (ROOT / "reports" / "stage1_setup_b_pivot_audit.json").read_text(
+            (ROOT / "reports" / "stage1_setup_b_v2_pivot_audit.json").read_text(
                 encoding="utf-8"
             )
         )
-        self.assertEqual(4268, audit["signals_checked"])
+        self.assertEqual("v2", audit["strategy_version"])
+        self.assertEqual(1222, audit["signals_checked"])
         self.assertEqual(0, audit["strict_pivot_5_5_violations"])
         self.assertEqual(
-            2759, audit["already_closed_beyond_before_sweep"]["total"]
+            0, audit["already_closed_beyond_before_sweep"]["total"]
         )
-        self.assertEqual(2, len(audit["targets"]))
-        self.assertTrue(all(item["strict_5_left_5_right"] for item in audit["targets"]))
-        self.assertTrue(
-            all(item["already_closed_beyond_before_sweep"] for item in audit["targets"])
+        self.assertEqual(
+            0, audit["prior_pierce_beyond_before_sweep"]["total"]
         )
+
+        gap_audit = json.loads(
+            (ROOT / "reports" / "stage1_setup_b_v1_gap_audit.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(4268, gap_audit["signals_checked"])
+        self.assertEqual(546, gap_audit["pivot_window"]["signals_with_any_gap"])
+        self.assertEqual(1047, gap_audit["pivot_to_sweep"]["signals_with_any_gap"])
+
+    def test_b_v2_counts_and_setup_a_counts_are_stable(self):
+        signal_report = json.loads(
+            (ROOT / "reports" / "stage1_signals.json").read_text(encoding="utf-8")
+        )
+        counts = signal_report["signal_audit"]["kept_by_setup_direction"]
+        self.assertEqual(4745, counts["A_long"])
+        self.assertEqual(3104, counts["A_short"])
+        self.assertEqual(624, counts["B_long"])
+        self.assertEqual(598, counts["B_short"])
+
+        with (ROOT / "reports" / "signals_stage1.csv").open(
+            "r", encoding="utf-8", newline=""
+        ) as handle:
+            b_rows = [row for row in csv.DictReader(handle) if row["setup"] == "B"]
+        self.assertTrue(b_rows)
+        self.assertTrue(all(row["strategy_version"] == "v2" for row in b_rows))
+
+        count_report = json.loads(
+            (ROOT / "reports" / "stage1_setup_b_v2_counts.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(
+            {"long": 475, "short": 444, "total": 919},
+            count_report["signals"]["train"],
+        )
+        self.assertEqual(
+            {"long": 149, "short": 154, "total": 303},
+            count_report["signals"]["validation"],
+        )
+        self.assertEqual(
+            {"long": 383, "short": 377, "total": 760},
+            count_report["trades_by_cost_scenario"]["normal"]["train"],
+        )
+        self.assertEqual(
+            {"long": 118, "short": 130, "total": 248},
+            count_report["trades_by_cost_scenario"]["normal"]["validation"],
+        )
+        self.assertFalse(count_report["expectancy_computed"])
+        self.assertFalse(count_report["profit_factor_computed"])
 
     def test_exactly_twenty_charts_per_setup(self):
         for setup in ("a", "b"):

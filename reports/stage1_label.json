@@ -37,8 +37,8 @@
         },
         "cost_multiplier": 1.0,
         "cost_scenario": "normal",
-        "input_signals": 12117,
-        "labeled_trades": 6050,
+        "input_signals": 9071,
+        "labeled_trades": 3838,
         "outcome_counts_by_setup_direction": {
           "A_long_LOSS": 913,
           "A_long_TIMEOUT": 431,
@@ -46,34 +46,34 @@
           "A_short_LOSS": 685,
           "A_short_TIMEOUT": 237,
           "A_short_WIN": 231,
-          "B_long_LOSS": 851,
-          "B_long_TIMEOUT": 419,
-          "B_long_WIN": 322,
-          "B_short_LOSS": 953,
-          "B_short_TIMEOUT": 332,
-          "B_short_WIN": 343
+          "B_long_LOSS": 281,
+          "B_long_TIMEOUT": 122,
+          "B_long_WIN": 98,
+          "B_short_LOSS": 297,
+          "B_short_TIMEOUT": 102,
+          "B_short_WIN": 108
         },
         "skip_reason_counts": {
-          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
-          "POSITION_ALREADY_OPEN": 4968,
-          "RISK_ABOVE_MAX_ATR": 883,
-          "RISK_BELOW_MIN_ATR": 114,
-          "SKIPPED_ENTRY_GAP": 100
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 1,
+          "POSITION_ALREADY_OPEN": 4560,
+          "RISK_ABOVE_MAX_ATR": 483,
+          "RISK_BELOW_MIN_ATR": 103,
+          "SKIPPED_ENTRY_GAP": 86
         },
-        "skipped_signals": 6067,
+        "skipped_signals": 5233,
         "termination_reason_counts": {
-          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1025,
-          "MAX_HOLDING_BARS": 394,
-          "SL_AND_TP_SAME_BAR_LOSS": 11,
-          "STOP_LOSS": 3391,
-          "TAKE_PROFIT": 1229
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 658,
+          "MAX_HOLDING_BARS": 234,
+          "SL_AND_TP_SAME_BAR_LOSS": 6,
+          "STOP_LOSS": 2170,
+          "TAKE_PROFIT": 770
         },
-        "truncated_trade_count": 1025,
+        "truncated_trade_count": 658,
         "truncated_trade_counts_by_gap_type": {
-          "SCHEDULED_DAILY_METALS_BREAK": 785,
-          "SCHEDULED_HOLIDAY_BREAK": 29,
+          "SCHEDULED_DAILY_METALS_BREAK": 506,
+          "SCHEDULED_HOLIDAY_BREAK": 16,
           "UNEXPECTED": 0,
-          "WEEKEND_OR_WEEKEND_CROSSING": 211
+          "WEEKEND_OR_WEEKEND_CROSSING": 136
         }
       },
       "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1.csv",
@@ -94,8 +94,8 @@
         },
         "cost_multiplier": 2.0,
         "cost_scenario": "plus_100_percent",
-        "input_signals": 12117,
-        "labeled_trades": 5979,
+        "input_signals": 9071,
+        "labeled_trades": 3823,
         "outcome_counts_by_setup_direction": {
           "A_long_LOSS": 921,
           "A_long_TIMEOUT": 454,
@@ -103,34 +103,34 @@
           "A_short_LOSS": 775,
           "A_short_TIMEOUT": 236,
           "A_short_WIN": 202,
-          "B_long_LOSS": 822,
-          "B_long_TIMEOUT": 417,
-          "B_long_WIN": 269,
-          "B_short_LOSS": 992,
-          "B_short_TIMEOUT": 334,
-          "B_short_WIN": 291
+          "B_long_LOSS": 265,
+          "B_long_TIMEOUT": 119,
+          "B_long_WIN": 82,
+          "B_short_LOSS": 305,
+          "B_short_TIMEOUT": 100,
+          "B_short_WIN": 98
         },
         "skip_reason_counts": {
-          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
-          "POSITION_ALREADY_OPEN": 4881,
-          "RISK_ABOVE_MAX_ATR": 1083,
-          "RISK_BELOW_MIN_ATR": 72,
-          "SKIPPED_ENTRY_GAP": 100
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 1,
+          "POSITION_ALREADY_OPEN": 4489,
+          "RISK_ABOVE_MAX_ATR": 607,
+          "RISK_BELOW_MIN_ATR": 65,
+          "SKIPPED_ENTRY_GAP": 86
         },
-        "skipped_signals": 6138,
+        "skipped_signals": 5248,
         "termination_reason_counts": {
-          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1014,
-          "MAX_HOLDING_BARS": 427,
-          "SL_AND_TP_SAME_BAR_LOSS": 10,
-          "STOP_LOSS": 3500,
-          "TAKE_PROFIT": 1028
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 651,
+          "MAX_HOLDING_BARS": 258,
+          "SL_AND_TP_SAME_BAR_LOSS": 6,
+          "STOP_LOSS": 2260,
+          "TAKE_PROFIT": 648
         },
-        "truncated_trade_count": 1014,
+        "truncated_trade_count": 651,
         "truncated_trade_counts_by_gap_type": {
-          "SCHEDULED_DAILY_METALS_BREAK": 773,
-          "SCHEDULED_HOLIDAY_BREAK": 27,
+          "SCHEDULED_DAILY_METALS_BREAK": 499,
+          "SCHEDULED_HOLIDAY_BREAK": 15,
           "UNEXPECTED": 0,
-          "WEEKEND_OR_WEEKEND_CROSSING": 214
+          "WEEKEND_OR_WEEKEND_CROSSING": 137
         }
       },
       "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1_cost_plus_100_percent.csv",
@@ -151,8 +151,8 @@
         },
         "cost_multiplier": 1.5,
         "cost_scenario": "plus_50_percent",
-        "input_signals": 12117,
-        "labeled_trades": 6003,
+        "input_signals": 9071,
+        "labeled_trades": 3822,
         "outcome_counts_by_setup_direction": {
           "A_long_LOSS": 917,
           "A_long_TIMEOUT": 438,
@@ -160,34 +160,34 @@
           "A_short_LOSS": 726,
           "A_short_TIMEOUT": 235,
           "A_short_WIN": 213,
-          "B_long_LOSS": 836,
-          "B_long_TIMEOUT": 421,
-          "B_long_WIN": 291,
-          "B_short_LOSS": 973,
-          "B_short_TIMEOUT": 335,
-          "B_short_WIN": 315
+          "B_long_LOSS": 274,
+          "B_long_TIMEOUT": 120,
+          "B_long_WIN": 90,
+          "B_short_LOSS": 301,
+          "B_short_TIMEOUT": 103,
+          "B_short_WIN": 102
         },
         "skip_reason_counts": {
-          "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
-          "POSITION_ALREADY_OPEN": 4947,
-          "RISK_ABOVE_MAX_ATR": 971,
-          "RISK_BELOW_MIN_ATR": 94,
-          "SKIPPED_ENTRY_GAP": 100
+          "INCOMPLETE_DEVELOPMENT_HORIZON": 1,
+          "POSITION_ALREADY_OPEN": 4539,
+          "RISK_ABOVE_MAX_ATR": 539,
+          "RISK_BELOW_MIN_ATR": 84,
+          "SKIPPED_ENTRY_GAP": 86
         },
-        "skipped_signals": 6114,
+        "skipped_signals": 5249,
         "termination_reason_counts": {
-          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1020,
-          "MAX_HOLDING_BARS": 409,
-          "SL_AND_TP_SAME_BAR_LOSS": 11,
-          "STOP_LOSS": 3441,
-          "TAKE_PROFIT": 1122
+          "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 654,
+          "MAX_HOLDING_BARS": 242,
+          "SL_AND_TP_SAME_BAR_LOSS": 6,
+          "STOP_LOSS": 2212,
+          "TAKE_PROFIT": 708
         },
-        "truncated_trade_count": 1020,
+        "truncated_trade_count": 654,
         "truncated_trade_counts_by_gap_type": {
-          "SCHEDULED_DAILY_METALS_BREAK": 779,
-          "SCHEDULED_HOLIDAY_BREAK": 29,
+          "SCHEDULED_DAILY_METALS_BREAK": 502,
+          "SCHEDULED_HOLIDAY_BREAK": 16,
           "UNEXPECTED": 0,
-          "WEEKEND_OR_WEEKEND_CROSSING": 212
+          "WEEKEND_OR_WEEKEND_CROSSING": 136
         }
       },
       "skipped_signals_csv": "E:\\SelfProject\\reports\\skipped_signals_stage1_cost_plus_50_percent.csv",
@@ -210,8 +210,8 @@
     },
     "cost_multiplier": 1.0,
     "cost_scenario": "normal",
-    "input_signals": 12117,
-    "labeled_trades": 6050,
+    "input_signals": 9071,
+    "labeled_trades": 3838,
     "outcome_counts_by_setup_direction": {
       "A_long_LOSS": 913,
       "A_long_TIMEOUT": 431,
@@ -219,34 +219,34 @@
       "A_short_LOSS": 685,
       "A_short_TIMEOUT": 237,
       "A_short_WIN": 231,
-      "B_long_LOSS": 851,
-      "B_long_TIMEOUT": 419,
-      "B_long_WIN": 322,
-      "B_short_LOSS": 953,
-      "B_short_TIMEOUT": 332,
-      "B_short_WIN": 343
+      "B_long_LOSS": 281,
+      "B_long_TIMEOUT": 122,
+      "B_long_WIN": 98,
+      "B_short_LOSS": 297,
+      "B_short_TIMEOUT": 102,
+      "B_short_WIN": 108
     },
     "skip_reason_counts": {
-      "INCOMPLETE_DEVELOPMENT_HORIZON": 2,
-      "POSITION_ALREADY_OPEN": 4968,
-      "RISK_ABOVE_MAX_ATR": 883,
-      "RISK_BELOW_MIN_ATR": 114,
-      "SKIPPED_ENTRY_GAP": 100
+      "INCOMPLETE_DEVELOPMENT_HORIZON": 1,
+      "POSITION_ALREADY_OPEN": 4560,
+      "RISK_ABOVE_MAX_ATR": 483,
+      "RISK_BELOW_MIN_ATR": 103,
+      "SKIPPED_ENTRY_GAP": 86
     },
-    "skipped_signals": 6067,
+    "skipped_signals": 5233,
     "termination_reason_counts": {
-      "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 1025,
-      "MAX_HOLDING_BARS": 394,
-      "SL_AND_TP_SAME_BAR_LOSS": 11,
-      "STOP_LOSS": 3391,
-      "TAKE_PROFIT": 1229
+      "GAP_OR_WEEKEND_BEFORE_NEXT_BAR": 658,
+      "MAX_HOLDING_BARS": 234,
+      "SL_AND_TP_SAME_BAR_LOSS": 6,
+      "STOP_LOSS": 2170,
+      "TAKE_PROFIT": 770
     },
-    "truncated_trade_count": 1025,
+    "truncated_trade_count": 658,
     "truncated_trade_counts_by_gap_type": {
-      "SCHEDULED_DAILY_METALS_BREAK": 785,
-      "SCHEDULED_HOLIDAY_BREAK": 29,
+      "SCHEDULED_DAILY_METALS_BREAK": 506,
+      "SCHEDULED_HOLIDAY_BREAK": 16,
       "UNEXPECTED": 0,
-      "WEEKEND_OR_WEEKEND_CROSSING": 211
+      "WEEKEND_OR_WEEKEND_CROSSING": 136
     }
   },
   "outputs": {
@@ -277,26 +277,26 @@
         "E:\\SelfProject\\reports\\charts\\setup_a_contact_sheet.png"
       ],
       "B": [
-        "E:\\SelfProject\\reports\\charts\\setup_b\\01_short_win_20200518T0845.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\02_short_loss_20200519T0515.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\03_long_timeout_20201015T0945.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\04_long_win_20210212T1345.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\05_long_win_20210513T1100.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\06_short_win_20211011T0215.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\07_short_timeout_20211206T1730.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\08_short_loss_20220131T0045.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\09_short_timeout_20220228T1600.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\10_long_timeout_20220506T1415.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\11_long_loss_20220623T0115.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\12_long_win_20230209T0130.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\13_long_timeout_20230303T1515.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\14_short_timeout_20230510T1900.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\15_long_timeout_20240530T2015.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\16_short_win_20240722T1100.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\17_short_loss_20250124T0630.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\18_long_loss_20250205T1500.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\19_long_loss_20250407T0800.png",
-        "E:\\SelfProject\\reports\\charts\\setup_b\\20_long_loss_20250526T0130.png"
+        "E:\\SelfProject\\reports\\charts\\setup_b\\01_long_loss_20200116T1445.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\02_short_timeout_20200206T1445.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\03_short_loss_20200601T0245.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\04_long_loss_20200624T0645.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\05_short_win_20201203T1245.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\06_long_timeout_20201203T1645.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\07_short_timeout_20210325T0330.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\08_long_win_20210913T1300.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\09_long_win_20220110T0515.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\10_long_win_20220214T0715.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\11_long_timeout_20220506T1930.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\12_short_win_20220617T1300.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\13_long_timeout_20221005T1430.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\14_short_loss_20230301T1500.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\15_long_timeout_20230918T1415.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\16_short_loss_20240315T0130.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\17_short_win_20240822T0100.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\18_short_timeout_20250114T0515.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\19_long_loss_20250117T0800.png",
+        "E:\\SelfProject\\reports\\charts\\setup_b\\20_long_loss_20250516T0200.png"
       ],
       "B_contact_sheet": [
         "E:\\SelfProject\\reports\\charts\\setup_b_contact_sheet.png"
@@ -312,16 +312,115 @@
         "long": "a close below the pivot low after the pivot and before the sweep bar",
         "short": "a close above the pivot high after the pivot and before the sweep bar"
       },
-      "fraction": 0.6464386129334583,
-      "long": 1393,
-      "short": 1366,
-      "total": 2759
+      "fraction": 0.0,
+      "long": 0,
+      "short": 0,
+      "total": 0
     },
-    "output_json": "E:\\SelfProject\\reports\\stage1_setup_b_pivot_audit.json",
-    "output_markdown": "E:\\SelfProject\\reports\\STAGE1_SETUP_B_PIVOT_AUDIT.md",
-    "signals_checked": 4268,
-    "status": "WARNING",
+    "output_json": "E:\\SelfProject\\reports\\stage1_setup_b_v2_pivot_audit.json",
+    "output_markdown": "E:\\SelfProject\\reports\\STAGE1_SETUP_B_V2_PIVOT_AUDIT.md",
+    "prior_pierce_beyond_before_sweep": {
+      "definition": {
+        "long": "a low below the pivot low after the pivot and before the sweep bar",
+        "short": "a high above the pivot high after the pivot and before the sweep bar"
+      },
+      "fraction": 0.0,
+      "long": 0,
+      "short": 0,
+      "total": 0
+    },
+    "signals_checked": 1222,
+    "status": "PASS",
     "strict_pivot_5_5_violations": 0
+  },
+  "setup_b_v1_gap_audit": {
+    "output_json": "E:\\SelfProject\\reports\\stage1_setup_b_v1_gap_audit.json",
+    "output_markdown": "E:\\SelfProject\\reports\\STAGE1_SETUP_B_V1_GAP_AUDIT.md",
+    "pivot_to_sweep": {
+      "gap_events_by_type": {
+        "SCHEDULED_DAILY_METALS_BREAK": 819,
+        "SCHEDULED_HOLIDAY_BREAK": 38,
+        "UNEXPECTED": 0,
+        "WEEKEND_OR_WEEKEND_CROSSING": 193
+      },
+      "signals_by_gap_type": {
+        "SCHEDULED_DAILY_METALS_BREAK": 819,
+        "SCHEDULED_HOLIDAY_BREAK": 38,
+        "UNEXPECTED": 0,
+        "WEEKEND_OR_WEEKEND_CROSSING": 190
+      },
+      "signals_with_any_gap": 1047
+    },
+    "pivot_window": {
+      "gap_events_by_type": {
+        "SCHEDULED_DAILY_METALS_BREAK": 422,
+        "SCHEDULED_HOLIDAY_BREAK": 13,
+        "UNEXPECTED": 0,
+        "WEEKEND_OR_WEEKEND_CROSSING": 111
+      },
+      "signals_by_gap_type": {
+        "SCHEDULED_DAILY_METALS_BREAK": 422,
+        "SCHEDULED_HOLIDAY_BREAK": 13,
+        "UNEXPECTED": 0,
+        "WEEKEND_OR_WEEKEND_CROSSING": 111
+      },
+      "signals_with_any_gap": 546
+    },
+    "signals_checked": 4268
+  },
+  "setup_b_v2_counts": {
+    "output_json": "E:\\SelfProject\\reports\\stage1_setup_b_v2_counts.json",
+    "output_markdown": "E:\\SelfProject\\reports\\STAGE1_SETUP_B_V2_COUNTS.md",
+    "signals": {
+      "train": {
+        "long": 475,
+        "short": 444,
+        "total": 919
+      },
+      "validation": {
+        "long": 149,
+        "short": 154,
+        "total": 303
+      }
+    },
+    "trades_by_cost_scenario": {
+      "normal": {
+        "train": {
+          "long": 383,
+          "short": 377,
+          "total": 760
+        },
+        "validation": {
+          "long": 118,
+          "short": 130,
+          "total": 248
+        }
+      },
+      "plus_100_percent": {
+        "train": {
+          "long": 351,
+          "short": 373,
+          "total": 724
+        },
+        "validation": {
+          "long": 115,
+          "short": 130,
+          "total": 245
+        }
+      },
+      "plus_50_percent": {
+        "train": {
+          "long": 367,
+          "short": 376,
+          "total": 743
+        },
+        "validation": {
+          "long": 117,
+          "short": 130,
+          "total": 247
+        }
+      }
+    }
   },
   "stage": 1,
   "stage2_reporting_contract": {

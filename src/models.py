@@ -26,6 +26,7 @@ class Signal:
     reference_index: Optional[int] = None
     sweep_index: Optional[int] = None
     signal_bar_source: str = "UNSPECIFIED"
+    strategy_version: str = "v1"
 
     def comparable(self) -> Dict[str, Any]:
         result = asdict(self)
