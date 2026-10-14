@@ -1,0 +1,26 @@
+{
+  "verification_date": "2026-10-14",
+  "initial_full_suite": {"passed": 31, "failed": 0},
+  "final_full_suite": {"passed": 47, "failed": 0},
+  "command": "python -B -m unittest discover -s tests -v",
+  "metric_cells_verified": 324,
+  "each_cell_bootstrap_resamples": 10000,
+  "each_cell_block_size_trades": 10,
+  "independent_csv_validation_counts_and_expectancies_match": true,
+  "direction_counts_and_weighted_totals_match": true,
+  "window_exit_boundaries_verified": true,
+  "current_code_and_input_hashes_match_report": true,
+  "test_partition_sha256_before_and_after": "1a96e7873bd39b43f2570d6e8b810a0e2b83422878e19a953cbfb4e6c7f89fec",
+  "test_rows_exposed_to_evaluator": 0,
+  "test_integrity_bytes_hashed_only": true,
+  "equity_pngs_created": 6,
+  "combined_equity_pngs_visually_inspected": [
+    "stage2_charts/setup_a_combined_equity.png",
+    "stage2_charts/setup_b_v2_combined_equity.png"
+  ],
+  "setup_parameter_or_gate_changes": false,
+  "expanded_2009_2019_data_loaded_or_changed": false,
+  "stage3_run": false,
+  "cookie_history_found": true,
+  "push_performed": false
+}

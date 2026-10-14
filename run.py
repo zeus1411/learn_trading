@@ -252,6 +252,24 @@ def main(argv: Optional[List[str]] = None) -> int:
         return run_stage_signals(args.data)
     if args.stage == "label":
         return run_stage_label(args.data)
+    if args.stage in ("evaluate", "wf"):
+        if args.data is not None or args.override_final_test or args.assume_utc:
+            print(json.dumps({"stage": 2, "status": "BLOCKED",
+                              "reason": "Stage 2 accepts only the frozen approved development artifacts; no overrides."}))
+            return 2
+        from src.stage2 import run_stage2
+        try:
+            report = run_stage2(ROOT)
+        except (OSError, ValueError, KeyError, AssertionError) as exc:
+            print(json.dumps({"stage": 2, "status": "BLOCKED", "error": str(exc)}, indent=2))
+            return 2
+        print(json.dumps({"stage": 2, "status": report["status"],
+                          "decisions": {s: d["status"] for s, d in report["decisions"].items()},
+                          "test_hash_before": report["integrity_before"]["test_partition_sha256"],
+                          "test_hash_after": report["integrity_after"]["test_partition_sha256"],
+                          "stage3_run": False, "reports": ["reports/STAGE2_SUMMARY.md", "reports/stage2_results.json"]},
+                         indent=2, sort_keys=True))
+        return 0  # Execution completed; research FAIL is a valid result.
     print(
         json.dumps(
             {

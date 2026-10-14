@@ -1,5 +1,17 @@
 # XAUUSD Research Pipeline - Project Handoff and Operating Guide
 
+## Status update - 2026-10-14
+
+The original handoff below describes the pre-approval state as of 2026-10-12.
+The user has now manually approved Stage 1 for A and B_v2. Stage 2 was
+implemented and run on the existing development dataset only: Setup A FAIL;
+B_v2 INSUFFICIENT_DATA (248 validation trades vs the unchanged gate of 300).
+Read `DECISIONS.md`, `reports/STAGE2_SUMMARY.md` and
+`reports/stage2_results.json` for the current outcome. Test hashes matched
+before/after; no test results were evaluated. The external 2009-2019 data was
+not loaded. Stage 3 remains unrun. Commits are local; push is blocked because
+`.tmp_histdata_cookies.txt` occurs in Git history.
+
 Last updated: 2026-10-12
 
 This document is the durable context for continuing work on this repository.

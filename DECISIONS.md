@@ -42,6 +42,36 @@ Housekeeping checks completed before Stage 2 implementation:
 
 Stage 3 remains unauthorized; do not run the locked final test.
 
+## 2026-10-14 - Stage 2 outcome
+
+Stage 2 has completed on the approved development artifacts. Setup A is FAIL.
+B_v2 remains INSUFFICIENT_DATA; its numerical gate result is also FAIL, reported
+descriptively without changing its status or the 300-trade minimum.
+
+Normal costs, combined directions, including truncated trades:
+
+| Setup | Scope | n | Net expectancy R | Raw bootstrap 95% CI | PF |
+|---|---|---:|---:|---|---:|
+| A | Validation | 694 | -0.000733 | [-0.092924, +0.093026] | 0.998674 |
+| A | Complete rolling OOS | 639 | -0.009926 | [-0.104434, +0.084164] | 0.982100 |
+| B_v2 | Validation | 248 | -0.206365 | [-0.365199, -0.033475] | 0.672957 |
+| B_v2 | Complete rolling OOS | 223 | -0.213436 | [-0.395658, -0.025797] | 0.662981 |
+
+Both setups fail expectancy/PF/calendar/cost gates in both truncation views.
+A meets the sample-size minimum; B_v2 does not. Removing gap-truncated trades
+does not rescue either result. No parameters or thresholds are changed and no
+parameter-change proposal is made. Neither setup advances to the locked test.
+
+The separate integrity checker verified the locked test SHA-256 before and
+after Stage 2: `1a96e7873bd39b43f2570d6e8b810a0e2b83422878e19a953cbfb4e6c7f89fec`.
+It hashes opaque strings only and returns no test data; evaluation receives
+zero test rows. Stage 2 does not load the external 2009-2019 data.
+
+Detailed raw/adjusted inference, all scenarios/directions/views, calendar
+breakdowns, rolling windows and equity are in `reports/STAGE2_SUMMARY.md` and
+`reports/stage2_results.json`. Stop for human review. Stage 3 has not run.
+Push remains blocked by the historical cookie file.
+
 ## 2026-10-12 - Setup B_v2
 
 Status: Stage 1 remains unapproved for Setup B. No validation expectancy,

@@ -2,7 +2,9 @@
 
 This repository implements the staged, no-lookahead research workflow described
 in the project brief. Research stages are deliberately gated. Stage 0 and Stage
-1 are implemented; evaluation and later stages remain blocked.
+1 are implemented. Stage 1 was explicitly approved on 2026-10-14. Stage 2 is
+implemented on development artifacts only; Setup A FAIL and B_v2
+INSUFFICIENT_DATA. Stage 3 and later stages remain blocked pending review.
 
 ## Local setup
 
@@ -148,11 +150,43 @@ Stage 2 gates remain unchanged.
 
 ## Stage 2 gate (pre-registered)
 
-Stage 2 remains blocked until the 40 Stage 1 charts have been reviewed and the
-user explicitly approves Stage 1. The sample-size rule is not reinterpreted
+Stage 1 approval is recorded in `reports/stage1_approval.json` with approved
+input hashes. The sample-size rule is not reinterpreted
 after results are seen: each setup must have at least 300 labeled trades on the
 validation partition and at least 300 in the concatenated walk-forward
 out-of-sample windows. Stage 3 later requires at least 100 test trades per
 setup. Metrics are also reported per direction, but the GO/NO-GO decision is
 made per setup, exactly as specified in the project brief.
+
+Run Stage 2 (evaluation plus rolling OOS stability; no tuning):
+
+```powershell
+python -B run.py --stage evaluate
+```
+
+`--stage wf` runs the same complete Stage 2 report. No alternate data path or
+override is accepted. Stage 2 reads only the three approved Stage 1 trade CSVs;
+timestamps and bar indexes are checked against the development boundary before
+results are evaluated. A separate integrity-only streaming pass hashes locked
+test strings before and after execution; no test prices, features or trades
+are exposed to evaluation. The active dataset/config and Stage 1 artifact hashes
+must match the approval manifest. The external 2009-2019 dataset is not used.
+
+Outputs are `reports/STAGE2_SUMMARY.md`, `reports/stage2_results.json`, flat
+metric/calendar/equity CSVs and six equity PNGs in `reports/stage2_charts/`.
+They contain all costs, directions and truncation views. Bootstrap uses 10,000
+circular moving-block resamples of 10 chronological trades with fixed seeds;
+raw and Bonferroni setup/global inference are disclosed. Wilson win intervals,
+calendar stability and all gate checks are recorded explicitly.
+
+OOS windows start at validation start, span three calendar months and advance
+three months without overlap or fitting. Primary OOS concatenates five complete
+windows; the last partial window is descriptive. Cross-window trades are
+excluded and counted. OOS and validation share observations and are not
+independent holdouts. Both views have a gate result; directions are descriptive.
+
+Current results: Setup A FAIL; B_v2 INSUFFICIENT_DATA (248 normal validation
+trades vs the unchanged minimum of 300). Final test, tables and alerts have not
+been run. Git push is blocked because the cookie filename exists in old history;
+see `DECISIONS.md`. Changes are committed locally only.
 

@@ -1,17 +1,20 @@
 import unittest
+import json
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
 from src.evaluate import evaluate_cost_scenario_views
 from src.labeling import Trade
+from src.stage2_data import DevelopmentBoundary
 
 
 def trade(result_r, truncated=False, scenario="normal"):
     now = datetime(2024, 1, 1, tzinfo=timezone.utc)
     return Trade(
         signal_timestamp=now,
-        entry_timestamp=now,
-        exit_timestamp=now,
+        entry_timestamp=now + timedelta(minutes=15),
+        exit_timestamp=now + timedelta(minutes=15),
         setup="A",
         direction="long",
         signal_index=0,
@@ -53,7 +56,8 @@ class EvaluateContractTests(unittest.TestCase):
             "normal": normal,
             "plus_50_percent": plus_50,
             "plus_100_percent": plus_100,
-        })
+        }, DevelopmentBoundary.from_config(json.loads(
+            (Path(__file__).resolve().parents[1] / "config" / "research.json").read_text())))
         self.assertEqual(
             {"normal", "plus_50_percent", "plus_100_percent"}, set(report)
         )
