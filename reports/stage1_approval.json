@@ -1,0 +1,38 @@
+{
+  "approved_date": "2026-10-14",
+  "approval_source": "User explicitly approved Stage 1 for Setup A and Setup B_v2 after manual chart review",
+  "approved_setups": ["A", "B_v2"],
+  "stage2_authorized": true,
+  "stage3_authorized": false,
+  "b_v2_status": "INSUFFICIENT_DATA",
+  "b_v2_normal_validation_trades": 248,
+  "frozen_validation_min_trades": 300,
+  "artifact_sha256": {
+    "config/research.json": "1d3d684ee512cb231c9fdc56caa979f54dd4d949299c54a9b9d30fd81e4d5376",
+    "reports/stage1_signals.json": "f2d3c5104f9dc0a84284a12a9f00416f9a8b7c655dcf63348f3dd7c904fb9215",
+    "reports/stage1_label.json": "a62833df5260b61d263ebddcc0722dce7277c158632019bde284e704eb22fa45",
+    "reports/signals_stage1.csv": "2eea08afd647efa7e9dc5ec5e8c1cb42b83a2cf957a99f8c8bbe523774415e02",
+    "reports/trades_stage1.csv": "b8287529935943fed22170e8bf39f0e01865f922cdd902fe5fabb32b8d87d85e",
+    "reports/trades_stage1_cost_plus_50_percent.csv": "0312c2c67d243ff17d78725845fb4da65809c8be2169ce2b8cfd8cb9f93b0682",
+    "reports/trades_stage1_cost_plus_100_percent.csv": "76d02e3c315e2fcb6d9c8bbffff98f04700816995ddfe4fa284eef6261077b7a"
+  },
+  "sweep_to_confirmation_gap_counts": {
+    "scope": "All kept train + validation B_v2 signals; sweep exclusive, confirmation inclusive",
+    "signals_checked": 1222,
+    "weekend": 6,
+    "weekend_long": 2,
+    "weekend_short": 4,
+    "holiday": 0,
+    "unexpected": 0,
+    "union_weekend_holiday_unexpected": 6,
+    "daily_break_separate": 13,
+    "signal_code_changed": false
+  },
+  "git_security_check": {
+    "cookie_history_found": true,
+    "commits": ["510cfd0", "5749cd4"],
+    "push_allowed": false,
+    "data_rawdata_tmp_ignored": true
+  },
+  "expanded_2009_2019_data_loaded": false
+}
